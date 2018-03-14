@@ -1,0 +1,25 @@
+PODS:
+  - Nimble (7.0.3)
+  - PathKit (0.9.0)
+  - Quick (1.2.0)
+  - uPortSDK (0.1.0)
+
+DEPENDENCIES:
+  - Nimble (~> 7.0.2)
+  - PathKit
+  - Quick (~> 1.2.0)
+  - uPortSDK (from `../`)
+
+EXTERNAL SOURCES:
+  uPortSDK:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  PathKit: bc177736eb737341ddee2c24413d81ef1abc9ba4
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  uPortSDK: eddb9dfdcdfcb0fa233a76bcfd8eaf2fe5877cb5
+
+PODFILE CHECKSUM: 3ca53bf5eff44d29cac8bde7ddd1a4de2689e902
+
+COCOAPODS: 1.4.0

@@ -271,11 +271,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/uPortSDK/uPortSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/PathKit/PathKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/uPortSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PathKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

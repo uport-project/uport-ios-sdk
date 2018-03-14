@@ -1,0 +1,22 @@
+{
+  "name": "uPortSDK",
+  "version": "0.1.0",
+  "summary": "A short description of uPortSDK.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/josh/uPortSDK",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "josh": "belljh@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/josh/uPortSDK.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "uPortSDK/Classes/**/*"
+}

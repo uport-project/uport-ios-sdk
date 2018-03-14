@@ -1,11 +1,12 @@
 use_frameworks!
+platform :ios, '9.3'
 
 target 'uPortSDK_Example' do
   pod 'uPortSDK', :path => '../'
+  pod 'PathKit'
 
   target 'uPortSDK_Tests' do
     inherit! :search_paths
-
     pod 'Quick', '~> 1.2.0'
     pod 'Nimble', '~> 7.0.2'
   end

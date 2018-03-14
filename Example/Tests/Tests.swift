@@ -2,7 +2,7 @@
 
 import Quick
 import Nimble
-import uPortSDK
+//import uPortSDK
 
 class TableOfContentsSpec: QuickSpec {
     override func spec() {
