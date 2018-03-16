@@ -134,10 +134,14 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/PathKit/PathKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/uPortSDK/uPortSDK.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/PathKit/PathKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/uPortSDK/uPortSDK.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

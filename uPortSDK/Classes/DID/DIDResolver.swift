@@ -8,7 +8,9 @@ public class DIDResolver: NSObject {
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    private func callRegistrySync(subjectId: String?, issuerId: String? = null, registrationIdentifier: String = "uPortProfileIPFS1220") -> String {
+    private func callRegistrySync(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") -> String {
+        return ""
+    }
     
     ///
     /// Get iPFS hash from uPort Registry
@@ -29,6 +31,7 @@ public class DIDResolver: NSObject {
      */
     public func profileDocument( mnid: String, callback: ((dIDDocument: DIDDocument, error: Error)) ) {
         /// from the spec it looks like it takes a DID, gets the network, looks up the IPFS hash from the uport registery (smart contract) on the specified network, and then fetches the DID document IPFS via infura, and then returns the DID document as hashmap to whoever calls this function for there inspection
+        /*
         let mnidObject = MNID( mnid )
         let network = mnidObject.network
         let uportRegistryURL = URL( UPORT_REGISTRY_BASE_URL + network )
@@ -48,7 +51,7 @@ public class DIDResolver: NSObject {
                 callback( nil, Error() )
             }
         }
-        
+        */
     }
     
     

@@ -1,12 +1,15 @@
 PODS:
+  - BigInt (3.0.1):
+    - SipHash (~> 1.2)
   - Nimble (7.0.3)
-  - PathKit (0.9.0)
   - Quick (1.2.0)
-  - uPortSDK (0.1.0)
+  - SipHash (1.2.0)
+  - uPortSDK (0.1.0):
+    - BigInt
 
 DEPENDENCIES:
+  - BigInt
   - Nimble (~> 7.0.2)
-  - PathKit
   - Quick (~> 1.2.0)
   - uPortSDK (from `../`)
 
@@ -15,11 +18,12 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
+  BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  PathKit: bc177736eb737341ddee2c24413d81ef1abc9ba4
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  uPortSDK: eddb9dfdcdfcb0fa233a76bcfd8eaf2fe5877cb5
+  SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
+  uPortSDK: f4fef89da90ed028367dbf090cc9c21a71164151
 
-PODFILE CHECKSUM: 3ca53bf5eff44d29cac8bde7ddd1a4de2689e902
+PODFILE CHECKSUM: 29780663f02b1e2c3205d8f7df3759230ebff0d5
 
 COCOAPODS: 1.4.0
