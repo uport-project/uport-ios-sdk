@@ -22,7 +22,7 @@ pod 'uPortSDK'
 
 ## Author
 
-josh, belljh@gmail.com
+Joshua Bell, joshua.bell@consensys.net
 
 ## License
 
