@@ -1,14 +1,44 @@
 
 import Foundation
 
+public enum DIDResolverError: Error {
+    case netowrkMismatch(String)
+}
+
+
 public class DIDResolver: NSObject {
-    
     
     
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    private func callRegistrySync(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") -> String {
+    private func callRegistrySync(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String? {
+        let issuerMnid = issuerId ?? subjectId ?? ""
+        var issuerAccount: Account?
+        do {
+            issuerAccount = try MNID.decode( mnid: issuerMnid )
+        } catch {
+            print( "error -> \(error), with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
+        }
+        
+        var subjectAccount: Account?
+        do {
+            subjectAccount = try MNID.decode( mnid: subjectId ?? "")
+        } catch {
+            print( "error -> \(error), with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
+        }
+        
+        guard issuerAccount != nil && subjectAccount != nil else {
+            print( "could not create accounts with given subjectId \(subjectId ?? "") and issuerId \(issuerId ?? "")" )
+            return nil
+        }
+        
+        if issuerAccount?.network != subjectAccount?.network {
+            throw DIDResolverError.netowrkMismatch( "Issuer and subject must be on the same network" )
+        }
+        
+        
+        
         return ""
     }
     

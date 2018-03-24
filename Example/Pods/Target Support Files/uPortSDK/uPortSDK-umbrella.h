@@ -10,7 +10,6 @@
 #endif
 #endif
 
-
 FOUNDATION_EXPORT double uPortSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char uPortSDKVersionString[];
 

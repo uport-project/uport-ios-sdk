@@ -1,14 +1,17 @@
 PODS:
   - BigInt (3.0.1):
     - SipHash (~> 1.2)
+  - CryptoSwift (0.8.3)
   - Nimble (7.0.3)
   - Quick (1.2.0)
   - SipHash (1.2.0)
   - uPortSDK (0.1.0):
     - BigInt
+    - CryptoSwift
 
 DEPENDENCIES:
   - BigInt
+  - CryptoSwift
   - Nimble (~> 7.0.2)
   - Quick (~> 1.2.0)
   - uPortSDK (from `../`)
@@ -19,11 +22,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
+  CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
-  uPortSDK: f4fef89da90ed028367dbf090cc9c21a71164151
+  uPortSDK: 36cb6cc371962ee766281e59e380179c89fcfbf7
 
-PODFILE CHECKSUM: 29780663f02b1e2c3205d8f7df3759230ebff0d5
+PODFILE CHECKSUM: ca5e946076bb2d95b2dc314947f424aa98020ac8
 
 COCOAPODS: 1.4.0

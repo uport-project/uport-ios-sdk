@@ -4,6 +4,7 @@ platform :ios, '9.3'
 target 'uPortSDK_Example' do
   pod 'uPortSDK', :path => '../'
   pod 'BigInt'
+  pod 'CryptoSwift'
   
   target 'uPortSDK_Tests' do
     inherit! :search_paths
