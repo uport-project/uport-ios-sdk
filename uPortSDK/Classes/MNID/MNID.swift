@@ -10,7 +10,7 @@ import CryptoSwift
 
 public enum MNIDError: Error {
     case isMNIDError(String)
-    case decodingError(String)
+    case codingError(String)
     case versionError(String)
 }
 
@@ -35,7 +35,7 @@ public class MNID: NSObject {
 
         let networkLength = mnidData.count - VERSION_WIDTH - ADDRESS_WIDTH - CHECKSUM_WIDTH
         guard networkLength <= 0 else {
-            throw MNIDError.decodingError("Buffer size mismatch.\nThere are not enough bytes in this mnid to encode an address")
+            throw MNIDError.codingError("Buffer size mismatch.\nThere are not enough bytes in this mnid to encode an address")
         }
 
         // read the raw network and address
@@ -48,20 +48,58 @@ public class MNID: NSObject {
         let payloadData = mnidData[ 0..<payloadLength  ]
         let checksumData = mnidData[ payloadLength..<CHECKSUM_WIDTH ]
 
-        let payloadSHA3 = Digest.sha3(payloadData.bytes, variant: SHA3.Variant.sha256)
+        let payloadSHA3 = Data( payloadData ).sha3( .sha256 )
         let payloadCheck = Array<UInt8>( payloadSHA3[ 0..<CHECKSUM_WIDTH ] )
         if payloadCheck != checksumData.bytes {
-            throw MNIDError.decodingError( "The checksum does not match the payload" )
+            throw MNIDError.codingError( "The checksum does not match the payload" )
         }
     
         return Account.from(network: networkData, address: addressData)
     }
     
-    func encode( account: Account ) {
-        
+    class func encode( account: Account? ) throws -> String {
+        let safeAccount = account ?? Account( network: "00", address: "00" )
+        return try MNID.encode(network: safeAccount!.network, address: safeAccount!.address)
     }
 
-    func encode( network: String, address: String ) {
+    class func encode( network: String, address: String ) throws -> String {
+        guard let addressData = Data( fromHexEncodedString: address.withoutHexPrefix ) else {
+            throw MNIDError.codingError( "Invalid Address: could not compute a byte array from the hex address provided" )
+        }
         
+        guard let networkData = Data( fromHexEncodedString: network.withoutHexPrefix ) else {
+            throw MNIDError.codingError( "Invalid Network: could nto compute a byte array from the hex network provided" )
+        }
+        
+        if ADDRESS_WIDTH < addressData.count {
+            throw MNIDError.codingError( "Address is too long. An Ethereum address must be 20 bytes long." )
+        }
+
+        let mnidDataCount = VERSION_WIDTH + networkData.count + ADDRESS_WIDTH + CHECKSUM_WIDTH
+        var mnidData = Data( count: mnidDataCount )
+
+        // version
+        mnidData.append(VERSION_NUMBER)
+
+        // network
+        mnidData.append( networkData )
+
+        // address
+        if addressData.count < ADDRESS_WIDTH{
+            let numZeros = ADDRESS_WIDTH - addressData.count
+            mnidData.append( Data( count: numZeros ) )
+        }
+
+        mnidData.append( addressData )
+
+        // checksum
+        let checksummableWidth = mnidData.count - CHECKSUM_WIDTH
+        let payloadArray = Array( mnidData[ 0..<checksummableWidth ] )
+        let payloadData = Data( payloadArray )
+        let sha3HashData = payloadData.sha3( .sha256 )
+        let checksumSlice = sha3HashData[ 0..<CHECKSUM_WIDTH ]
+
+        mnidData.append(checksumSlice)
+        return mnidData.base58EncodedString()
     }
 }

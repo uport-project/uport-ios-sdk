@@ -702,6 +702,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04A077CB20685FC300BC0AD5 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
 		06B67638151E4329A82548260A9433F0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1159,6 +1166,7 @@
 		BDDF4D9907C1785B990890E27CD15979 /* uPortSDK */ = {
 			isa = PBXGroup;
 			children = (
+				04A077CB20685FC300BC0AD5 /* Networks */,
 				CFBB220F01C62F125C34BC7D9DB4E281 /* DID */,
 				78EC6553824273003E3317A4BA1DBABC /* MNID */,
 				70FE8C94C6B6B1574DB7CB082EE26C09 /* Pod */,

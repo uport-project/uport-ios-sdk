@@ -12,7 +12,7 @@ public class Account: NSObject {
     let network: String
     let address: String
     
-    private init?( network: String, address: String ) {
+    init?( network: String, address: String ) {
         if !network.isEmpty, !address.isEmpty {
             let addressWithoutHexPrefix = address.withoutHexPrefix
             let ethereumAddressNumChars = 40
