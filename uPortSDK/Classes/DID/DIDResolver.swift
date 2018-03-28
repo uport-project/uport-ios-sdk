@@ -1,8 +1,10 @@
 
 import Foundation
+import BigInt
 
 public enum DIDResolverError: Error {
-    case netowrkMismatch(String)
+    case networkMismatch( String )
+    case invalidNetwork( String )
 }
 
 
@@ -34,12 +36,24 @@ public class DIDResolver: NSObject {
         }
         
         if issuerAccount?.network != subjectAccount?.network {
-            throw DIDResolverError.netowrkMismatch( "Issuer and subject must be on the same network" )
+            throw DIDResolverError.networkMismatch( "Issuer and subject must be on the same network" )
         }
         
-        
-        
+        guard let network = EthereumNetwork( network: issuerAccount?.network ?? "" ) else {
+            throw DIDResolverError.invalidNetwork( "Network id \(issuerAccount?.network ?? "" ) is not configured" )
+        }
+
+        let registeryAddress = try MNID.decode( mnid: network.registry )!.address
+        let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount, subject: subjectAccount)
+
+
         return ""
+    }
+
+    internal func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
+        let solidityRegistryIdentifier = try! Solidity.Bytes32( registrationIdentifier.data(using: .utf8)! )
+        let solidityIssuer = try! Solidity.Address( issuer.address )
+        let soliditySubject = try! Solidity.Address( subject.address )
     }
     
     ///

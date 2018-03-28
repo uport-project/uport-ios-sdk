@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		04056851010D25CFD03211572FEAEF64 /* Primitive Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840727D8ABD2010B105270E8A9E2C0FC /* Primitive Types.swift */; };
+		04A077CD2069850100BC0AD5 /* EthereumNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A077CC2069850100BC0AD5 /* EthereumNetworks.swift */; };
+		04A077CF206AD6EE00BC0AD5 /* UportRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A077CE206AD6EE00BC0AD5 /* UportRegistry.swift */; };
 		04ED4CBE1683A039945AE21E71657DCE /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897ACFBDB7EFD248CA22DFB960975CE0 /* SHA1.swift */; };
 		063FEF4EE3CC70AE6F198AA3A500E9EC /* Quick.h in Headers */ = {isa = PBXBuildFile; fileRef = 3444FBC41B0B68CCF7A04EFCBB572CDA /* Quick.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08C450BB03BE7BFD888431D1751132F8 /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3311D655257748C9380352CC2199E26C /* RandomAccessBlockModeWorker.swift */; };
@@ -336,6 +338,8 @@
 		002DFE05A6C95013381ADA67B6B3A081 /* Pods_uPortSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		01E8CC9E98FF4F59040C043096662167 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Nimble/DSL.swift; sourceTree = "<group>"; };
 		04034A9D0ECEB658C17DDDF30858CEFA /* Nimble-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-prefix.pch"; sourceTree = "<group>"; };
+		04A077CC2069850100BC0AD5 /* EthereumNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumNetworks.swift; sourceTree = "<group>"; };
+		04A077CE206AD6EE00BC0AD5 /* UportRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UportRegistry.swift; sourceTree = "<group>"; };
 		052C2FD08D4C081EBE1FD82BEBE90E1E /* CryptoSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-umbrella.h"; sourceTree = "<group>"; };
 		056B0415454837FC298CE4CB5EE40ED3 /* BytesX.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BytesX.swift; sourceTree = "<group>"; };
 		0718AF6BDF5B3E33F4F6236B2333A2D4 /* QuickSpec.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QuickSpec.h; path = Sources/QuickObjectiveC/QuickSpec.h; sourceTree = "<group>"; };
@@ -702,13 +706,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04A077CB20685FC300BC0AD5 /* Networks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Networks;
-			sourceTree = "<group>";
-		};
 		06B67638151E4329A82548260A9433F0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1166,7 +1163,6 @@
 		BDDF4D9907C1785B990890E27CD15979 /* uPortSDK */ = {
 			isa = PBXGroup;
 			children = (
-				04A077CB20685FC300BC0AD5 /* Networks */,
 				CFBB220F01C62F125C34BC7D9DB4E281 /* DID */,
 				78EC6553824273003E3317A4BA1DBABC /* MNID */,
 				70FE8C94C6B6B1574DB7CB082EE26C09 /* Pod */,
@@ -1211,8 +1207,10 @@
 		CFBB220F01C62F125C34BC7D9DB4E281 /* DID */ = {
 			isa = PBXGroup;
 			children = (
+				04A077CC2069850100BC0AD5 /* EthereumNetworks.swift */,
 				43BC1A5F181DC8D91DD5347B20854EF1 /* DIDDocument.swift */,
 				B858592CC2E7FD9F31EA196D1EDC117F /* DIDResolver.swift */,
+				04A077CE206AD6EE00BC0AD5 /* UportRegistry.swift */,
 			);
 			name = DID;
 			path = uPortSDK/Classes/DID;
@@ -1686,6 +1684,7 @@
 				34EE532AFE22EA534BD6E8CDD22A10F1 /* ArrayX.swift in Sources */,
 				125B6132D5795EA6D574B1F79592C3D8 /* BaseDecoder.swift in Sources */,
 				60D4E2DF000CCF187879C006107A35F3 /* BaseEncoder.swift in Sources */,
+				04A077CD2069850100BC0AD5 /* EthereumNetworks.swift in Sources */,
 				D039712D0B67C34F6D77CC0D17226101 /* BaseX.swift in Sources */,
 				DC415AFC4E62A4EFBAD2F4FCDDEBA755 /* BigIntExtension.swift in Sources */,
 				E47200C791C8EF8BE3AF27F35720EE5E /* BivrostError.swift in Sources */,
@@ -1693,6 +1692,7 @@
 				EE734224B2666FBD6486E703E55D3B80 /* Bytes.swift in Sources */,
 				AA69EA20323151DFAAA222D16CC08C3F /* BytesX-Generated.swift in Sources */,
 				A22F4750237FC0FA288B391D2BBFC6E4 /* BytesX.swift in Sources */,
+				04A077CF206AD6EE00BC0AD5 /* UportRegistry.swift in Sources */,
 				4FCA0F7B1C7028D1CF36A6F447C6E63E /* DataExtension.swift in Sources */,
 				513EA7559F82DA5621940825E83AB409 /* DIDDocument.swift in Sources */,
 				A23558D8B6699C082D62BA191BC3A3B3 /* DIDResolver.swift in Sources */,
