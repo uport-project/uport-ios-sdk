@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.0)
   - BigInt (3.0.1):
     - SipHash (~> 1.2)
   - CryptoSwift (0.8.3)
@@ -6,10 +7,12 @@ PODS:
   - Quick (1.2.0)
   - SipHash (1.2.0)
   - uPortSDK (0.1.0):
+    - Alamofire (~> 4.7)
     - BigInt
     - CryptoSwift
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - BigInt
   - CryptoSwift
   - Nimble (~> 7.0.2)
@@ -21,13 +24,14 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
   CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
-  uPortSDK: 36cb6cc371962ee766281e59e380179c89fcfbf7
+  uPortSDK: 1274d24aa1c537149194421fff1accf4778432d6
 
-PODFILE CHECKSUM: ca5e946076bb2d95b2dc314947f424aa98020ac8
+PODFILE CHECKSUM: 4410bb26f6d1a200e486bcd3ecb5b280f4554e85
 
 COCOAPODS: 1.4.0

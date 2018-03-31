@@ -5,6 +5,7 @@ target 'uPortSDK_Example' do
   pod 'uPortSDK', :path => '../'
   pod 'BigInt'
   pod 'CryptoSwift'
+  pod 'Alamofire', '~> 4.7'
   
   target 'uPortSDK_Tests' do
     inherit! :search_paths

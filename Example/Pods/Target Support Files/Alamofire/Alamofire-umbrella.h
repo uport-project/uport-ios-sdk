@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double uPortSDKVersionNumber;
-FOUNDATION_EXPORT const unsigned char uPortSDKVersionString[];
+FOUNDATION_EXPORT double AlamofireVersionNumber;
+FOUNDATION_EXPORT const unsigned char AlamofireVersionString[];
 

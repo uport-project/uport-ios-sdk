@@ -25,6 +25,9 @@
     ],
     "CryptoSwift": [
 
+    ],
+    "Alamofire": [
+      "~> 4.7"
     ]
   }
 }

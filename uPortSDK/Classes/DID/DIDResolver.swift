@@ -43,9 +43,9 @@ public class DIDResolver: NSObject {
             throw DIDResolverError.invalidNetwork( "Network id \(issuerAccount?.network ?? "" ) is not configured" )
         }
 
+        let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount!, subject: subjectAccount!)
         let registeryAddress = try MNID.decode( mnid: network.registry )!.address
-        let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount, subject: subjectAccount)
-
+        let jrpcRespons =
 
         return ""
     }
@@ -54,6 +54,8 @@ public class DIDResolver: NSObject {
         let solidityRegistryIdentifier = try! Solidity.Bytes32( registrationIdentifier.data(using: .utf8)! )
         let solidityIssuer = try! Solidity.Address( issuer.address )
         let soliditySubject = try! Solidity.Address( subject.address )
+        let arguments = ( registrationIdentifier: solidityRegistryIdentifier, issuer: solidityIssuer, subject: soliditySubject )
+        return UportRegistry.Get.encodeCall(arguments: arguments)
     }
     
     ///
