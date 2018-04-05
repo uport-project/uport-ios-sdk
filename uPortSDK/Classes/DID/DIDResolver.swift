@@ -5,6 +5,7 @@ import BigInt
 public enum DIDResolverError: Error {
     case networkMismatch( String )
     case invalidNetwork( String )
+    case invalidIssuerOrSubject( String )
 }
 
 
@@ -14,7 +15,7 @@ public class DIDResolver: NSObject {
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    private func callRegistrySync(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String? {
+    private func callRegistrySync(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220", completionHandler: @escaping (_: String?) -> Void ) throws {
         let issuerMnid = issuerId ?? subjectId ?? ""
         var issuerAccount: Account?
         do {
@@ -31,8 +32,8 @@ public class DIDResolver: NSObject {
         }
         
         guard issuerAccount != nil && subjectAccount != nil else {
-            print( "could not create accounts with given subjectId \(subjectId ?? "") and issuerId \(issuerId ?? "")" )
-            return nil
+            throw DIDResolverError.invalidIssuerOrSubject( "could not create accounts with given subjectId \(subjectId ?? "") and issuerId \(issuerId ?? "")" )
+            
         }
         
         if issuerAccount?.network != subjectAccount?.network {
@@ -45,9 +46,12 @@ public class DIDResolver: NSObject {
 
         let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount!, subject: subjectAccount!)
         let registeryAddress = try MNID.decode( mnid: network.registry )!.address
-        let jrpcRespons =
+        let ethCall = EthCall(address: registeryAddress!, data: encodedFunctionCall )
+        let jsonPayload = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC()!
+        HTTPClient.postRequest(url: network.rpcUrl, jsonBody: jsonPayload) { result in
+            completionHandler( result )
+        }
 
-        return ""
     }
 
     internal func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
