@@ -54,7 +54,7 @@ public class DIDResolver: NSObject {
 
     }
 
-    internal func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
+    public func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
         let solidityRegistryIdentifier = try! Solidity.Bytes32( registrationIdentifier.data(using: .utf8)! )
         let solidityIssuer = try! Solidity.Address( issuer.address )
         let soliditySubject = try! Solidity.Address( subject.address )

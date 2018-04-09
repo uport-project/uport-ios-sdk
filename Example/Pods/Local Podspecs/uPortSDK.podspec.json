@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "A short description of uPortSDK.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/uport-project/uPort-ios-SDK",
+  "homepage": "https://github.com/uport-project/uport-ios-sdk",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,7 +12,7 @@
     "Joshua Bell": "joshua.bell@consensys.net"
   },
   "source": {
-    "git": "https://github.com/josh/uPortSDK.git",
+    "git": "https://github.com/uport-project/uport-ios-sdk.git",
     "tag": "0.1.0"
   },
   "platforms": {

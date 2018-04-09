@@ -144,7 +144,7 @@ public extension String {
     
     public func decodeFullHex() throws -> Data {
         let stripped = strip0x(self)
-        var data = Data(capacity: stripped.characters.count / 2)
+        var data = Data(capacity: stripped.count / 2)
         let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
         regex.enumerateMatches(in: stripped, range: NSMakeRange(0, stripped.utf16.count)) { match, flags, stop in
             let byteString = (stripped as NSString).substring(with: match!.range)

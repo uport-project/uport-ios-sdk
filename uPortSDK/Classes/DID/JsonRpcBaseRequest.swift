@@ -14,7 +14,7 @@ public class JsonRpcBaseRequest: NSObject {
     var id: Int = 1
     var jsonrpc: String = "2.0"
     
-    init( ethCall: EthCall, methodName: String = "eth_call", version: String = "latest", id: Int = 1, jsonrpc: String = "2.0" ) {
+    public init( ethCall: EthCall, methodName: String = "eth_call", version: String = "latest", id: Int = 1, jsonrpc: String = "2.0" ) {
         super.init()
         self.params =  [ [ "to": ethCall.address, "data": ethCall.data], version ]
         self.methodName = methodName
@@ -23,9 +23,9 @@ public class JsonRpcBaseRequest: NSObject {
         self.jsonrpc = jsonrpc
     }
     
-    func toJsonRPC( ) -> String? {
+    public func toJsonRPC( ) -> String? {
         let objectToConvertToJson: [String: Any] = [ "method": self.methodName, "params": params, "id": self.id, "jsonrpc": self.jsonrpc ]
-        guard let jsonData: Data = try?  JSONSerialization.data( withJSONObject: objectToConvertToJson, options: .prettyPrinted ) else {
+        guard let jsonData: Data = try?  JSONSerialization.data( withJSONObject: objectToConvertToJson, options: JSONSerialization.WritingOptions.init(rawValue: 0) ) else {
             print( "could not convert ethcall + jsonrpcbaserequest to json" )
             return nil
         }

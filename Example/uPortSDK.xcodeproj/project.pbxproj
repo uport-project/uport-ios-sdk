@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		02CBC8D5DE669F146E03C9E6 /* Pods_uPortSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */; };
 		03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */; };
+		03B3EFD2207BEDA2005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
+		03B3EFD3207BEDD1005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
 		05C09E30D22FB7C75F092B32 /* Pods_uPortSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBaseXTests.swift; sourceTree = "<group>"; };
+		03B3EFD1207BEDA2005697E0 /* valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; };
 		2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* uPortSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uPortSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,7 +44,7 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* uPortSDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uPortSDK_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIDResolverTests.swift; sourceTree = "<group>"; };
 		7FABF558F2C5F66B397F2479 /* Pods-uPortSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Tests/Pods-uPortSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FE8C92F72847C2854F236CA /* Pods-uPortSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Tests/Pods-uPortSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		94C63DE14AFD2510F097F9FB /* Pods-uPortSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,8 +121,9 @@
 			isa = PBXGroup;
 			children = (
 				03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */,
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				03B3EFD1207BEDA2005697E0 /* valid.json */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -218,10 +222,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 82SAVLYZ3K;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 82SAVLYZ3K;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -253,6 +259,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				03B3EFD2207BEDA2005697E0 /* valid.json in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B3EFD3207BEDD1005697E0 /* valid.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */,
 				03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,10 +542,11 @@
 			baseConfigurationReference = AD89E19C6603D6AB6DDBCDA4 /* Pods-uPortSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				INFOPLIST_FILE = uPortSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.uport.uPortSDK-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -549,10 +558,11 @@
 			baseConfigurationReference = 94C63DE14AFD2510F097F9FB /* Pods-uPortSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				INFOPLIST_FILE = uPortSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.uport.uPortSDK-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -563,6 +573,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7FABF558F2C5F66B397F2479 /* Pods-uPortSDK_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -577,6 +588,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/uPortSDK_Example.app/uPortSDK_Example";
 			};
 			name = Debug;
 		};
@@ -584,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8FE8C92F72847C2854F236CA /* Pods-uPortSDK_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -594,6 +607,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/uPortSDK_Example.app/uPortSDK_Example";
 			};
 			name = Release;
 		};

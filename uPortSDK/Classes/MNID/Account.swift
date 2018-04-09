@@ -12,26 +12,27 @@ public class Account: NSObject {
     let network: String!
     let address: String!
     
-    init?( network: String, address: String ) {
+    public init?( network: String, address: String ) {
         guard !network.isEmpty && !address.isEmpty else {
             return nil
         }
         
-        let addressWithoutHexPrefix = address.withoutHexPrefix
+        var addressWithoutHexPrefix = address.withoutHexPrefix
         let ethereumAddressNumChars = 40
         let numZerosToPad = ethereumAddressNumChars - addressWithoutHexPrefix.count
-        guard 0 < numZerosToPad else {
+        if 0 < numZerosToPad {
+            addressWithoutHexPrefix = addressWithoutHexPrefix.pad(toMultipleOf: numZerosToPad, character: "0", location: .left)
+        } else if numZerosToPad < 0 {
             return nil
         }
         
-        let paddedAddress = addressWithoutHexPrefix.pad(toMultipleOf: numZerosToPad, character: "0", location: .left)
         self.network = network
-        self.address = "0x\(paddedAddress)"
+        self.address = "0x\(addressWithoutHexPrefix)"
 
         super.init()
     }
     
-    class func from( network: Data, address: Data ) -> Account? {
+    public class func from( network: Data, address: Data ) -> Account? {
         return Account.init( network: network.hexEncodedString(), address: address.hexEncodedString() )
     }
     
