@@ -29,7 +29,44 @@ class HTTPClient: NSObject {
         }
     }
 
-    class func syncronousPostRequest( url: String, jsonBody: String ) -> String? {
+    class func synchronousGetRequest( url: String ) -> String? {
+        var requestURL: URL? = nil
+        do {
+            requestURL = try url.asURL()
+        } catch {
+            print( "error creating URL -> \(error), from url string -> \(url)" )
+            return nil
+        }
+        
+        guard requestURL != nil else {
+            return nil
+        }
+        
+        var urlRequest = URLRequest( url: requestURL! )
+        urlRequest.httpMethod = "GET"
+        
+        let (responseData, _, error) = URLSession.shared.synchronousDataTask(urlRequest: urlRequest)
+        guard error == nil else {
+            print( "error making request -> \(error!)" )
+            return nil
+        }
+        
+        guard let responseDataUnwrapped = responseData else {
+            print( "server response was nil" )
+            return nil
+        }
+        
+        let responseString = String(data: responseDataUnwrapped, encoding: .utf8 )
+        guard let responseStringUnwrapped = responseString else {
+            print( "could not convert server response to String" )
+            return nil
+        }
+        
+        return responseStringUnwrapped
+        
+    }
+    
+    class func synchronousPostRequest( url: String, jsonBody: String ) -> String? {
         guard let bodyData = jsonBody.data(using: .utf8) else {
             print( "invalid jsonBody" )
             return nil

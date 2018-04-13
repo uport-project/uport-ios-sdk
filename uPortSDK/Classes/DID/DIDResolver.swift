@@ -9,14 +9,15 @@ public enum DIDResolverError: Error {
     case invalidServerResponse( String )
 }
 
-
+/// TODO: bubble errors to calling function
+/// most methods should be internal to the framework, they were previously exposed for unit test purposes
 public class DIDResolver: NSObject {
     
     
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    public class func callRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String? {
+    class func synchronousCallRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String? {
         let issuerMnid = issuerId ?? subjectId ?? ""
         var issuerAccount: Account?
         do {
@@ -49,7 +50,7 @@ public class DIDResolver: NSObject {
         let registeryAddress = try MNID.decode( mnid: network.registry )!.address
         let ethCall = EthCall(address: registeryAddress!, data: encodedFunctionCall )
         let jsonBody = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC()!
-        let serverResopnse: String? = HTTPClient.syncronousPostRequest(url: network.rpcUrl, jsonBody: jsonBody)
+        let serverResopnse: String? = HTTPClient.synchronousPostRequest(url: network.rpcUrl, jsonBody: jsonBody)
         guard let serverResponseUnwrapped = serverResopnse else {
             throw DIDResolverError.invalidServerResponse( "Server responsed with no data or data in an unrecognizable format" )
         }
@@ -70,7 +71,7 @@ public class DIDResolver: NSObject {
  
     }
 
-    public class func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
+    class func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
         let solidityRegistryIdentifier = try! Solidity.Bytes32( registrationIdentifier.data(using: .utf8)! )
         let solidityIssuer = try! Solidity.Address( issuer.address )
         let soliditySubject = try! Solidity.Address( subject.address )
@@ -79,12 +80,12 @@ public class DIDResolver: NSObject {
     }
     
     ///
-    /// Get iPFS hash from uPort Registry
+    /// Get iPFS hash from uPort Registry given an mnid
     ///
-    public class func ipfsHash( mnid: String ) -> String? {
+    class func synchronousIpfsHash( mnid: String ) -> String? {
         var docAddressHex: String? = nil
         do {
-            docAddressHex = try DIDResolver.callRegistry(subjectId: mnid)
+            docAddressHex = try DIDResolver.synchronousCallRegistry(subjectId: mnid)
         } catch {
             print( "error calling uPort Registry -> \(error)" )
             return nil
@@ -103,41 +104,55 @@ public class DIDResolver: NSObject {
         return ipfsHashData.base58EncodedString()
     }
     
-    private class func jsonProfile( mnid: String ) -> String {
-        let ipfsHash = DIDResolver.ipfsHash( mnid: mnid )
-        let url = "https://ipfs.infura.io/ipfs/\(ipfsHash)"
-        return url //urlGet(url)
+    /// returns Did Document in json format from infura
+    private class func synchronousJSONProfile( mnid: String ) -> String? {
+        guard let ipfsHash = DIDResolver.synchronousIpfsHash( mnid: mnid ) else {
+            return nil
+        }
+        
+        let urlString = "https://ipfs.infura.io/ipfs/\(ipfsHash)"
+        return HTTPClient.synchronousGetRequest( url: urlString )
     }
     
-    
-    /**
-     * Given an [mnid], obtains the JSON encoded DID doc then tries to convert it to a [DDO] object
-     *
-     * TODO: Should [callback] with non-`null` error if anything goes wrong
-     */
-    public func profileDocument( mnid: String, callback: ((dIDDocument: DIDDocument, error: Error)) ) {
-        /// from the spec it looks like it takes a DID, gets the network, looks up the IPFS hash from the uport registery (smart contract) on the specified network, and then fetches the DID document IPFS via infura, and then returns the DID document as hashmap to whoever calls this function for there inspection
-        /*
-        let mnidObject = MNID( mnid )
-        let network = mnidObject.network
-        let uportRegistryURL = URL( UPORT_REGISTRY_BASE_URL + network )
-        let ipfsHash = URLRequest( url: uportRegistryURL )
-        let infuraURL = URL( infuraURL + ipfsHash )
-        let dIDDocumentDictionary = URLRequest( url: infraURL )
-        let dIDDocument = DIDDocument( dIDDocumentDictionary )
-        
-        
-        jsonProfile()
-        
-        
-        DispatchQueue.main.async {
-            if dIDDocument {
-                callback( dIDDocument, nil )
-            } else {
-                callback( nil, Error() )
-            }
+    /// returns DIDDocument parsed from fetched json
+    class func synchronousProfileDocument( mnid: String ) -> DIDDocument? {
+        guard let profileDocumentJSON = DIDResolver.synchronousJSONProfile( mnid: mnid ) else {
+            print( "Error fetching DIDDocument json from infura" )
+            return nil
         }
-        */
+        
+        guard let jsonData = profileDocumentJSON.data( using: .utf8 ) else {
+            print( "could not convert json string into Data" )
+            return nil
+        }
+        
+        let decoder = JSONDecoder()
+        var didDocument: DIDDocument?
+        do {
+            didDocument = try decoder.decode( DIDDocument.self, from: jsonData )
+        } catch {
+            print( "could not decode json into DIDDocument object with error -> \(error)" )
+            return nil
+        }
+        
+        return didDocument
+    }
+    
+    /// Public endpoint for retrieving a DID Document from an mnid
+    public func profileDocument( mnid: String, callback: @escaping ((DIDDocument?, Error?) -> Void) ) {
+        DispatchQueue.global().async {
+            guard let didDocument = DIDResolver.synchronousProfileDocument( mnid: mnid ) else {
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                    let error = NSError(domain:"500", code:500, userInfo:["error": "There was an internal error getting the DIDDocument given the mnid -> \(mnid)"] )
+                    callback( nil, error )
+                })
+                return
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                callback( didDocument, nil )
+            })
+        }
     }
     
     

@@ -2,7 +2,7 @@
 
 import Quick
 import Nimble
-import uPortSDK
+@testable import uPortSDK
 
 class DIDResolverSpec: QuickSpec {
     override func spec() {
@@ -25,12 +25,26 @@ class DIDResolverSpec: QuickSpec {
 
             it( "can call registry with appropriate server response" ) {
                 let expectedDocAddress = "QmWzBDtv8m21ph1aM57yVDWxdG7LdQd3rNf5xrRiiV2D2E"
-                let docAddressHex = DIDResolver.ipfsHash( mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC" )
+                let docAddressHex = DIDResolver.synchronousIpfsHash( mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC" )
                 
                 expect(docAddressHex) == expectedDocAddress
             }
             
-            //            it ( "can get JSON DID" ) {}
+            it ( "Can get JSON DID" ) {
+                let expectedDDO = DIDDocument(
+                    context: "http://schema.org",
+                    type: "Person",
+                    publicKey: "0x04e8989d1826cd6258906cfaa71126e2db675eaef47ddeb9310ee10db69b339ab960649e1934dc1e1eac1a193a94bd7dc5542befc5f7339845265ea839b9cbe56f",
+                    publicEncKey: "k8q5G4YoIMP7zvqMC9q84i7xUBins6dXGt8g5H007F0=",
+                    description: nil,
+                    image: nil,
+                    name: nil
+                )
+                
+                let ddo = DIDResolver.synchronousProfileDocument( mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC" )
+                
+                expect( ddo! ) == expectedDDO
+            }
         }
     }
             /*
