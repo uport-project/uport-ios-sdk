@@ -29,24 +29,26 @@ public class MNID: NSObject {
         let mnidData = try mnid.decodeBase58()
         let mnidVersion = mnidData.first
 
-        guard mnidVersion == VERSION_NUMBER else {
+        guard mnidVersion != nil && mnidVersion! <= VERSION_NUMBER else {
             throw MNIDError.versionError("Version mismatch.\nCan't decode a future version of MNID. Expecting \(VERSION_NUMBER) and got \(String(describing:mnidVersion))")
         }
 
         let networkLength = mnidData.count - VERSION_WIDTH - ADDRESS_WIDTH - CHECKSUM_WIDTH
-        guard networkLength <= 0 else {
+        guard 0 < networkLength else {
             throw MNIDError.codingError("Buffer size mismatch.\nThere are not enough bytes in this mnid to encode an address")
         }
 
         // read the raw network and address
-        let networkData = mnidData[ VERSION_WIDTH..<networkLength ]
-        let networkStartIndex = VERSION_WIDTH + networkLength
-        let addressData = mnidData[ networkStartIndex..<ADDRESS_WIDTH ]
+        let networkEndIndex = VERSION_WIDTH + networkLength
+        let networkData = mnidData[ VERSION_WIDTH..<networkEndIndex ]
+        let addressEndIndex = networkEndIndex + ADDRESS_WIDTH
+        let addressData = mnidData[ networkEndIndex..<addressEndIndex ]
         
         // check for checksum match
         let payloadLength = mnidData.count - CHECKSUM_WIDTH
         let payloadData = mnidData[ 0..<payloadLength  ]
-        let checksumData = mnidData[ payloadLength..<CHECKSUM_WIDTH ]
+        let checksumEndIndex = payloadLength + CHECKSUM_WIDTH
+        let checksumData = mnidData[ payloadLength..<checksumEndIndex ]
 
         let payloadSHA3 = Data( payloadData ).sha3( .sha256 )
         let payloadCheck = Array<UInt8>( payloadSHA3[ 0..<CHECKSUM_WIDTH ] )
@@ -76,7 +78,7 @@ public class MNID: NSObject {
         }
 
         let mnidDataCount = VERSION_WIDTH + networkData.count + ADDRESS_WIDTH + CHECKSUM_WIDTH
-        var mnidData = Data( count: mnidDataCount )
+        var mnidData = Data( capacity: mnidDataCount )
 
         // version
         mnidData.append(VERSION_NUMBER)

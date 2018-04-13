@@ -18,9 +18,16 @@ class DIDResolverSpec: QuickSpec {
             it("encodes eth call") {
                 let expectedEncoding = "0x447885f075506f727450726f66696c654950465331323230000000000000000000000000000000000000000000000000f12c30cd32b4a027710c150ae742f50db0749213000000000000000000000000f12c30cd32b4a027710c150ae742f50db0749213"
                 let acc = Account(network: "0x04", address: "0xf12c30cd32b4a027710c150ae742f50db0749213")!
-                let encoding = DIDResolver().encodeRegistryFunctionCall( registrationIdentifier: "uPortProfileIPFS1220", issuer: acc, subject: acc)
+                let encoding = DIDResolver.encodeRegistryFunctionCall( registrationIdentifier: "uPortProfileIPFS1220", issuer: acc, subject: acc)
                 
                 expect(encoding) == expectedEncoding
+            }
+
+            it( "can call registry with appropriate server response" ) {
+                let expectedDocAddress = "Qm-WzBDtv8m21ph1aM57yVDWxdG7LdQd3rNf5xrRiiV2D2E"
+                let docAddressHex = DIDResolver.ipfsHash( mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC" )
+                
+                expect(docAddressHex) == expectedDocAddress
             }
         }
     }
@@ -60,23 +67,7 @@ class DIDResolverSpec: QuickSpec {
             }
         }
         
-        fun encapsulates_json_rpc() {
-            
-            val expectedPayload = "{\"method\":\"eth_call\",\"params\":[{\"to\":\"0xaddress\",\"data\":\"some0xdatastring\"},\"latest\"],\"id\":1,\"jsonrpc\":\"2.0\"}"
-            
-            val payload = EthCall("0xaddress", "some0xdatastring").toJsonRpc()
-            
-            assertEquals(expectedPayload, payload)
-        }
-        
-        @Test
-        fun encodes_eth_call() {
-            val expectedEncoding = "0x447885f075506f727450726f66696c654950465331323230000000000000000000000000000000000000000000000000f12c30cd32b4a027710c150ae742f50db0749213000000000000000000000000f12c30cd32b4a027710c150ae742f50db0749213"
-            val acc = Account.from(network = "0x04", address = "0xf12c30cd32b4a027710c150ae742f50db0749213")
-            val encoding = DIDResolver().encodeRegistryFunctionCall("uPortProfileIPFS1220", acc, acc)
-            
-            assertEquals(expectedEncoding, encoding)
-        }
+
         
         @Test
         fun calls_registry() {

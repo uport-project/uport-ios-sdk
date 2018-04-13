@@ -26,7 +26,7 @@ public class Account: NSObject {
             return nil
         }
         
-        self.network = network
+        self.network = "0x\(network.withoutHexPrefix)"
         self.address = "0x\(addressWithoutHexPrefix)"
 
         super.init()

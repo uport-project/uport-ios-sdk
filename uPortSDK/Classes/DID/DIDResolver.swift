@@ -6,6 +6,7 @@ public enum DIDResolverError: Error {
     case networkMismatch( String )
     case invalidNetwork( String )
     case invalidIssuerOrSubject( String )
+    case invalidServerResponse( String )
 }
 
 
@@ -15,7 +16,7 @@ public class DIDResolver: NSObject {
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    private func callRegistrySync(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220", completionHandler: @escaping (_: String?) -> Void ) throws {
+    public class func callRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String? {
         let issuerMnid = issuerId ?? subjectId ?? ""
         var issuerAccount: Account?
         do {
@@ -47,14 +48,16 @@ public class DIDResolver: NSObject {
         let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount!, subject: subjectAccount!)
         let registeryAddress = try MNID.decode( mnid: network.registry )!.address
         let ethCall = EthCall(address: registeryAddress!, data: encodedFunctionCall )
-        let jsonPayload = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC()!
-        HTTPClient.postRequest(url: network.rpcUrl, jsonBody: jsonPayload) { result in
-            completionHandler( result )
+        let jsonBody = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC()!
+        let serverResopnse: String? = HTTPClient.syncronousPostRequest(url: network.rpcUrl, jsonBody: jsonBody)
+        guard let serverResponseUnwrapped = serverResopnse else {
+            throw DIDResolverError.invalidServerResponse( "Server responsed with no data or data in an unrecognizable format" )
         }
-
+        
+        return serverResponseUnwrapped
     }
 
-    public func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
+    public class func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
         let solidityRegistryIdentifier = try! Solidity.Bytes32( registrationIdentifier.data(using: .utf8)! )
         let solidityIssuer = try! Solidity.Address( issuer.address )
         let soliditySubject = try! Solidity.Address( subject.address )
@@ -65,12 +68,32 @@ public class DIDResolver: NSObject {
     ///
     /// Get iPFS hash from uPort Registry
     ///
-    private func ipfsHash() {
+    public class func ipfsHash( mnid: String ) -> String? {
+        var docAddressHex: String? = nil
+        do {
+            docAddressHex = try DIDResolver.callRegistry(subjectId: mnid)
+        } catch {
+            print( "error calling uPort Registry -> \(error)" )
+            return nil
+        }
         
+        guard let docAddressHexUnwrapped = docAddressHex else {
+            return nil
+        }
+        
+        let formattedIPFSHash = "1220\(docAddressHexUnwrapped.withoutHexPrefix)"
+        guard let ipfsHashData = Data( fromHexEncodedString: formattedIPFSHash ) else {
+            print( "could not convert ifps hash to data -> \(formattedIPFSHash)" )
+            return nil
+        }
+        
+        return ipfsHashData.base58EncodedString()
     }
     
-    private func jsonProfile() {
-        ipfsHash()
+    private class func jsonProfile( mnid: String ) -> String {
+        let ipfsHash = DIDResolver.ipfsHash( mnid: mnid )
+        let url = "https://ipfs.infura.io/ipfs/\(ipfsHash)"
+        return url //urlGet(url)
     }
     
     
