@@ -9,8 +9,6 @@ public enum DIDResolverError: Error {
     case invalidServerResponse( String )
 }
 
-/// TODO: bubble errors to calling function
-/// most methods should be internal to the framework, they were previously exposed for unit test purposes
 public class DIDResolver: NSObject {
     
     
@@ -137,8 +135,9 @@ public class DIDResolver: NSObject {
         
         return didDocument
     }
-    
+
     /// Public endpoint for retrieving a DID Document from an mnid
+    /// TODO: errors should bubble to this function
     public func profileDocument( mnid: String, callback: @escaping ((DIDDocument?, Error?) -> Void) ) {
         DispatchQueue.global().async {
             guard let didDocument = DIDResolver.synchronousProfileDocument( mnid: mnid ) else {
