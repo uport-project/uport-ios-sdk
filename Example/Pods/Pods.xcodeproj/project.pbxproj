@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040406B3208062810021C478 /* Keccak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040406B0208062810021C478 /* Keccak.swift */; };
+		040406F020806E9C0021C478 /* keccak-tiny.c in Sources */ = {isa = PBXBuildFile; fileRef = 040406ED20806E9C0021C478 /* keccak-tiny.c */; };
+		040406F120806E9C0021C478 /* keccak-tiny.c in Sources */ = {isa = PBXBuildFile; fileRef = 040406EE20806E9C0021C478 /* keccak-tiny.c */; };
+		040406F220806EC00021C478 /* keccak-tiny.h in Headers */ = {isa = PBXBuildFile; fileRef = 040406EF20806E9C0021C478 /* keccak-tiny.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		040406F320806EC00021C478 /* keccak-tiny.h in Headers */ = {isa = PBXBuildFile; fileRef = 040406EC20806E9C0021C478 /* keccak-tiny.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04056851010D25CFD03211572FEAEF64 /* Primitive Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088B0EF7537F6A0F4BB5157573C727E /* Primitive Types.swift */; };
 		04ED4CBE1683A039945AE21E71657DCE /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5898D364C11D319032D2FF1D6EE22E3 /* SHA1.swift */; };
 		04F9729C29DF3D76597992839E6097D2 /* StaticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44F4D9E983073CD9A018BB6F961634 /* StaticType.swift */; };
@@ -378,6 +383,14 @@
 		0311AB2553641DEBF55F24556ADB20DA /* Pods-uPortSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-uPortSDK_Example-dummy.m"; sourceTree = "<group>"; };
 		035D35AB0CE401C01203B4567370121D /* Stringers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stringers.swift; path = Sources/Nimble/Utils/Stringers.swift; sourceTree = "<group>"; };
 		03BC09C46F862AF8A9D6781E1785A3E1 /* CwlDarwinDefinitions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlDarwinDefinitions.swift; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlDarwinDefinitions.swift; sourceTree = "<group>"; };
+		040406A9208061460021C478 /* SwiftKeccak.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeccak.framework; path = ../../../../../SwiftKeccak.framework; sourceTree = "<group>"; };
+		040406B0208062810021C478 /* Keccak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keccak.swift; sourceTree = "<group>"; };
+		040406D720806ACA0021C478 /* keccaktiny */ = {isa = PBXFileReference; lastKnownFileType = folder; path = keccaktiny; sourceTree = "<group>"; };
+		040406D820806ACB0021C478 /* sha3tiny */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sha3tiny; sourceTree = "<group>"; };
+		040406EC20806E9C0021C478 /* keccak-tiny.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "keccak-tiny.h"; path = "keccaktiny/keccak-tiny.h"; sourceTree = "<group>"; };
+		040406ED20806E9C0021C478 /* keccak-tiny.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "keccak-tiny.c"; path = "sha3tiny/keccak-tiny.c"; sourceTree = "<group>"; };
+		040406EE20806E9C0021C478 /* keccak-tiny.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "keccak-tiny.c"; path = "keccaktiny/keccak-tiny.c"; sourceTree = "<group>"; };
+		040406EF20806E9C0021C478 /* keccak-tiny.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "keccak-tiny.h"; path = "sha3tiny/keccak-tiny.h"; sourceTree = "<group>"; };
 		04C863C0CB81806B1F557490BA63FED8 /* String+FoundationExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+FoundationExtension.swift"; path = "Sources/CryptoSwift/Foundation/String+FoundationExtension.swift"; sourceTree = "<group>"; };
 		04DE75554EE814B57B3225E75F74F1C9 /* DSL+Wait.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DSL+Wait.swift"; path = "Sources/Nimble/DSL+Wait.swift"; sourceTree = "<group>"; };
 		056F15D91AC2AE166394863D9CFDEB02 /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = Sources/CryptoSwift/Padding.swift; sourceTree = "<group>"; };
@@ -781,6 +794,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040406AF2080620D0021C478 /* SwiftKeccak */ = {
+			isa = PBXGroup;
+			children = (
+				040406B0208062810021C478 /* Keccak.swift */,
+				040406EF20806E9C0021C478 /* keccak-tiny.h */,
+				040406ED20806E9C0021C478 /* keccak-tiny.c */,
+				040406EE20806E9C0021C478 /* keccak-tiny.c */,
+				040406EC20806E9C0021C478 /* keccak-tiny.h */,
+				040406D720806ACA0021C478 /* keccaktiny */,
+				040406D820806ACB0021C478 /* sha3tiny */,
+			);
+			path = SwiftKeccak;
+			sourceTree = "<group>";
+		};
 		0E3238F7257254E2C69A5423BB98E9CC /* Coding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1060,6 +1087,7 @@
 		5FCD34FA8813C0C0658812FCCFFE3F61 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				040406AF2080620D0021C478 /* SwiftKeccak */,
 				A68782AEE3497882DCE308DD7CB27417 /* BaseX.swift */,
 				0BA80F7ECE2208B4CB810BE0D1488F02 /* HTTPClient.swift */,
 			);
@@ -1361,6 +1389,7 @@
 		DFCA56B32522BA4A3463412BFAF33C86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				040406A9208061460021C478 /* SwiftKeccak.framework */,
 				7C29D2EFDC19CAD289E4AD17723BFD03 /* Alamofire.framework */,
 				764666A35167ECD552E5C9C7FBB97F42 /* BigInt.framework */,
 				6409E4EAE594785E294BA86A7223B359 /* CryptoSwift.framework */,
@@ -1471,6 +1500,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB6E45E8C7D13B495043E2C9D4ABD4B2 /* uPortSDK-umbrella.h in Headers */,
+				040406F220806EC00021C478 /* keccak-tiny.h in Headers */,
+				040406F320806EC00021C478 /* keccak-tiny.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1707,6 +1738,7 @@
 				F4B52F53D7725FE9BD3689037EE0CB27 /* BivrostError.swift in Sources */,
 				872C143B8212B8DF0FF4E715874B5C83 /* Bool.swift in Sources */,
 				E20D516D77E308DCA250E27315279F54 /* Bytes.swift in Sources */,
+				040406F020806E9C0021C478 /* keccak-tiny.c in Sources */,
 				6155E5AC2E25C27C5F33DF07EB9C33AF /* BytesX-Generated.swift in Sources */,
 				8A9AD92AD82B1B34941B64D869C82B26 /* BytesX.swift in Sources */,
 				C1F5768AAA96CBC0808370FDCCBAB3DD /* DataExtension.swift in Sources */,
@@ -1715,11 +1747,13 @@
 				3E97CDE24D2ADC5C3959DD01D87BB81E /* DynamicType.swift in Sources */,
 				5231EB1B237EF29703BAAFDB2EF2ED09 /* EthCall.swift in Sources */,
 				5CA3CA4D91DCA83F2898550B861B5275 /* EthereumNetwork.swift in Sources */,
+				040406B3208062810021C478 /* Keccak.swift in Sources */,
 				C5753EBC0744BF49A28A68E94B4FE283 /* Function.swift in Sources */,
 				985725B8D4BAA91B98263F37C7C8F24C /* HTTPClient.swift in Sources */,
 				E77095F34A343E85F08722FC0DEFE3F3 /* IntX-Generated.swift in Sources */,
 				60D1971DD6E70557AF9318F8A9D316B7 /* IntX.swift in Sources */,
 				44AD25B3FA81D132167BC857DEA57DA8 /* JsonRpcBaseRequest.swift in Sources */,
+				040406F120806E9C0021C478 /* keccak-tiny.c in Sources */,
 				2C52A8A31E5DBEE8FDB60B7660A660B7 /* MNID.swift in Sources */,
 				6A731342B735914D3726563AB92D7F5B /* Solidity.swift in Sources */,
 				5FE0097D4533137F5F2DBA54669CEB3D /* SolidityCodable.swift in Sources */,
@@ -2497,6 +2531,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2718,6 +2753,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

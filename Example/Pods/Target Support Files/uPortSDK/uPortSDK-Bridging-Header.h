@@ -8,6 +8,7 @@
 #ifndef uPortSDK_Bridging_Header_h
 #define uPortSDK_Bridging_Header_h
 
-#import "keccak.h"
+#import "keccak-tiny.h"
+#import "sha3-keccak.tiny.h"
 
 #endif /* uPortSDK_Bridging_Header_h */

@@ -9,9 +9,9 @@ class DIDResolverSpec: QuickSpec {
         describe("testing did resolver components") {
             it("encapsulates json rpc") {
                 let expectedPayload = "{\"method\":\"eth_call\",\"jsonrpc\":\"2.0\",\"id\":1,\"params\":[{\"to\":\"0xaddress\",\"data\":\"some0xdatastring\"},\"latest\"]}"
-                
                 let ethCall = EthCall( address: "0xaddress", data: "some0xdatastring")
                 let payload = JsonRpcBaseRequest( ethCall: ethCall ).toJsonRPC()!
+
                 expect(payload) == expectedPayload
             }
             
@@ -24,11 +24,13 @@ class DIDResolverSpec: QuickSpec {
             }
 
             it( "can call registry with appropriate server response" ) {
-                let expectedDocAddress = "Qm-WzBDtv8m21ph1aM57yVDWxdG7LdQd3rNf5xrRiiV2D2E"
+                let expectedDocAddress = "QmWzBDtv8m21ph1aM57yVDWxdG7LdQd3rNf5xrRiiV2D2E"
                 let docAddressHex = DIDResolver.ipfsHash( mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC" )
                 
                 expect(docAddressHex) == expectedDocAddress
             }
+            
+            //            it ( "can get JSON DID" ) {}
         }
     }
             /*

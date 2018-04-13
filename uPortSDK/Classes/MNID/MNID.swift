@@ -77,8 +77,8 @@ public class MNID: NSObject {
             throw MNIDError.codingError( "Address is too long. An Ethereum address must be 20 bytes long." )
         }
 
-        let mnidDataCount = VERSION_WIDTH + networkData.count + ADDRESS_WIDTH + CHECKSUM_WIDTH
-        var mnidData = Data( capacity: mnidDataCount )
+        let mnidDataCapacity = VERSION_WIDTH + networkData.count + ADDRESS_WIDTH + CHECKSUM_WIDTH
+        var mnidData = Data( capacity: mnidDataCapacity )
 
         // version
         mnidData.append(VERSION_NUMBER)
@@ -95,7 +95,7 @@ public class MNID: NSObject {
         mnidData.append( addressData )
 
         // checksum
-        let checksummableWidth = mnidData.count - CHECKSUM_WIDTH
+        let checksummableWidth = mnidDataCapacity - CHECKSUM_WIDTH
         let payloadArray = Array( mnidData[ 0..<checksummableWidth ] )
         let payloadData = Data( payloadArray )
         let sha3HashData = payloadData.sha3( .sha256 )

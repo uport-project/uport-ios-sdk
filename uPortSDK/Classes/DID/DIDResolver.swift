@@ -54,7 +54,20 @@ public class DIDResolver: NSObject {
             throw DIDResolverError.invalidServerResponse( "Server responsed with no data or data in an unrecognizable format" )
         }
         
-        return serverResponseUnwrapped
+        guard let serverResponseData = serverResponseUnwrapped.data(using: String.Encoding.utf8) else {
+            throw DIDResolverError.invalidServerResponse( "Server response not convertable to Data" )
+        }
+        
+        var serverDictionary: [String: Any]?
+        do {
+            serverDictionary = try JSONSerialization.jsonObject(with: serverResponseData, options: []) as? [String : Any]
+        } catch {
+            print( "error converting server response to json -> \(error)" )
+            throw error
+        }
+        
+        return serverDictionary![ "result" ] as? String
+ 
     }
 
     public class func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
