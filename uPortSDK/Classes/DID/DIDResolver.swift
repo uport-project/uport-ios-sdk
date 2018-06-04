@@ -2,59 +2,47 @@
 import Foundation
 import BigInt
 
-public enum DIDResolverError: Error {
-    case networkMismatch( String )
-    case invalidNetwork( String )
-    case invalidIssuerOrSubject( String )
-    case invalidServerResponse( String )
-}
-
 public class DIDResolver: NSObject {
     
     
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    class func synchronousCallRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String? {
+    class func synchronousCallRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") -> String? {
         let issuerMnid = issuerId ?? subjectId ?? ""
-        var issuerAccount: Account?
-        do {
-            issuerAccount = try MNID.decode( mnid: issuerMnid )
-        } catch {
-            print( "error -> \(error), with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
+        guard let issuerAccount: Account =  MNID.decode( mnid: issuerMnid ) else {
+            print( "could not create issuer account with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
+            return nil
         }
         
-        var subjectAccount: Account?
-        do {
-            subjectAccount = try MNID.decode( mnid: subjectId ?? "")
-        } catch {
-            print( "error -> \(error), with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
+        guard let subjectAccount: Account = MNID.decode( mnid: subjectId ?? "") else {
+            print( "could not create subject account with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
+            return nil
         }
         
-        guard issuerAccount != nil && subjectAccount != nil else {
-            throw DIDResolverError.invalidIssuerOrSubject( "could not create accounts with given subjectId \(subjectId ?? "") and issuerId \(issuerId ?? "")" )
-            
+        if issuerAccount.network != subjectAccount.network {
+            print( "Issuer and subject must be on the same network" )
+            return nil
         }
         
-        if issuerAccount?.network != subjectAccount?.network {
-            throw DIDResolverError.networkMismatch( "Issuer and subject must be on the same network" )
-        }
-        
-        guard let network = EthereumNetwork( network: issuerAccount?.network ?? "" ) else {
-            throw DIDResolverError.invalidNetwork( "Network id \(issuerAccount?.network ?? "" ) is not configured" )
+        guard let network = EthereumNetwork( network: issuerAccount.network ?? "" ) else {
+            print( "Network id \(issuerAccount.network ?? "" ) is not configured" )
+            return nil
         }
 
-        let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount!, subject: subjectAccount!)
-        let registeryAddress = try MNID.decode( mnid: network.registry )!.address
+        let encodedFunctionCall = self.encodeRegistryFunctionCall( registrationIdentifier: registrationIdentifier, issuer: issuerAccount, subject: subjectAccount)
+        let registeryAddress = MNID.decode( mnid: network.registry )!.address
         let ethCall = EthCall(address: registeryAddress!, data: encodedFunctionCall )
         let jsonBody = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC()!
         let serverResopnse: String? = HTTPClient.synchronousPostRequest(url: network.rpcUrl, jsonBody: jsonBody)
         guard let serverResponseUnwrapped = serverResopnse else {
-            throw DIDResolverError.invalidServerResponse( "Server responsed with no data or data in an unrecognizable format" )
+            print( "Server responsed with no data or data in an unrecognizable format" )
+            return nil
         }
         
         guard let serverResponseData = serverResponseUnwrapped.data(using: String.Encoding.utf8) else {
-            throw DIDResolverError.invalidServerResponse( "Server response not convertable to Data" )
+            print( "Server response not convertable to Data" )
+            return nil
         }
         
         var serverDictionary: [String: Any]?
@@ -62,7 +50,7 @@ public class DIDResolver: NSObject {
             serverDictionary = try JSONSerialization.jsonObject(with: serverResponseData, options: []) as? [String : Any]
         } catch {
             print( "error converting server response to json -> \(error)" )
-            throw error
+            return nil
         }
         
         return serverDictionary![ "result" ] as? String
@@ -81,11 +69,8 @@ public class DIDResolver: NSObject {
     /// Get iPFS hash from uPort Registry given an mnid
     ///
     class func synchronousIpfsHash( mnid: String ) -> String? {
-        var docAddressHex: String? = nil
-        do {
-            docAddressHex = try DIDResolver.synchronousCallRegistry(subjectId: mnid)
-        } catch {
-            print( "error calling uPort Registry -> \(error)" )
+        guard let docAddressHex: String? = DIDResolver.synchronousCallRegistry(subjectId: mnid) else {
+            print( "error calling uPort Registry" )
             return nil
         }
         
@@ -137,7 +122,6 @@ public class DIDResolver: NSObject {
     }
 
     /// Public endpoint for retrieving a DID Document from an mnid
-    /// TODO: errors should bubble to this function
     public func profileDocument( mnid: String, callback: @escaping ((DIDDocument?, Error?) -> Void) ) {
         DispatchQueue.global().async {
             guard let didDocument = DIDResolver.synchronousProfileDocument( mnid: mnid ) else {

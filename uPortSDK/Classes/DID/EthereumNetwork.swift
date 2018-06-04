@@ -35,7 +35,7 @@ class EthereumNetwork: NSObject {
             "0x01": [
                 "name": "mainnet",
                 "networkId": "0x01",
-                "registry": try! MNID.encode( network: "0x01", address: "0xab5c8051b9a1df1aab0149f8b0630848b7ecabf6" ),
+                "registry": MNID.encode( network: "0x01", address: "0xab5c8051b9a1df1aab0149f8b0630848b7ecabf6" )!,
                 "rpcUrl": "https://mainnet.infura.io/uport",
                 "explorerUrl": "https://etherscan.io",
                 "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
@@ -44,7 +44,7 @@ class EthereumNetwork: NSObject {
             "0x03": [
                 "name": "ropsten",
                 "networkId": "0x03",
-                "registry": try! MNID.encode( network:"0x03", address: "0x41566e3a081f5032bdcad470adb797635ddfe1f0"),
+                "registry": MNID.encode( network:"0x03", address: "0x41566e3a081f5032bdcad470adb797635ddfe1f0")!,
                 "rpcUrl": "https://ropsten.infura.io/uport",
                 "explorerUrl": "https://ropsten.io",
                 "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
@@ -53,7 +53,7 @@ class EthereumNetwork: NSObject {
             "0x2a": [
                 "name": "kovan",
                 "networkId": "0x2a",
-                "registry": try! MNID.encode( network: "0x2a", address: "0x5f8e9351dc2d238fb878b6ae43aa740d62fc9758"),
+                "registry": MNID.encode( network: "0x2a", address: "0x5f8e9351dc2d238fb878b6ae43aa740d62fc9758")!,
                 "rpcUrl": "https://kovan.infura.io/uport",
                 "explorerUrl": "https://kovan.etherscan.io",
                 "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
@@ -71,7 +71,7 @@ class EthereumNetwork: NSObject {
             "0x04": [
                 "name": "rinkeby",
                 "networkId": "0x04",
-                "registry": try! MNID.encode( network: "0x04", address: "0x2cc31912b2b0f3075a87b3640923d45a26cef3ee"),
+                "registry": MNID.encode( network: "0x04", address: "0x2cc31912b2b0f3075a87b3640923d45a26cef3ee")!,
                 "rpcUrl": "https://rinkeby.infura.io/uport",
                 "explorerUrl": "https://rinkeby.etherscan.io",
                 "faucetUrl": "https://api.uport.me/sensui/fund/",

@@ -10,10 +10,11 @@
 #endif
 #endif
 
+//#import "keccak-tiny.h"
+//#import "keccak-tiny.h"
+//#import "sha3-keccak-tiny.h"
+//#import "keccak-tiny.h"
 
 FOUNDATION_EXPORT double uPortSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char uPortSDKVersionString[];
-
-#include "keccak-tiny.h"
-int sha3_256(uint8_t* out, size_t outlen, const uint8_t* in, size_t inlen);
 

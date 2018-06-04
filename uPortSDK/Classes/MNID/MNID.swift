@@ -8,12 +8,6 @@
 import UIKit
 import CryptoSwift
 
-public enum MNIDError: Error {
-    case isMNIDError(String)
-    case codingError(String)
-    case versionError(String)
-}
-
 public class MNID: NSObject {
 
     private static let VERSION_WIDTH = 1
@@ -21,21 +15,29 @@ public class MNID: NSObject {
     private static let CHECKSUM_WIDTH = 4
     private static let VERSION_NUMBER: UInt8 = 1
 
-    class func decode( mnid: String ) throws -> Account? {
+    class func decode( mnid: String ) -> Account? {
         guard !mnid.isEmpty else {
-            throw MNIDError.isMNIDError("Can't decode a null or empty mnid")
+            print( "Can't decode a null or empty mnid" )
+            return nil
         }
 
-        let mnidData = try mnid.decodeBase58()
-        let mnidVersion = mnidData.first
+        var mnidDataOptional: Data?
+        do {
+            mnidDataOptional = try mnid.decodeBase58()
+        } catch {
+            print( " error decoding base58 \(error)")
+            return nil
+        }
 
-        guard mnidVersion != nil && mnidVersion! <= VERSION_NUMBER else {
-            throw MNIDError.versionError("Version mismatch.\nCan't decode a future version of MNID. Expecting \(VERSION_NUMBER) and got \(String(describing:mnidVersion))")
+        guard let mnidData = mnidDataOptional, let mnidVersion = mnidData.first, mnidVersion <= VERSION_NUMBER else {
+            print( "Version mismatch.\nCan't decode a future version of MNID. Expecting \(VERSION_NUMBER) and got \(String(describing:mnidDataOptional!.first))" )
+            return nil
         }
 
         let networkLength = mnidData.count - VERSION_WIDTH - ADDRESS_WIDTH - CHECKSUM_WIDTH
         guard 0 < networkLength else {
-            throw MNIDError.codingError("Buffer size mismatch.\nThere are not enough bytes in this mnid to encode an address")
+            print( "Buffer size mismatch.\nThere are not enough bytes in this mnid to encode an address" )
+            return nil
         }
 
         // read the raw network and address
@@ -53,28 +55,32 @@ public class MNID: NSObject {
         let payloadSHA3 = Data( payloadData ).sha3( .sha256 )
         let payloadCheck = Array<UInt8>( payloadSHA3[ 0..<CHECKSUM_WIDTH ] )
         if payloadCheck != checksumData.bytes {
-            throw MNIDError.codingError( "The checksum does not match the payload" )
+            print( "The checksum does not match the payload" )
+            return nil
         }
     
         return Account.from(network: networkData, address: addressData)
     }
     
-    class func encode( account: Account? ) throws -> String {
+    class func encode( account: Account? ) -> String? {
         let safeAccount = account ?? Account( network: "00", address: "00" )
-        return try MNID.encode(network: safeAccount!.network, address: safeAccount!.address)
+        return MNID.encode(network: safeAccount!.network, address: safeAccount!.address)
     }
 
-    class func encode( network: String, address: String ) throws -> String {
+    class func encode( network: String, address: String ) -> String? {
         guard let addressData = Data( fromHexEncodedString: address.withoutHexPrefix ) else {
-            throw MNIDError.codingError( "Invalid Address: could not compute a byte array from the hex address provided" )
+            print( "Invalid Address: could not compute a byte array from the hex address provided" )
+            return nil
         }
         
         guard let networkData = Data( fromHexEncodedString: network.withoutHexPrefix ) else {
-            throw MNIDError.codingError( "Invalid Network: could nto compute a byte array from the hex network provided" )
+            print( "Invalid Network: could nto compute a byte array from the hex network provided" )
+            return nil
         }
         
         if ADDRESS_WIDTH < addressData.count {
-            throw MNIDError.codingError( "Address is too long. An Ethereum address must be 20 bytes long." )
+            print( "Address is too long. An Ethereum address must be 20 bytes long." )
+            return nil
         }
 
         let mnidDataCapacity = VERSION_WIDTH + networkData.count + ADDRESS_WIDTH + CHECKSUM_WIDTH
