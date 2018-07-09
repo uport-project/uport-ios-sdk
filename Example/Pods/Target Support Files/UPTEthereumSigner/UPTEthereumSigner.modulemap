@@ -1,0 +1,6 @@
+framework module UPTEthereumSigner {
+  umbrella header "UPTEthereumSigner-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -20,6 +20,9 @@
   },
   "source_files": "uPortSDK/Classes/**/*",
   "dependencies": {
+    "UPTEthereumSigner": [
+
+    ],
     "BigInt": [
 
     ],

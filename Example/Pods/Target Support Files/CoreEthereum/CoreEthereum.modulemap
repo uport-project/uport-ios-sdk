@@ -1,0 +1,6 @@
+framework module CoreEthereum {
+  umbrella header "CoreEthereum-umbrella.h"
+
+  export *
+  module * { export * }
+}
