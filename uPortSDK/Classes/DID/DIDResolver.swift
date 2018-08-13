@@ -2,13 +2,13 @@
 import Foundation
 import BigInt
 
-public class DIDResolver: NSObject {
+public struct DIDResolver {
     
     
     /**
      * Given an MNID, calls the uport registry and returns the raw json
      */
-    class func synchronousCallRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") -> String? {
+    public static func synchronousCallRegistry(subjectId: String?, issuerId: String? = nil, registrationIdentifier: String = "uPortProfileIPFS1220") -> String? {
         let issuerMnid = issuerId ?? subjectId ?? ""
         guard let issuerAccount: Account =  MNID.decode( mnid: issuerMnid ) else {
             print( "could not create issuer account with mnid -> \(issuerMnid), with issuerId -> \(issuerId ?? ""), with subjectID -> \(subjectId ?? "")" )
@@ -57,7 +57,7 @@ public class DIDResolver: NSObject {
  
     }
 
-    class func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
+    public static func encodeRegistryFunctionCall( registrationIdentifier: String, issuer: Account, subject: Account ) -> String {
         let solidityRegistryIdentifier = try! Solidity.Bytes32( registrationIdentifier.data(using: .utf8)! )
         let solidityIssuer = try! Solidity.Address( issuer.address )
         let soliditySubject = try! Solidity.Address( subject.address )
@@ -68,17 +68,13 @@ public class DIDResolver: NSObject {
     ///
     /// Get iPFS hash from uPort Registry given an mnid
     ///
-    class func synchronousIpfsHash( mnid: String ) -> String? {
-        guard let docAddressHex: String? = DIDResolver.synchronousCallRegistry(subjectId: mnid) else {
+    public static func synchronousIpfsHash( mnid: String ) -> String? {
+        guard let docAddressHex: String = DIDResolver.synchronousCallRegistry(subjectId: mnid) else {
             print( "error calling uPort Registry" )
             return nil
         }
         
-        guard let docAddressHexUnwrapped = docAddressHex else {
-            return nil
-        }
-        
-        let formattedIPFSHash = "1220\(docAddressHexUnwrapped.withoutHexPrefix)"
+        let formattedIPFSHash = "1220\(docAddressHex.withoutHexPrefix)"
         guard let ipfsHashData = Data( fromHexEncodedString: formattedIPFSHash ) else {
             print( "could not convert ifps hash to data -> \(formattedIPFSHash)" )
             return nil
@@ -88,7 +84,7 @@ public class DIDResolver: NSObject {
     }
     
     /// returns Did Document in json format from infura
-    private class func synchronousJSONProfile( mnid: String ) -> String? {
+    private static func synchronousJSONProfile( mnid: String ) -> String? {
         guard let ipfsHash = DIDResolver.synchronousIpfsHash( mnid: mnid ) else {
             return nil
         }
@@ -98,7 +94,7 @@ public class DIDResolver: NSObject {
     }
     
     /// returns DIDDocument parsed from fetched json
-    class func synchronousProfileDocument( mnid: String ) -> DIDDocument? {
+    static func synchronousProfileDocument( mnid: String ) -> DIDDocument? {
         guard let profileDocumentJSON = DIDResolver.synchronousJSONProfile( mnid: mnid ) else {
             print( "Error fetching DIDDocument json from infura" )
             return nil

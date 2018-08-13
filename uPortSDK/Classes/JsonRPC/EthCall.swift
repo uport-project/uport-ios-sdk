@@ -7,21 +7,16 @@
 
 import UIKit
 
-public class EthCall: NSObject {
+public struct EthCall {
     var address: String = ""
     var data: String = ""
-
-    override init() {
-        super.init()
-    }
     
-    public convenience init( address: String, data: String ) {
-        self.init()
+    public init( address: String, data: String ) {
         self.address = address
         self.data = data
     }
 
-    public class func toJsonRpcBaseRequest( registryAddress: String, encodedFunctionCall: String ) -> JsonRpcBaseRequest {
+    public static func toJsonRpcBaseRequest( registryAddress: String, encodedFunctionCall: String ) -> JsonRpcBaseRequest {
         let ethCall = EthCall( address: registryAddress, data: encodedFunctionCall )
         return JsonRpcBaseRequest( ethCall: ethCall )
     }

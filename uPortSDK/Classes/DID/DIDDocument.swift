@@ -8,7 +8,7 @@
 import Foundation
 
 
-public class DIDDocument: Codable {
+public struct DIDDocument: Codable {
     public var type: String? //ex: "Organization", "Person"
     
     public var publicKey: String?  //ex: "0x04613bb3a4874d27032618f020614c21cbe4c4e4781687525f6674089f9bd3d6c7f6eb13569053d31715a3ba32e0b791b97922af6387f087d6b5548c06944ab062"
@@ -23,8 +23,7 @@ public class DIDDocument: Codable {
     
     public var context: String?
     
-    public convenience init( context: String?, type: String?, publicKey: String?, publicEncKey: String?, description: String?, image: String?, name: String?) {
-        self.init()
+    public init( context: String?, type: String?, publicKey: String?, publicEncKey: String?, description: String?, image: String?, name: String?) {
         self.context = context
         self.type = type
         self.publicKey = publicKey

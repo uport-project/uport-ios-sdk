@@ -7,27 +7,29 @@
 
 import UIKit
 
-class EthereumNetwork: NSObject {
+public struct EthereumNetwork {
 
-    @objc var name: String = ""           //  ex: "kovan"
-    @objc var networkId: String = ""       //  ex: "0x2a"
-    @objc var registry: String = ""        //  ex: MNID.encode({address: '0x5f8e9351dc2d238fb878b6ae43aa740d62fc9758', network: '0x2a'})
-    @objc var rpcUrl: String = ""        //  ex: "https://kovan.infura.io/uport"
-    @objc var explorerUrl: String = ""     //  ex: "https://kovan.etherscan.io"
-    @objc var faucetUrl: String = ""       //  ex: "https://sensui.uport.me/api/v1/fund/"
-    @objc var relayUrl: String = ""        //  ex: "https://sensui.uport.me/api/v2/relay/"
+    var name: String = ""           //  ex: "kovan"
+    var networkId: String = ""       //  ex: "0x2a"
+    var registry: String = ""        //  ex: MNID.encode({address: '0x5f8e9351dc2d238fb878b6ae43aa740d62fc9758', network: '0x2a'})
+    var rpcUrl: String = ""        //  ex: "https://kovan.infura.io/uport"
+    var explorerUrl: String = ""     //  ex: "https://kovan.etherscan.io"
+    var faucetUrl: String = ""       //  ex: "https://sensui.uport.me/api/v1/fund/"
+    var relayUrl: String = ""        //  ex: "https://sensui.uport.me/api/v2/relay/"
 
-    override init() {
-        super.init()
-    }
     
-    public convenience init?( network: String ) {
-        self.init()
+    public init?( network: String ) {
         guard let networkInfo = self.networks[ network ] else {
             return nil // network not supported at this time
         }
         
-        self.setValuesForKeys( networkInfo )
+        self.name = networkInfo[ "name" ]!
+        self.networkId = networkInfo[ "networkId" ]!
+        self.registry = networkInfo[ "registry" ]!
+        self.rpcUrl = networkInfo[ "rpcUrl" ]!
+        self.explorerUrl = networkInfo[ "explorerUrl" ]!
+        self.faucetUrl = networkInfo[ "faucetUrl" ]!
+        self.relayUrl = networkInfo[ "relayUrl" ]!
     }
     
     private lazy var networks: [String: [String: String]] = {

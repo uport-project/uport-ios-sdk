@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class Account: NSObject {
+public struct Account {
     
     let network: String!
     let address: String!
@@ -28,11 +28,9 @@ public class Account: NSObject {
         
         self.network = "0x\(network.withoutHexPrefix)"
         self.address = "0x\(addressWithoutHexPrefix)"
-
-        super.init()
     }
     
-    public class func from( network: Data, address: Data ) -> Account? {
+    public static func from( network: Data, address: Data ) -> Account? {
         return Account.init( network: network.hexEncodedString(), address: address.hexEncodedString() )
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class JsonRpcBaseRequest: NSObject {
+public struct JsonRpcBaseRequest {
     var params: [Any] = []
     var methodName: String = "eth_call"
     var version: String = "latest"
@@ -15,7 +15,6 @@ public class JsonRpcBaseRequest: NSObject {
     var jsonrpc: String = "2.0"
     
     public init( ethCall: EthCall, methodName: String = "eth_call", version: String = "latest", id: Int = 1, jsonrpc: String = "2.0" ) {
-        super.init()
         self.params =  [ [ "to": ethCall.address, "data": ethCall.data], version ]
         self.methodName = methodName
         self.version = version

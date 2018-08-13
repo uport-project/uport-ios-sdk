@@ -8,14 +8,14 @@
 import UIKit
 import CryptoSwift
 
-public class MNID: NSObject {
+public struct MNID {
 
     private static let VERSION_WIDTH = 1
     private static let ADDRESS_WIDTH = 20
     private static let CHECKSUM_WIDTH = 4
     private static let VERSION_NUMBER: UInt8 = 1
 
-    class func decode( mnid: String ) -> Account? {
+    static func decode( mnid: String ) -> Account? {
         guard !mnid.isEmpty else {
             print( "Can't decode a null or empty mnid" )
             return nil
@@ -62,12 +62,12 @@ public class MNID: NSObject {
         return Account.from(network: networkData, address: addressData)
     }
     
-    class func encode( account: Account? ) -> String? {
+    public static func encode( account: Account? ) -> String? {
         let safeAccount = account ?? Account( network: "00", address: "00" )
         return MNID.encode(network: safeAccount!.network, address: safeAccount!.address)
     }
 
-    class func encode( network: String, address: String ) -> String? {
+    public static func encode( network: String, address: String ) -> String? {
         guard let addressData = Data( fromHexEncodedString: address.withoutHexPrefix ) else {
             print( "Invalid Address: could not compute a byte array from the hex address provided" )
             return nil
