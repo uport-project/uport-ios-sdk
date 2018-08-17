@@ -33,7 +33,7 @@ public struct EthrDID {
         self.signer = signer
     }
     
-    public func lookupOwner( cache: Bool = true, callback: (String?, Error?) -> Void ) {
+    public func lookupOwner( cache: Bool = true, callback: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void ) {
         if cache && self.owner != nil {
             callback( self.owner!, nil )
             return
@@ -44,16 +44,61 @@ public struct EthrDID {
             return
         }
         
-        var encodedCall = try! EthereumDIDRegistry.IdentityOwner.encodeCall(arguments:Solidity.Address(bigUInt:addressBigUInt))
-//        var jsonRPCResponce = rpc.ethCall(registry, encodedCall)
+        let solidityAddressOptional = try? Solidity.Address(bigUInt:addressBigUInt)
+        guard let solidityAddress = solidityAddressOptional else {
+            callback( nil, EthrDIDError.invalidAddress )
+            return
+        }
+        
+        let encodedCall = EthereumDIDRegistry.IdentityOwner.encodeCall(arguments:solidityAddress)
+        rpc.ethCall(address: self.registry, data: encodedCall) { response, error in
+            guard error == nil, let response = response else {
+                callback( nil, error )
+                return
+            }
+            
+            guard let rawResult = JsonRpcBaseResponse.fromJson(json: response).result as? String else {
+                callback( nil, JsonRpcError.invalidResult )
+                return
+            }
+
+            let addressStartIndex = rawResult.index(rawResult.endIndex, offsetBy: -40)
+            let address = rawResult[ addressStartIndex...rawResult.endIndex ]
+            callback( "0x\(address)", nil )
+        }
     }
     
-    func changeOwner( newOwner: String, callback: (String) -> Void ) {
-    
+    func changeOwner( newOwner: String, callback: @escaping ( _ transactionHash: String?, _ error: Error? ) -> Void ) {
+        self.lookupOwner(cache: true) { ownerAddress, error in
+            guard error == nil, let ownerAddress = ownerAddress else {
+                print( "error looking up owner -> \(error!)" )
+                return
+            }
+
+            guard let ownerAddressBigUInt = BigUInt( ownerAddress.withoutHexPrefix, radix: 16 ),
+                  let newOwnerAddressBigUInt = BigUInt( newOwner.withoutHexPrefix, radix: 16 )  else {
+                callback( nil, EthrDIDError.invalidAddress )
+                return
+            }
+            
+            let ownerAddressOptional = try? Solidity.Address( bigUInt: ownerAddressBigUInt )
+            let newOwnerAddressOptional = try? Solidity.Address( bigUInt: newOwnerAddressBigUInt )
+            guard let ownerAddressSolidity = ownerAddressOptional,
+                    let newOwnerAddressSolidity = newOwnerAddressOptional else {
+                        callback( nil, EthrDIDError.invalidAddress )
+                        return
+            }
+            
+            let encodedCall = EthereumDIDRegistry.ChangeOwner.encodeCall(arguments: (identity: ownerAddressSolidity, newOwner: newOwnerAddressSolidity)])
+         }
     }
     
     func addDelegate( delegate: String, options: DelegateOptions? = nil, callback: (String) -> Void ) {
         
+    }
+
+    private func signAndSendContractCall( owner: String, encodedCall: String, callback: (_ transactionHash: String?, _ error: Error ) -> Void ) {
+//        let nonce = self.rpc.getTransactionCount(
     }
 }
 

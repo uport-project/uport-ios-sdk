@@ -7,11 +7,18 @@
 
 import UIKit
 
+enum HTTPClientError: Error {
+    case invalidJSONBody
+    case invalidURL
+    case requestIssue
+    case invalidResponse
+}
+
 public struct HTTPClient {
 
-    public static func synchronousGetRequest( url: String ) -> String? {
+    public static func synchronousGetRequest( url: String ) -> ( response: String?, error: Error? ) {
         guard let requestURL = URL(string:url) else {
-            return nil
+            return ( nil, HTTPClientError.invalidURL )
         }
         
         var urlRequest = URLRequest( url: requestURL )
@@ -20,32 +27,31 @@ public struct HTTPClient {
         let (responseData, _, error) = URLSession.shared.synchronousDataTask(urlRequest: urlRequest)
         guard error == nil else {
             print( "error making request -> \(error!)" )
-            return nil
+            return ( nil, error! )
         }
         
         guard let responseDataUnwrapped = responseData else {
             print( "server response was nil" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
         let responseString = String(data: responseDataUnwrapped, encoding: .utf8 )
         guard let responseStringUnwrapped = responseString else {
             print( "could not convert server response to String" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
-        return responseStringUnwrapped
+        return ( responseStringUnwrapped, nil )
         
     }
     
-    public static func synchronousPostRequest( url: String, jsonBody: String ) -> String? {
+    public static func synchronousPostRequest( url: String, jsonBody: String ) -> (response: String?, error: Error?) {
         guard let bodyData = jsonBody.data(using: .utf8) else {
-            print( "invalid jsonBody" )
-            return nil
+            return ( nil, HTTPClientError.invalidJSONBody )
         }
         
         guard let requestURL = URL( string: url ) else {
-            return nil
+            return ( nil, HTTPClientError.invalidURL )
         }
         
         var urlRequest = URLRequest( url: requestURL )
@@ -57,21 +63,21 @@ public struct HTTPClient {
         let (responseData, _, error) = URLSession.shared.synchronousDataTask(urlRequest: urlRequest)
         guard error == nil else {
             print( "error making request -> \(error!)" )
-            return nil
+            return ( nil, error! )
         }
         
         guard let responseDataUnwrapped = responseData else {
             print( "server response was nil" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
         let responseString = String(data: responseDataUnwrapped, encoding: .utf8 )
         guard let responseStringUnwrapped = responseString else {
             print( "could not convert server response to String" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
-        return responseStringUnwrapped
+        return ( responseStringUnwrapped, nil )
     }
 }
 
