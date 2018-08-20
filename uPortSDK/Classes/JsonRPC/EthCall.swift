@@ -9,7 +9,7 @@ import UIKit
 
 public struct EthCall {
     var address: String = ""
-    var data: String = ""
+    var data: String?
     
     public init( address: String, data: String ) {
         self.address = address

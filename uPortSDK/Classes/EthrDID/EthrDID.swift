@@ -8,6 +8,7 @@
 import Foundation
 import UPTEthereumSigner
 import BigInt
+import Promises
 
 public enum EthrDIDError: Error {
     case invalidAddress
@@ -58,7 +59,7 @@ public struct EthrDID {
             }
             
             guard let rawResult = JsonRpcBaseResponse.fromJson(json: response).result as? String else {
-                callback( nil, JsonRpcError.invalidResult )
+                callback( nil, JsonRpcError.invalidResult)
                 return
             }
 
@@ -98,7 +99,11 @@ public struct EthrDID {
     }
 
     private func signAndSendContractCall( owner: String, encodedCall: String, callback: (_ transactionHash: String?, _ error: Error ) -> Void ) {
-//        let nonce = self.rpc.transactionCount( address: owner
+        let noncePromise = self.rpc.transactionCount( address: owner )
+        let gasPricePromise = self.rpc.gasPrice()
+        all( noncePromise, gasPricePromise ).then { nonce, gasPrice in
+
+        }
     }
 }
 

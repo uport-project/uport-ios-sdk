@@ -8,7 +8,7 @@
 import UIKit
 
 public struct JsonRpcBaseRequest {
-    var params: [Any] = []
+    var params = [Any]()
     var methodName: String = "eth_call"
     var version: String = "latest"
     var id: Int = 1
@@ -21,16 +21,26 @@ public struct JsonRpcBaseRequest {
         self.id = id
         self.jsonrpc = jsonrpc
     }
-    
+
+    public init( address: String, method: String ) {
+        self.params = [address, self.version]
+        self.methodName = method
+    }
+
+    public init( methodName: String = "eth_call", params: [Any] = [Any]() ) {
+        self.params = params
+        self.methodName = methodName
+    }
+
     public func toJsonRPC( ) -> String? {
         let objectToConvertToJson: [String: Any] = [ "method": self.methodName, "params": params, "id": self.id, "jsonrpc": self.jsonrpc ]
         guard let jsonData: Data = try?  JSONSerialization.data( withJSONObject: objectToConvertToJson, options: JSONSerialization.WritingOptions.init(rawValue: 0) ) else {
-            print( "could not convert ethcall + jsonrpcbaserequest to json" )
+            print( "uPortSDK: could not convert ethcall + jsonrpcbaserequest to json" )
             return nil
         }
         
         guard let jsonString = String(data: jsonData, encoding: String.Encoding.ascii) else {
-            print( "error converting jsonData to json string" )
+            print( "uPortSDK: error converting jsonData to json string" )
             return nil
         }
         
