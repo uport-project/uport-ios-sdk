@@ -5,7 +5,8 @@ target 'uPortSDK_Example' do
   pod 'uPortSDK', :path => '../'
   pod 'BigInt'
   pod 'CryptoSwift'
-  
+  pod 'PromisesSwift', '~> 1.2.3'
+
   target 'uPortSDK_Tests' do
     inherit! :search_paths
     pod 'Quick'

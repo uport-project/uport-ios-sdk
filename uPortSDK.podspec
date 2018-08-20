@@ -41,4 +41,5 @@ TODO: Add long description of the pod here.
   s.dependency 'UPTEthereumSigner'
   s.dependency 'BigInt'
   s.dependency 'CryptoSwift'
+  s.dependency 'PromisesSwift'
 end

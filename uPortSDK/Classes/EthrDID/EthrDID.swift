@@ -89,7 +89,7 @@ public struct EthrDID {
                         return
             }
             
-            let encodedCall = EthereumDIDRegistry.ChangeOwner.encodeCall(arguments: (identity: ownerAddressSolidity, newOwner: newOwnerAddressSolidity)])
+            let encodedCall = EthereumDIDRegistry.ChangeOwner.encodeCall(arguments: (identity: ownerAddressSolidity, newOwner: newOwnerAddressSolidity))
          }
     }
     
@@ -98,7 +98,7 @@ public struct EthrDID {
     }
 
     private func signAndSendContractCall( owner: String, encodedCall: String, callback: (_ transactionHash: String?, _ error: Error ) -> Void ) {
-//        let nonce = self.rpc.getTransactionCount(
+//        let nonce = self.rpc.transactionCount( address: owner
     }
 }
 

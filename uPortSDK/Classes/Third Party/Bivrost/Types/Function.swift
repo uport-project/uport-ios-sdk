@@ -43,10 +43,10 @@ extension Solidity.Function: StaticType {
     static func decode(source: BaseDecoder.PartitionData) throws -> Solidity.Function {
         let line = try source.consume()
         // 20 bytes / 40 chars for Address as UInt160
-        let addressHex = String(line[line.startIndex ..< line.index(startDistance: 40)])
+        let addressHex = String(line[line.startIndex ..< line.index(startDistance: 40)]) as! String
         let uint = try BaseDecoder.decodeUInt(data: addressHex)
         let address = try Solidity.Address(bigUInt: uint)
-        let functionSelector = String(line[line.index(startDistance: 40) ..< line.index(startDistance: 48)])
+        let functionSelector = String(line[line.index(startDistance: 40) ..< line.index(startDistance: 48)]) as! String
         return try Solidity.Function(functionSelector, at: address)
     }
 }

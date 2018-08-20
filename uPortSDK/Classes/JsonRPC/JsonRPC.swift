@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import BigInt
+import Promises
 
 public enum JsonRpcError: Error {
     case invalidRpcUrl
@@ -35,5 +37,12 @@ public struct JsonRPC {
             }
         }
     }
-    
+
+    func transactionCount( address: String, callback: (_ transactionCount: BigInt, _ error: Error ) -> Void ) {
+        
+    }
+
+//    func transactionCount( address: String ) -> Promise<BigInt> {
+//
+//    }
 }

@@ -34,13 +34,18 @@ public struct DIDResolver {
         let registeryAddress = MNID.decode( mnid: network.registry )!.address
         let ethCall = EthCall(address: registeryAddress!, data: encodedFunctionCall )
         let jsonBody = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC()!
-        let serverResopnse: String? = HTTPClient.synchronousPostRequest(url: network.rpcUrl, jsonBody: jsonBody)
-        guard let serverResponseUnwrapped = serverResopnse else {
+        let ( serverResponse, error ) = HTTPClient.synchronousPostRequest(url: network.rpcUrl, jsonBody: jsonBody)
+        guard error == nil else {
+            print( "error making postRequest -> \(error!)" )
+            return nil
+        }
+        
+        guard let serverResponseString = serverResponse else {
             print( "Server responsed with no data or data in an unrecognizable format" )
             return nil
         }
         
-        guard let serverResponseData = serverResponseUnwrapped.data(using: String.Encoding.utf8) else {
+        guard let serverResponseData = serverResponseString.data(using: String.Encoding.utf8) else {
             print( "Server response not convertable to Data" )
             return nil
         }
@@ -86,11 +91,18 @@ public struct DIDResolver {
     /// returns Did Document in json format from infura
     private static func synchronousJSONProfile( mnid: String ) -> String? {
         guard let ipfsHash = DIDResolver.synchronousIpfsHash( mnid: mnid ) else {
+            print( "uPortSDK Error: couldn't get ipfshash" )
             return nil
         }
         
         let urlString = "https://ipfs.infura.io/ipfs/\(ipfsHash)"
-        return HTTPClient.synchronousGetRequest( url: urlString )
+        let ( jsonProfile, error ) = HTTPClient.synchronousGetRequest( url: urlString )
+        guard error == nil else {
+            print( "uPortSDK Errror: couldnt fetch jsonProfile with Error -> \(error!)" )
+            return nil
+        }
+        
+        return jsonProfile
     }
     
     /// returns DIDDocument parsed from fetched json
