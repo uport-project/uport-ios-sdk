@@ -24,14 +24,12 @@ public struct EthrDID {
     private var address: String
     private var rpc: JsonRPC
     private var registry: String
-    var signer: UPTEthereumSigner
     private var owner: String?
     
-    public init( address: String, rpc: JsonRPC, registry: String, signer: UPTEthereumSigner ) {
+    public init( address: String, rpc: JsonRPC, registry: String ) {
         self.address = address
         self.rpc = rpc
         self.registry = registry
-        self.signer = signer
     }
     
     public func lookupOwner( cache: Bool = true, callback: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void ) {
@@ -101,7 +99,16 @@ public struct EthrDID {
     private func signAndSendContractCall( owner: String, encodedCall: String, callback: (_ transactionHash: String?, _ error: Error ) -> Void ) {
         let noncePromise = self.rpc.transactionCount( address: owner )
         let gasPricePromise = self.rpc.gasPrice()
-        all( noncePromise, gasPricePromise ).then { nonce, gasPrice in
+        all( noncePromise, gasPricePromise ).then { nonce, networkGasPrice in
+            let unsignedTx = Transaction.defaultTransaction( from: EthAddress(input: owner),
+                                                             gasLimit: BigInt( integerLiteral: 70000),
+                                                             gasPrice: networkGasPrice,
+                                                             input: Array(hex: encodedCall),
+                                                             nonce: nonce,
+                                                             to: EthAddress(input: self.registry),
+                                                             value: BigInt( integerLiteral: 0 ) )
+//            let signedEncodedTx =
+            
 
         }
     }

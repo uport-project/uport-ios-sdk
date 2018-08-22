@@ -114,6 +114,7 @@ public struct JsonRPC {
 
                 guard let transactionCountBigIntUnwrapped = transactionCountBigInt else {
                     reject(JsonRpcError.missingPayload)
+                    return
                 }
 
                 fulfill(transactionCountBigIntUnwrapped)
@@ -191,6 +192,7 @@ public struct JsonRPC {
 
                 guard let transactionCountBigIntUnwrapped = transactionCountBigInt else {
                     reject(JsonRpcError.missingPayload)
+                    return
                 }
 
                 fulfill(transactionCountBigIntUnwrapped)
