@@ -84,8 +84,8 @@ public struct EthrDID {
             let newOwnerAddressOptional = try? Solidity.Address( bigUInt: newOwnerAddressBigUInt )
             guard let ownerAddressSolidity = ownerAddressOptional,
                     let newOwnerAddressSolidity = newOwnerAddressOptional else {
-                        callback( nil, EthrDIDError.invalidAddress )
-                        return
+                callback( nil, EthrDIDError.invalidAddress )
+                return
             }
             
             let encodedCall = EthereumDIDRegistry.ChangeOwner.encodeCall(arguments: (identity: ownerAddressSolidity, newOwner: newOwnerAddressSolidity))

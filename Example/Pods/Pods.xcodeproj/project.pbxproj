@@ -21,6 +21,7 @@
 		0404337AAA568FF1706B870400E8453C /* rsa_saos.c in Sources */ = {isa = PBXBuildFile; fileRef = D0E34D4CB8447EAFDD136F6ECA2AC5EC /* rsa_saos.c */; };
 		04056851010D25CFD03211572FEAEF64 /* Primitive Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10636FA8447EA5BD153304758A7AE19 /* Primitive Types.swift */; };
 		041461B3FFB09D6C31B9DA8323B7A7BE /* BTCKey.h in Headers */ = {isa = PBXBuildFile; fileRef = FA422D84BB93B69CA655DE1FC01E8794 /* BTCKey.h */; };
+		041F4148212F057200518EE9 /* DDO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041F4147212F057200518EE9 /* DDO.swift */; };
 		04589FF9AC753A94944FBF5555D7BE28 /* x509_ext.c in Sources */ = {isa = PBXBuildFile; fileRef = DB7068B544F1A164B8DD753D8BBF9EE2 /* x509_ext.c */; };
 		0460ED53C92CE5D6134B279F7FA9043A /* ctr128.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F76CBD2291CB1DDF40F5545FDE57E63 /* ctr128.c */; };
 		0475D97A212C64D700042086 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0475D979212C64D700042086 /* Transaction.swift */; };
@@ -1609,6 +1610,7 @@
 		03D2B119C86C591C748630AA58769708 /* UPTProtectionLevel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UPTProtectionLevel.h; path = UPTEthereumSigner/Classes/UPTProtectionLevel.h; sourceTree = "<group>"; };
 		03E6DD9AA58E39FBDC8B057EE6CF2CA5 /* bn_dh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = bn_dh.h; path = openssl/include/internal/bn_dh.h; sourceTree = "<group>"; };
 		0406D941C2C97E4A9EB66C9CE98F56CC /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = Sources/CryptoSwift/Padding.swift; sourceTree = "<group>"; };
+		041F4147212F057200518EE9 /* DDO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDO.swift; sourceTree = "<group>"; };
 		04205CD3EDBDC0AC50F884B266C1FDD4 /* safestack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = safestack.h; path = openssl/include/openssl/safestack.h; sourceTree = "<group>"; };
 		044451071C83F8A053994DA63E43EB00 /* ui_openssl.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ui_openssl.c; path = openssl/src/crypto/ui/ui_openssl.c; sourceTree = "<group>"; };
 		04601F7CB1A231B033A3A76FE87094DE /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3677,6 +3679,7 @@
 			children = (
 				D922B9EC63B70ABB1D033ED1A11BCA87 /* EthrDID.swift */,
 				D8EA56B84355B8CE1C4FDFFFB6EF263B /* EthrDIDResolver.swift */,
+				041F4147212F057200518EE9 /* DDO.swift */,
 			);
 			name = EthrDID;
 			path = uPortSDK/Classes/EthrDID;
@@ -5037,6 +5040,7 @@
 				116322470DE66C6E8623D838C78A7BFD /* EthrDID.swift in Sources */,
 				6F560A6B7CA949ADEC7FBBC57059A1E1 /* EthrDIDResolver.swift in Sources */,
 				2A9903311CCD70B4AF68D7F17800DF50 /* Function.swift in Sources */,
+				041F4148212F057200518EE9 /* DDO.swift in Sources */,
 				4DBA54CD3D6839AF60BFCD85FEFE90EE /* HTTPClient.swift in Sources */,
 				2363C8D3EF3634D0729D3136BC01AA2A /* IntX-Generated.swift in Sources */,
 				C18AD730C7215F08AA8E9CDAA25C2D9D /* IntX.swift in Sources */,
