@@ -11,6 +11,7 @@
 		03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */; };
 		03B3EFD2207BEDA2005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
 		03B3EFD3207BEDD1005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
+		043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */; };
 		05C09E30D22FB7C75F092B32 /* Pods_uPortSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBaseXTests.swift; sourceTree = "<group>"; };
 		03B3EFD1207BEDA2005697E0 /* valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; };
+		043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthrDIDResolverTests.swift; sourceTree = "<group>"; };
 		2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* uPortSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uPortSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
+				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */,
+				043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */,
 				03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
