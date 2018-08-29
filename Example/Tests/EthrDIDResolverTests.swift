@@ -30,8 +30,6 @@ class EthrDIDResolverTests: QuickSpec {
                     "B9C5714089478a327F09197987f16f9E5d936E"
                 ]
                 
-//                let mockJsonRPC = JsonRPC()
-//                let mockResolver = EthrDIDResolver( rpc: mockJsonRPC)
                 for validDid in validDids {
                     let normalizedDid = NormalizedDID( didCandidate: validDid )
                     expect( !normalizedDid.value.isEmpty ).to( beTrue() )
@@ -40,7 +38,6 @@ class EthrDIDResolverTests: QuickSpec {
                 
                 for invalidDid in invalidDids {
                     let normalizedDid = NormalizedDID( didCandidate: invalidDid )
-                    print( "normalizeddid is " + normalizedDid.value )
                     expect( normalizedDid.value.isEmpty ).to( beTrue() )
                 }
             }
