@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import BigInt
 
 public struct JsonRpcBaseRequest {
-    var params = [Any]()
+    var params = [Any?]()
     var methodName: String = "eth_call"
     var version: String = "latest"
     var id: Int = 1
@@ -27,7 +28,7 @@ public struct JsonRpcBaseRequest {
         self.methodName = method
     }
 
-    public init( methodName: String = "eth_call", params: [Any] = [Any]() ) {
+    public init( methodName: String = "eth_call", params: [Any?] = [Any?]() ) {
         self.params = params
         self.methodName = methodName
     }
@@ -72,6 +73,41 @@ public struct JsonRpcBaseResponse {
         jsonRpcResponse.result = object[ "result" ]
         return jsonRpcResponse
     }
+}
 
-
+public struct JsonRpcLogItem {
+    public var address: String?
+    public var topics: [String?]?
+    public var data: String?
+    public var blockNumber: BigUInt?
+    public var transactionHash: String?
+    public var transactionIndex: BigUInt?
+    public var blockHash: String?
+    public var logIndex: BigUInt?
+    public var removed: Bool?
+    
+    public init( address: String, topics: [String?], data: String, blockNumber: BigUInt, transactionHash: String, transactionIndex: BigUInt, blockHash: String, logIndex: BigUInt, removed: Bool ) {
+        self.address = address
+        self.topics = topics
+        self.data = data
+        self.blockNumber = blockNumber
+        self.transactionHash = transactionHash
+        self.transactionIndex = transactionIndex
+        self.blockHash = blockHash
+        self.logIndex = logIndex
+        self.removed = removed
+    }
+    
+    public init( dictionary: [String: Any] ) {
+        self.address = dictionary[ "address" ] as? String
+        self.topics = dictionary[ "topics" ] as? [String?]
+        self.data = dictionary[ "data" ] as? String
+        self.blockNumber = (dictionary[ "blockNumber" ] as? String)?.hexToBigUInt()
+        self.transactionHash = dictionary[ "transactionHash" ] as? String
+        self.transactionIndex = (dictionary[ "transactionIndex" ] as? String)?.hexToBigUInt()
+        self.blockHash = dictionary[ "blockHash" ] as? String
+        self.logIndex = (dictionary[ "logIndex" ] as? String)?.hexToBigUInt()
+        self.removed = dictionary[ "removed" ] as? Bool
+    }
+    
 }

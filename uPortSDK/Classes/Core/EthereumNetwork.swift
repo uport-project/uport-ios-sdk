@@ -7,6 +7,13 @@
 
 import UIKit
 
+public enum EthereumNetworkId: String {
+    case mainnet = "0x01"
+    case ropsten = "0x03"
+    case kovan = "0x2a"
+    case rinkeby = "0x04"
+}
+
 public struct EthereumNetwork {
 
     var name: String = ""           //  ex: "kovan"
@@ -16,7 +23,7 @@ public struct EthereumNetwork {
     var explorerUrl: String = ""     //  ex: "https://kovan.etherscan.io"
     var faucetUrl: String = ""       //  ex: "https://sensui.uport.me/api/v1/fund/"
     var relayUrl: String = ""        //  ex: "https://sensui.uport.me/api/v2/relay/"
-
+    var txRelayAddress = ""
     
     public init?( network: String ) {
         guard let networkInfo = self.networks[ network ] else {
@@ -32,6 +39,10 @@ public struct EthereumNetwork {
         self.relayUrl = networkInfo[ "relayUrl" ]!
     }
     
+    public init?( ethNetworkId: EthereumNetworkId ) {
+        self.init(network: ethNetworkId.rawValue )
+    }
+    
     private lazy var networks: [String: [String: String]] = {
         return [
             "0x01": [
@@ -41,7 +52,8 @@ public struct EthereumNetwork {
                 "rpcUrl": "https://mainnet.infura.io/uport",
                 "explorerUrl": "https://etherscan.io",
                 "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
-                "relayUrl": "https://sensui.uport.me/api/v2/relay/"
+                "relayUrl": "https://sensui.uport.me/api/v2/relay/",
+                "txRelayAddress": "0xec2642cd5a47fd5cca2a8a280c3b5f88828aa578"
                 ],
             "0x03": [
                 "name": "ropsten",
@@ -50,7 +62,8 @@ public struct EthereumNetwork {
                 "rpcUrl": "https://ropsten.infura.io/uport",
                 "explorerUrl": "https://ropsten.io",
                 "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
-                "relayUrl": "https://sensui.uport.me/api/v2/relay/"
+                "relayUrl": "https://sensui.uport.me/api/v2/relay/",
+                "txRelayAddress": "0xa5e04cf2942868f5a66b9f7db790b8ab662039d5"
                 ],
             "0x2a": [
                 "name": "kovan",
@@ -59,16 +72,8 @@ public struct EthereumNetwork {
                 "rpcUrl": "https://kovan.infura.io/uport",
                 "explorerUrl": "https://kovan.etherscan.io",
                 "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
-                "relayUrl": "https://sensui.uport.me/api/v2/relay/"
-                ],
-"           0x16B2": [
-                "name": "infuranet",
-                "networkId": "0x16B2",
-                "registry": "",
-                "rpcUrl": "https://infuranet.infura.io/uport",
-                "explorerUrl": "https://explorer.infuranet.io",
-                "faucetUrl": "https://sensui.uport.me/api/v1/fund/",
-                "relayUrl": "https://sensui.uport.me/api/v2/relay/"
+                "relayUrl": "https://sensui.uport.me/api/v2/relay/",
+                "txRelayAddress": "0xa9235151d3afa7912e9091ab76a36cbabe219a0c"
                 ],
             "0x04": [
                 "name": "rinkeby",
@@ -77,7 +82,9 @@ public struct EthereumNetwork {
                 "rpcUrl": "https://rinkeby.infura.io/uport",
                 "explorerUrl": "https://rinkeby.etherscan.io",
                 "faucetUrl": "https://api.uport.me/sensui/fund/",
-                "relayUrl": "https://api.uport.me/sensui/fund/"
+                "relayUrl": "https://api.uport.me/sensui/fund/",
+                "txRelayAddress": "0xda8c6dce9e9a85e6f9df7b09b2354da44cb48331"
+
                 ]
         ]
     }()

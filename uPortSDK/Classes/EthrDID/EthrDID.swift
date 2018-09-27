@@ -32,6 +32,24 @@ public struct EthrDID {
         self.registry = registry
     }
     
+    public func lookupOwner( cache: Bool = true ) -> Promise<String> {
+        return Promise<String> { fulfill, reject in
+            self.lookupOwner(cache: cache, callback: { (ownerAddress, error) in
+                guard error == nil else {
+                    reject( error! )
+                    return
+                }
+                
+                guard let ownerAddressUnwrapped = ownerAddress else {
+                    reject( EthrDIDError.invalidAddress )
+                    return
+                }
+                
+                fulfill( ownerAddressUnwrapped )
+            })
+        }
+    }
+    
     public func lookupOwner( cache: Bool = true, callback: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void ) {
         if cache && self.owner != nil {
             callback( self.owner!, nil )

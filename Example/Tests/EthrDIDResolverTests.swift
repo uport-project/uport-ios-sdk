@@ -41,6 +41,27 @@ class EthrDIDResolverTests: QuickSpec {
                     expect( normalizedDid.value.isEmpty ).to( beTrue() )
                 }
             }
+            
+            it( "real address with activity has logs" ) {
+                let rpc = JsonRPC( rpcURL: Networks.shared.rinkeby.rpcUrl )
+                let realAddress = "0xf3beac30c498d9e26865f34fcaa57dbb935b0d74"
+                let resolver = EthrDIDResolver( rpc: rpc )
+                guard let lastChanged = try? resolver.lastChangedSynchronous(identity: realAddress).hexToBigUInt() else {
+                    print( "last change resolving issue" )
+                    return
+                }
+                
+                guard lastChanged != nil else {
+                    print( "last chaged was nil" )
+                    return
+                }
+
+                let topics = [nil, realAddress.hexToBytes32()]
+                let logResponse = try? rpc.getLogsSynchronous(address: resolver.registryAddress, topics:topics, fromBlock: lastChanged!, toBlock: lastChanged!)
+                expect( logResponse ).toNot( beNil() )
+                expect( logResponse ).toNot( beEmpty() )
+                
+            }
         }
     }
 }
