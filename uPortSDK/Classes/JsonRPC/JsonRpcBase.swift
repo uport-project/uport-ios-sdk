@@ -77,7 +77,7 @@ public struct JsonRpcBaseResponse {
 
 public struct JsonRpcLogItem {
     public var address: String?
-    public var topics: [String?]?
+    public var topics: [String]?
     public var data: String?
     public var blockNumber: BigUInt?
     public var transactionHash: String?
@@ -86,7 +86,7 @@ public struct JsonRpcLogItem {
     public var logIndex: BigUInt?
     public var removed: Bool?
     
-    public init( address: String, topics: [String?], data: String, blockNumber: BigUInt, transactionHash: String, transactionIndex: BigUInt, blockHash: String, logIndex: BigUInt, removed: Bool ) {
+    public init( address: String, topics: [String], data: String, blockNumber: BigUInt, transactionHash: String, transactionIndex: BigUInt, blockHash: String, logIndex: BigUInt, removed: Bool ) {
         self.address = address
         self.topics = topics
         self.data = data
@@ -100,7 +100,7 @@ public struct JsonRpcLogItem {
     
     public init( dictionary: [String: Any] ) {
         self.address = dictionary[ "address" ] as? String
-        self.topics = dictionary[ "topics" ] as? [String?]
+        self.topics = dictionary[ "topics" ] as? [String]
         self.data = dictionary[ "data" ] as? String
         self.blockNumber = (dictionary[ "blockNumber" ] as? String)?.hexToBigUInt()
         self.transactionHash = dictionary[ "transactionHash" ] as? String

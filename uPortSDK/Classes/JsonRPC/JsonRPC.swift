@@ -49,18 +49,16 @@ public struct JsonRPC {
     
     public func ethCall( address: String, data: String ) -> Promise<String?> {
         return Promise<String?> { fulfill, reject in
-            self.ethCall(address: address, data: data, callback: { (response, error) in
-                guard error == nil else {
-                    reject( error! )
-                    return
-                }
-                
+            do {
+                let response = try self.ethCallSynchronous(address: address, data: data)
                 fulfill( response )
-            })
+            } catch {
+                reject( error )
+            }
         }
     }
 
-    public func ethCallSynchronous( address: String, data: String ) throws -> String? {
+    public func ethCallSynchronous( address: String, data: String ) throws -> String {
         guard let rpcURL = self.rpcURL else {
             throw JsonRpcError.invalidRpcUrl
         }
@@ -70,9 +68,13 @@ public struct JsonRPC {
             throw JsonRpcError.jsonConversionIssue
         }
         
-        let (response, error) = HTTPClient.synchronousPostRequest(url: rpcURL, jsonBody: params)
-        guard error == nil else {
-            throw error!
+        let (responseOptional, errorOptional) = HTTPClient.synchronousPostRequest(url: rpcURL, jsonBody: params)
+        guard errorOptional == nil else {
+            throw errorOptional!
+        }
+        
+        guard let response = responseOptional else {
+            throw JsonRpcError.missingPayload
         }
         
         return response
@@ -237,10 +239,10 @@ public struct JsonRPC {
     }
     
     public func getLogsSynchronous(address: String, topics: [Any?] = [Any?](), fromBlock: BigUInt, toBlock: BigUInt ) throws -> [JsonRpcLogItem] {
-        let params: [Any?] = [["fromBlock": fromBlock.hexStringWithoutPrefix().withHexPrefix(),
-                               "toBlock": toBlock.hexStringWithoutPrefix().withHexPrefix(),
+        let params: [Any?] = [["fromBlock": fromBlock.hexStringWithoutPrefix().withHexPrefix,
+                               "toBlock": toBlock.hexStringWithoutPrefix().withHexPrefix,
                                "address": address,
-                               "topics": topics]]
+                                "topics": topics]]
         
         let jsonRpcRequest = JsonRpcBaseRequest(methodName: "eth_getLogs", params: params)
         guard let payloadRequest = jsonRpcRequest.toJsonRPC() else {
@@ -282,8 +284,8 @@ public struct JsonRPC {
     
     public func getLogs( address: String, topics: [Any?] = [Any?](), fromBlock: BigUInt, toBlock: BigUInt ) -> Promise<[JsonRpcLogItem]> {
         return Promise<[JsonRpcLogItem]> { fulfill, reject in
-            let params: [Any?] = [["fromBlock": fromBlock.hexStringWithoutPrefix().withHexPrefix(),
-                                           "toBlock": toBlock.hexStringWithoutPrefix().withHexPrefix(),
+            let params: [Any?] = [["fromBlock": fromBlock.hexStringWithoutPrefix().withHexPrefix,
+                                           "toBlock": toBlock.hexStringWithoutPrefix().withHexPrefix,
                                             "address": address,
                                             "topics": topics]]
             

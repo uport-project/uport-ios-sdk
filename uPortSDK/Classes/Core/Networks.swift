@@ -39,6 +39,6 @@ public struct Networks {
     }
     
     private func cleanId(_ id: String ) -> String {
-        return id.withoutHexPrefix.pad( toMultipleOf: 2, character: "0", location: .left).withHexPrefix()
+        return id.withoutHexPrefix.pad( toMultipleOf: 2, character: "0", location: .left).withHexPrefix
     }
 }

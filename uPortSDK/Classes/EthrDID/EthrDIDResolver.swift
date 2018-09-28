@@ -16,6 +16,9 @@ public enum EthrDIDResolverError: Error {
 
 public struct EthrDIDResolver {
     public static let DEFAULT_REGISTERY_ADDRESS = "0xdca7ef03e98e0dc2b855be647c39abe984fcf21b"
+    internal let veriKey = "veriKey"
+    internal let sigAuth = "sigAuth"
+    
     
     var registryAddress = DEFAULT_REGISTERY_ADDRESS
     var rpc : JsonRPC
@@ -36,18 +39,24 @@ public struct EthrDIDResolver {
             let identity = self.parseIdentity( normalizedDid: normalizedDidObject.value )
             let ethrDidContract = EthrDID(address: identity, rpc: self.rpc, registry: self.registryAddress )
             let history = self.getHistory(identity: identity)
-            let promises = ethrDidContract.lookupOwner( cache: false )
-            promises.then { owner in
-                let ddo = self.wrapDidDocument( normalizedDid: normalizedDidObject.value, owner: owner, history: history )
-                fulfill( ddo )
+            var owner: String
+            do {
+                owner = try ethrDidContract.lookupOwnerSynchronous( cache: false )
+            } catch {
+                reject( error )
+                return
             }
+            
+            let ddo = self.wrapDidDocument( normalizedDid: normalizedDidObject.value, owner: owner, history: history )
+            fulfill( ddo )
+        
         }
     }
     
     func getHistory( identity: String ) -> [Any] {
         var lastChangedQueue = [BigUInt]()
         var events = [Any]()
-        var lastChanged = try?  self.lastChangedSynchronous(identity: identity)
+        let lastChanged = try? self.lastChangedSynchronous(identity: identity)
         var lastChangedBigInt: BigUInt?
         let zeroBigInt = BigUInt(integerLiteral: 0)
         guard let lastChangedBigIntUnwrapped = lastChanged?.hexToBigUInt() else {
@@ -65,19 +74,103 @@ public struct EthrDIDResolver {
                 continue
             }
             
-//            for log in logs {
-//                let topics = log.topics
-//                let data = log.data
-//
-//                EthereumDIDRegistry.Changed
-//
-//            }
-        } while lastChangedBigInt != nil && lastChangedBigInt != zeroBigInt
+            for log in logs {
+                guard let topics = log.topics, let data = log.data else {
+                    continue
+                }
+                
+                do {
+                    let event = try EthereumDIDRegistry.Events.DIDOwnerChanged.decode(topics: topics, data: data)
+                    lastChangedQueue.append(event.previouschange.value)
+                    events.append(event)
+                } catch {  /* nop */}
+                
+                do {
+                    let event = try EthereumDIDRegistry.Events.DIDAttributeChanged.decode(topics: topics, data: data)
+                    lastChangedQueue.append(event.previouschange.value)
+                    events.append(event)
+                } catch {  /* nop */}
+                
+                do {
+                    let event = try EthereumDIDRegistry.Events.DIDDelegateChanged.decode(topics: topics, data: data)
+                    lastChangedQueue.append(event.previouschange.value)
+                    events.append(event)
+                } catch {  /* nop */}
+                
+                lastChangedQueue.sort { return $1 < $0 }
+                
+            }
+        } while lastChangedBigInt != nil && lastChangedBigInt!.hexStringWithoutPrefix() != zeroBigInt.hexStringWithoutPrefix()
         
         return events
     }
     
     func wrapDidDocument( normalizedDid: String, owner: String, history: [Any] ) -> DDO {
+        let now = Int64( Date().timeIntervalSince1970 / 1000 )
+        
+        let owner = PublicKeyEntry(id: "\(normalizedDid)#owner", type: .Secp256k1VerificationKey2018, owner: normalizedDid, ethereumAddress: owner)
+        var pkEntries = ["owner": owner]
+        
+        let authenticationEntry = AuthenticationEntry(type: .Secp256k1SignatureAuthentication2018, publicKey: "\(normalizedDid)#owner")
+        var authEntries = ["owner": authenticationEntry]
+        
+        var serviceEntries = [String: ServiceEntry]()
+        var delegateCount = 0
+        
+        for baseEvent in history {
+            if baseEvent is EthereumDIDRegistry.Events.DIDDelegateChanged.Arguments {
+                let event = baseEvent as! EthereumDIDRegistry.Events.DIDDelegateChanged.Arguments
+                let delegateTypeOptional = String( data: event.delegatetype.value, encoding: .utf8 )
+                let delegate = event.delegate.encodeUnpadded().withoutHexPrefix.withHexPrefix
+                let key = "DIDDelegateChanged-\(delegateTypeOptional ?? "<unknown-delegatetype>")-\(delegate)"
+                let validTo = Int64( event.validto.value )
+                
+                if now <= validTo {
+                    delegateCount += 1
+                    
+                    guard let delegateType = delegateTypeOptional else {
+                        print( "invalid delegate type" )
+                        continue
+                    }
+                    
+                    switch delegateType {
+                    case DelegateType.Secp256k1SignatureAuthentication2018.rawValue, self.sigAuth:
+                        authEntries[ key ] = AuthenticationEntry(type: .Secp256k1SignatureAuthentication2018, publicKey: "\(normalizedDid)#delegate-\(delegateCount)")
+                    case DelegateType.Secp256k1VerificationKey2018.rawValue, self.veriKey:
+                        pkEntries[ key ] = PublicKeyEntry(id: "\(normalizedDid)#delegate-\(delegateCount)", type: .Secp256k1VerificationKey2018, owner: normalizedDid, ethereumAddress: delegate)
+                    default:
+                        print( "unknown delegateType -> \(delegateType)")
+                    }
+                }
+            }
+            
+            if baseEvent is EthereumDIDRegistry.Events.DIDAttributeChanged.Arguments {
+                let event = baseEvent as! EthereumDIDRegistry.Events.DIDAttributeChanged.Arguments
+                let validTo = Int64( event.validto.value )
+                if now <= validTo {
+                    let nameOptional = String( data: event.name.value, encoding: .utf8 )
+                    
+                    guard let name = nameOptional else {
+                        print( "invalid DIDAttributeChanged event name" )
+                        continue
+                    }
+                    
+                    let key = "DIDAttributeChanged-\(name)-\(event.value.value.hexEncodedString())"
+                    let regex = try? NSRegularExpression( pattern: "^did/(pub|auth|svc)/(\\w+)(/(\\w+))?(/(\\w+))?$", options: .caseInsensitive )
+                    let matchResult = regex?.matches(in: name, options: [], range: NSRange(location: 0, length: name.count))
+                    guard let textCheckingResult = matchResult?.first else {
+                        continue
+                    }
+                    
+                    var matches
+
+                }
+
+            }
+            
+            
+        }
+        
         return DDO(id: "TODO: implement")
     }
     

@@ -79,10 +79,7 @@ public struct ServiceEntry {
 }
 
 
-
-
-
-public enum DelegateType {
+public enum DelegateType: String {
     case Secp256k1VerificationKey2018
     case Secp256k1SignatureAuthentication2018
     case Ed25519VerificationKey2018

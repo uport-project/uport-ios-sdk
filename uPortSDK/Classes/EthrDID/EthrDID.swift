@@ -34,55 +34,53 @@ public struct EthrDID {
     
     public func lookupOwner( cache: Bool = true ) -> Promise<String> {
         return Promise<String> { fulfill, reject in
-            self.lookupOwner(cache: cache, callback: { (ownerAddress, error) in
-                guard error == nil else {
-                    reject( error! )
-                    return
+            DispatchQueue.global().async {
+                DispatchQueue.global().async {
+                    do {
+                        let response = try self.lookupOwnerSynchronous( cache: cache )
+                        fulfill( response )
+                    } catch {
+                        reject( error )
+                    }
                 }
-                
-                guard let ownerAddressUnwrapped = ownerAddress else {
-                    reject( EthrDIDError.invalidAddress )
-                    return
-                }
-                
-                fulfill( ownerAddressUnwrapped )
-            })
+            }
         }
     }
     
     public func lookupOwner( cache: Bool = true, callback: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void ) {
+        DispatchQueue.global().async {
+            do {
+                let response = try self.lookupOwnerSynchronous( cache: cache )
+                callback( response, nil )
+            } catch {
+                callback( nil, error )
+            }
+        }
+    }
+    
+    public func lookupOwnerSynchronous( cache: Bool = true ) throws -> String {
         if cache && self.owner != nil {
-            callback( self.owner!, nil )
-            return
+            return self.owner!
         }
         
         guard let addressBigUInt = BigUInt( self.address.withoutHexPrefix, radix: 16 ) else {
-            callback( nil, EthrDIDError.invalidAddress )
-            return
+            throw EthrDIDError.invalidAddress
         }
         
         let solidityAddressOptional = try? Solidity.Address(bigUInt:addressBigUInt)
         guard let solidityAddress = solidityAddressOptional else {
-            callback( nil, EthrDIDError.invalidAddress )
-            return
+            throw EthrDIDError.invalidAddress
         }
         
         let encodedCall = EthereumDIDRegistry.IdentityOwner.encodeCall(arguments:solidityAddress)
-        rpc.ethCall(address: self.registry, data: encodedCall) { response, error in
-            guard error == nil, let response = response else {
-                callback( nil, error )
-                return
-            }
-            
-            guard let rawResult = JsonRpcBaseResponse.fromJson(json: response).result as? String else {
-                callback( nil, JsonRpcError.invalidResult)
-                return
-            }
-
-            let addressStartIndex = rawResult.index(rawResult.endIndex, offsetBy: -40)
-            let address = rawResult[ addressStartIndex...rawResult.endIndex ]
-            callback( "0x\(address)", nil )
+        let response = try rpc.ethCallSynchronous(address: self.registry, data: encodedCall)
+        guard let rawResult = JsonRpcBaseResponse.fromJson(json: response).result as? String else {
+            throw JsonRpcError.invalidResult
         }
+        
+        let addressStartIndex = rawResult.index(rawResult.endIndex, offsetBy: -40)
+        let address = String( rawResult[ addressStartIndex...rawResult.endIndex ] )
+        return address.withHexPrefix
     }
     
     func changeOwner( newOwner: String, callback: @escaping ( _ transactionHash: String?, _ error: Error? ) -> Void ) {
