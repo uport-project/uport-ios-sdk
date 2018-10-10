@@ -299,7 +299,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEthereum/CoreEthereum.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
@@ -326,7 +326,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1F5611C3EFE970933CFE4B09 /* [CP] Check Pods Manifest.lock */ = {
@@ -353,7 +353,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-uPortSDK_Tests/Pods-uPortSDK_Tests-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-uPortSDK_Tests/Pods-uPortSDK_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
@@ -364,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-uPortSDK_Tests/Pods-uPortSDK_Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-uPortSDK_Tests/Pods-uPortSDK_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EF19B93E9BD3EA6BAF7365DD /* [CP] Check Pods Manifest.lock */ = {

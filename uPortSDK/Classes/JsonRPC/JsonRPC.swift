@@ -267,8 +267,12 @@ public struct JsonRPC {
             throw parsedResponse.error!
         }
         
-        let result = parsedResponse.result
+        var result = parsedResponse.result
         print( "json rpcbaseresponse result -> \(result)" )
+        if result == nil {
+            result = [[String: Any]]()
+        }
+        
         guard let jsonRpcLogItemDictionaries = result as? [[String: Any]] else {
             print( "invalid server resonse" )
             throw JsonRpcError.invalidResult

@@ -68,10 +68,14 @@ public struct EthrDIDResolver {
         lastChangedQueue.append( lastChangedBigInt! )
         repeat {
             lastChangedBigInt = lastChangedQueue.popLast()
-            let topics = [nil, identity.hexToBytes32().withoutHexPrefix]
+            if lastChangedBigInt == nil {
+                continue
+            }
+            
+            let topics = [nil, identity.hexToBytes32()]
             var logs: [JsonRpcLogItem]?
             do {
-                logs = try self.rpc.getLogsSynchronous(address: self.registryAddress, topics: topics, fromBlock: lastChangedBigInt!, toBlock: lastChangedBigInt!)                
+                logs = try self.rpc.getLogsSynchronous(address: self.registryAddress, topics: topics, fromBlock: lastChangedBigInt!, toBlock: lastChangedBigInt!)
             } catch {
                 print( "error fetching logs -> \(error)" )
                 continue

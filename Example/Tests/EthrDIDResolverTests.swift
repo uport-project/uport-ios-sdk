@@ -142,6 +142,7 @@ class EthrDIDResolverTests: QuickSpec {
                     let textCheckingResult = textCheckingResults?.first
                     expect( textCheckingResult ).toNot( beNil() )
                     var matches = [String]()
+                    print( "num of ranges \(textCheckingResult!.numberOfRanges)" )
                     for index in 1..<textCheckingResult!.numberOfRanges {
                         let range = Range(textCheckingResult!.range(at: index), in: attributeRegex )
                         if range != nil {
