@@ -68,16 +68,25 @@ public struct EthrDIDResolver {
         lastChangedQueue.append( lastChangedBigInt! )
         repeat {
             lastChangedBigInt = lastChangedQueue.popLast()
-            let topics = [nil, identity.hexToBytes32()]
-            guard let logs = try? self.rpc.getLogsSynchronous(address: self.registryAddress, topics: topics, fromBlock: lastChangedBigInt!, toBlock: lastChangedBigInt!) else {
-                print( "error fetching logs" )
+            let topics = [nil, identity.hexToBytes32().withoutHexPrefix]
+            var logs: [JsonRpcLogItem]?
+            do {
+                logs = try self.rpc.getLogsSynchronous(address: self.registryAddress, topics: topics, fromBlock: lastChangedBigInt!, toBlock: lastChangedBigInt!)                
+            } catch {
+                print( "error fetching logs -> \(error)" )
                 continue
             }
             
-            for log in logs {
-                guard let topics = log.topics, let data = log.data else {
+            for log in logs! {
+                guard let topicsHexPrefixed = log.topics, let dataHexPrefixed = log.data else {
                     continue
                 }
+                
+                let topics = topicsHexPrefixed.map({ (topic) -> String in
+                    return topic.withoutHexPrefix
+                })
+                
+                let data = dataHexPrefixed.withoutHexPrefix
                 
                 do {
                     let event = try EthereumDIDRegistry.Events.DIDOwnerChanged.decode(topics: topics, data: data)
@@ -162,7 +171,7 @@ public struct EthrDIDResolver {
                         continue
                     }
                     
-                    var matches
+//                    var matches = 
 
                 }
 
@@ -214,7 +223,7 @@ public struct EthrDIDResolver {
             throw EthrDIDResolverError.invalidRPCResponse
         }
         
-        let parsedResponse = JsonRpcBaseResponse.fromJson(json: responseUnwrapped ?? "")
+        let parsedResponse = JsonRpcBaseResponse.fromJson(json: responseUnwrapped)
         guard parsedResponse.error == nil || parsedResponse.result != nil else {
             throw EthrDIDResolverError.invalidRPCResponse
         }
