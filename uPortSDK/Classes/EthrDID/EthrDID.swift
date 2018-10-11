@@ -77,9 +77,8 @@ public struct EthrDID {
         guard let rawResult = JsonRpcBaseResponse.fromJson(json: response).result as? String else {
             throw JsonRpcError.invalidResult
         }
-        
-        let addressStartIndex = rawResult.index(rawResult.endIndex, offsetBy: -40)
-        let address = String( rawResult[ addressStartIndex...rawResult.endIndex ] )
+        let addressStartIndex = String.Index( encodedOffset: rawResult.count - 40 - 1)
+        let address = String( rawResult[ addressStartIndex..<rawResult.endIndex ] )
         return address.withHexPrefix
     }
     

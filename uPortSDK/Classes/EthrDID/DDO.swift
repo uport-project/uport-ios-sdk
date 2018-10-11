@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DDO {
+public struct DDO: Equatable {
 
     var id: String
     var publicKey = [PublicKeyEntry]()
@@ -26,10 +26,37 @@ public struct DDO {
         self.service = service
         self.context = context
     }
+    
+    public static func == (lhs: DDO, rhs: DDO) -> Bool {
+        var areAuthenticationsEqual = true
+        for lhsAuthentication in lhs.authentication {
+            let isInBoth = rhs.authentication.contains { (authEntry) -> Bool in
+                return authEntry == lhsAuthentication
+            }
+            
+            if !isInBoth {
+                areAuthenticationsEqual = false
+                break
+            }
+        }
+        
+        var areServiceEntryEqual = true
+        for lhsService in lhs.service {
+            let isInBoth = rhs.service.contains { (rhsService) -> Bool in
+                return lhsService == rhsService
+            }
+            
+            if !isInBoth {
+                areServiceEntryEqual = false
+            }
+        }
+        
+        return lhs.id == rhs.id && lhs.context == rhs.context && areAuthenticationsEqual && areServiceEntryEqual
+    }
 }
 
 
-public struct PublicKeyEntry {
+public struct PublicKeyEntry: Equatable {
     var id: String
     var type: DelegateType
     var owner: String
@@ -56,6 +83,10 @@ public struct PublicKeyEntry {
         self.publicKeyBase58 = publicKeyBase58
         self.value = value
     }
+    
+    public static func == (lhs: PublicKeyEntry, rhs: PublicKeyEntry) -> Bool {
+        return lhs.id == rhs.id && lhs.type == rhs.type && lhs.owner == rhs.owner
+    }
 }
 
 public struct AuthenticationEntry {
@@ -66,6 +97,10 @@ public struct AuthenticationEntry {
         self.type = type
         self.publicKey = publicKey
     }
+    
+    public static func == (lhs: AuthenticationEntry, rhs: AuthenticationEntry) -> Bool {
+        return lhs.type == rhs.type && lhs.publicKey == rhs.publicKey
+    }
 }
 
 public struct ServiceEntry {
@@ -75,6 +110,10 @@ public struct ServiceEntry {
     public init( type: String, serviceEndpoint: String ) {
         self.type = type
         self.serviceEndpoint = serviceEndpoint
+    }
+    
+    public static func == (lhs: ServiceEntry, rhs: ServiceEntry) -> Bool {
+        return lhs.type == rhs.type && lhs.serviceEndpoint == rhs.serviceEndpoint
     }
 }
 

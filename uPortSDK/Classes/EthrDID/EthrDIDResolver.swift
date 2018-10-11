@@ -12,13 +12,16 @@ import BigInt
 public enum EthrDIDResolverError: Error {
     case invalidIdentity
     case invalidRPCResponse
+    case invalidRegexResult
+    case invalidDelegateType
+    case invalidServiceEndpoint
 }
 
 public struct EthrDIDResolver {
     public static let DEFAULT_REGISTERY_ADDRESS = "0xdca7ef03e98e0dc2b855be647c39abe984fcf21b"
-    internal let veriKey = "veriKey"
-    internal let sigAuth = "sigAuth"
-    
+    let veriKey = "veriKey"
+    let sigAuth = "sigAuth"
+    let attrTypes = [ "sigAuth": "SignatureAuthentication2018", "veriKey": "VerificationKey2018" ]
     
     var registryAddress = DEFAULT_REGISTERY_ADDRESS
     var rpc : JsonRPC
@@ -28,29 +31,30 @@ public struct EthrDIDResolver {
         self.registryAddress = registryAddress
     }
 
-    func resolve( did: String ) -> Promise<DDO> {
-        return Promise<DDO> { fulfill, reject in
-            let normalizedDidObject = NormalizedDID( didCandidate: did  )
-            guard normalizedDidObject.error == nil else {
-                reject( normalizedDidObject.error! )
-                return
-            }
-            
-            let identity = self.parseIdentity( normalizedDid: normalizedDidObject.value )
-            let ethrDidContract = EthrDID(address: identity, rpc: self.rpc, registry: self.registryAddress )
-            let history = self.getHistory(identity: identity)
-            var owner: String
-            do {
-                owner = try ethrDidContract.lookupOwnerSynchronous( cache: false )
-            } catch {
-                reject( error )
-                return
-            }
-            
-            let ddo = self.wrapDidDocument( normalizedDid: normalizedDidObject.value, owner: owner, history: history )
-            fulfill( ddo )
-        
+    public func resolve( did: String ) throws -> DDO {
+        let normalizedDidObject = NormalizedDID( didCandidate: did  )
+        guard normalizedDidObject.error == nil else {
+            throw normalizedDidObject.error!
         }
+        
+        let identity = self.parseIdentity( normalizedDid: normalizedDidObject.value )
+        let ethrDidContract = EthrDID(address: identity, rpc: self.rpc, registry: self.registryAddress )
+        let history = self.getHistory(identity: identity)
+        var owner: String
+        do {
+            owner = try ethrDidContract.lookupOwnerSynchronous( cache: false )
+        } catch {
+            throw error
+        }
+        
+        var ddo: DDO?
+        do {
+            ddo = try self.wrapDidDocument( normalizedDid: normalizedDidObject.value, owner: owner, history: history )
+        } catch {
+            throw error
+        }
+    
+        return ddo!
     }
     
     func getHistory( identity: String ) -> [Any] {
@@ -118,7 +122,7 @@ public struct EthrDIDResolver {
         return events
     }
     
-    func wrapDidDocument( normalizedDid: String, owner: String, history: [Any] ) -> DDO {
+    func wrapDidDocument( normalizedDid: String, owner: String, history: [Any] ) throws -> DDO {
         let now = Int64( Date().timeIntervalSince1970 / 1000 )
         
         let owner = PublicKeyEntry(id: "\(normalizedDid)#owner", type: .Secp256k1VerificationKey2018, owner: normalizedDid, ethereumAddress: owner)
@@ -169,14 +173,35 @@ public struct EthrDIDResolver {
                     }
                     
                     let key = "DIDAttributeChanged-\(name)-\(event.value.value.hexEncodedString())"
-                    let regex = try? NSRegularExpression( pattern: "^did/(pub|auth|svc)/(\\w+)(/(\\w+))?(/(\\w+))?$", options: .caseInsensitive )
-                    let matchResult = regex?.matches(in: name, options: [], range: NSRange(location: 0, length: name.count))
-                    guard let textCheckingResult = matchResult?.first else {
-                        continue
+                    let ( section, algorithm, rawType, encoding ) = try self.destructuredAttributeChanged(eventName: name)
+                    let type = try self.parseType( algorithm: algorithm, rawType: rawType )
+                    switch section {
+                    case "pub":
+                        delegateCount += 1
+                        let publicKeyOwner = "\(normalizedDid)#delegate-\(delegateCount)"
+                        var pk = PublicKeyEntry(id: publicKeyOwner, type: type, owner: normalizedDid)
+                        switch encoding {
+                        case "", "null", "hex":
+                            pk.publicKeyHex = event.value.value.toHexString()
+                        case "base64":
+                            pk.publicKeyBase64 = event.value.value.base64EncodedString()
+                        case "base58":
+                            pk.publicKeyBase58 = event.value.value.base58EncodedString()
+                        default:
+                            pk.value = event.value.value.toHexString()
+                        }
+                        
+                        pkEntries[ key ] = pk
+                        
+                    case "svc":
+                        guard let serviceEndpoint = String( data: event.value.value, encoding: .utf8 ) else {
+                            throw EthrDIDResolverError.invalidServiceEndpoint
+                        }
+                        
+                        serviceEntries[ key ] = ServiceEntry( type: algorithm, serviceEndpoint: serviceEndpoint )
+                    default:
+                        break
                     }
-                    
-//                    var matches = 
-
                 }
 
             }
@@ -184,8 +209,47 @@ public struct EthrDIDResolver {
             
         }
         
-        return DDO(id: "TODO: implement")
+        return DDO(id: normalizedDid, publicKey: Array(pkEntries.values), authentication: Array(authEntries.values), service: Array(serviceEntries.values) )
     }
+    
+    func destructuredAttributeChanged( eventName: String ) throws -> ( section : String, algorithm: String, rawType: String?, encoding: String? ) {
+        let regex = try? NSRegularExpression( pattern: "^did/(pub|auth|svc)/(\\w+)(/(\\w+))?(/(\\w+))?$", options: .caseInsensitive )
+        let textCheckingResults = regex?.matches(in: eventName, options: [], range: NSRange(location: 0, length: eventName.count))
+        guard let textCheckingResult = textCheckingResults?.first else {
+            throw EthrDIDResolverError.invalidRegexResult
+        }
+        
+        var section: String?
+        if let sectionRange = Range(textCheckingResult.range(at: 1), in: eventName ) {
+            let sectionSlice = eventName[ sectionRange ]
+            section = String( sectionSlice )
+        }
+        
+        var algorithm: String?
+        if let algorithmRange = Range(textCheckingResult.range(at: 2), in: eventName ) {
+            let algorithmSlice = eventName[ algorithmRange ]
+            algorithm = String( algorithmSlice )
+        }
+        
+        var rawType: String?
+        if let rawTypeRange = Range(textCheckingResult.range(at: 4), in: eventName ) {
+            let rawTypeSlice = eventName[ rawTypeRange ]
+            rawType = String( rawTypeSlice )
+        }
+        
+        var encoding: String?
+        if let encodingRange = Range(textCheckingResult.range(at: 6), in: eventName ) {
+            let encodingSlice = eventName[ encodingRange ]
+            encoding = String( encodingSlice )
+        }
+        
+        guard section != nil && algorithm != nil else {
+            throw EthrDIDResolverError.invalidRegexResult
+        }
+        
+        return ( section!, algorithm!, rawType, encoding )
+    }
+    
     
     func lastChanged( identity: String ) -> Promise<String> {
         return Promise<String> { fulfill, reject in
@@ -255,6 +319,16 @@ public struct EthrDIDResolver {
         }
         
         return matches.first ?? ""
+    }
+    
+    func parseType( algorithm: String, rawType: String? ) throws -> DelegateType {
+        var type = rawType != nil && rawType!.isEmpty ? rawType : veriKey
+        type = attrTypes[ type! ] ?? type
+        guard let delegateType = DelegateType( rawValue: "\(algorithm)\(type!)") else {
+            throw EthrDIDResolverError.invalidDelegateType
+        }
+        
+        return delegateType
     }
 
 }
