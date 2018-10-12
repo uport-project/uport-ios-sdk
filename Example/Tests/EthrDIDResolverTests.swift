@@ -164,7 +164,7 @@ class EthrDIDResolverTests: QuickSpec {
                 let rpc = JsonRPC( rpcURL: Networks.shared.rinkeby.rpcUrl )
                 
                 let ddo = try! EthrDIDResolver(rpc: rpc).wrapDidDocument(normalizedDid: "did:ethr:\(identity)", owner: owner, history: [event])
-                print( "did doc is -> \(ddo)" )
+//                print( "did doc is -> \(ddo)" )
                 
                 expect( true ).to( beTrue() ) // did not crash
             }

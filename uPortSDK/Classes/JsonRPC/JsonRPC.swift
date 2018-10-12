@@ -268,13 +268,11 @@ public struct JsonRPC {
         }
         
         var result = parsedResponse.result
-        print( "json rpcbaseresponse result -> \(result)" )
         if result == nil {
             result = [[String: Any]]()
         }
         
         guard let jsonRpcLogItemDictionaries = result as? [[String: Any]] else {
-            print( "invalid server resonse" )
             throw JsonRpcError.invalidResult
         }
         
@@ -288,51 +286,15 @@ public struct JsonRPC {
     
     public func getLogs( address: String, topics: [Any?] = [Any?](), fromBlock: BigUInt, toBlock: BigUInt ) -> Promise<[JsonRpcLogItem]> {
         return Promise<[JsonRpcLogItem]> { fulfill, reject in
-            let params: [Any?] = [["fromBlock": fromBlock.hexStringWithoutPrefix().withHexPrefix,
-                                           "toBlock": toBlock.hexStringWithoutPrefix().withHexPrefix,
-                                            "address": address,
-                                            "topics": topics]]
-            
-            let jsonRpcRequest = JsonRpcBaseRequest(methodName: "eth_getLogs", params: params)
-            guard let payloadRequest = jsonRpcRequest.toJsonRPC() else {
-                reject( JsonRpcError.jsonConversionIssue )
-                return
-            }
-
-            guard let rpcURLUnwrapped = self.rpcURL else {
-                reject( JsonRpcError.invalidRpcUrl )
-                return
-            }
-            
             DispatchQueue.global().async {
-                let ( response, error ) = HTTPClient.synchronousPostRequest( url: rpcURLUnwrapped, jsonBody: payloadRequest )
-                guard error == nil else {
-                    DispatchQueue.main.async {
-                        reject( error! )
-                    }
-                    return
+                var logItems: [JsonRpcLogItem]?
+                do {
+                    logItems = try self.getLogsSynchronous(address: address, topics: topics, fromBlock: fromBlock, toBlock: toBlock)
+                } catch {
+                    reject( error )
                 }
                 
-                guard let responseUnwrapped = response else {
-                    DispatchQueue.main.async {
-                        reject( JsonRpcError.missingPayload )
-                    }
-                    
-                    return
-                }
-                
-                let parsedResponse = JsonRpcBaseResponse.fromJson( json: responseUnwrapped )
-                guard parsedResponse.error == nil else {
-                    DispatchQueue.main.async {
-                        reject( parsedResponse.error! )
-                    }
-                    
-                    return
-                }
-            
-                let result = parsedResponse.result
-                print( "json rpcbaseresponse result -> \(result)" )
-                fulfill( [JsonRpcLogItem]() )
+                fulfill( logItems! )
             }
         }
     }
