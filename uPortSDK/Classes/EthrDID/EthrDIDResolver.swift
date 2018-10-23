@@ -180,7 +180,8 @@ public struct EthrDIDResolver {
                         delegateCount += 1
                         let publicKeyOwner = "\(normalizedDid)#delegate-\(delegateCount)"
                         var pk = PublicKeyEntry(id: publicKeyOwner, type: type, owner: normalizedDid)
-                        switch encoding {
+                        let enc = encoding ?? ""
+                        switch enc {
                         case "", "null", "hex":
                             pk.publicKeyHex = event.value.value.toHexString()
                         case "base64":
