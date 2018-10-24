@@ -5,7 +5,7 @@
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/uport-project/uport-ios-sdk",
   "license": {
-    "type": "MIT",
+    "type": "Apache 2.0",
     "file": "LICENSE"
   },
   "authors": {
@@ -29,8 +29,8 @@
     "CryptoSwift": [
 
     ],
-    "Alamofire": [
-      "~> 4.7"
+    "PromisesSwift": [
+
     ]
   }
 }

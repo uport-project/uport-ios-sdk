@@ -8,11 +8,53 @@ class DIDResolverSpec: QuickSpec {
     override func spec() {
         describe("testing did resolver components") {
             it("encapsulates json rpc") {
-                let expectedPayload = "{\"method\":\"eth_call\",\"jsonrpc\":\"2.0\",\"id\":1,\"params\":[{\"to\":\"0xaddress\",\"data\":\"some0xdatastring\"},\"latest\"]}"
+                let expectedPayload = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[{\"to\":\"0xaddress\",\"data\":\"some0xdatastring\"},\"latest\"],\"id\":1}".data(using: .utf8)
+                guard let expected = try? JSONSerialization.jsonObject(with: expectedPayload! ) as? [String: Any] else {
+                    print( "invalid json" )
+                    return
+                }
+                
                 let ethCall = EthCall( address: "0xaddress", data: "some0xdatastring")
-                let payload = JsonRpcBaseRequest( ethCall: ethCall ).toJsonRPC()!
+                guard let payloadJSON = JsonRpcBaseRequest( ethCall: ethCall ).toJsonRPC() else {
+                    print( "missing payload" )
+                    return
+                }
+                
+                guard let payload = try? JSONSerialization.jsonObject(with: payloadJSON.data(using: .utf8)!) as? [String: Any] else {
+                    print( "invalid server json" )
+                    return
+                }
+                let isJsonRPCSame = payload![ "jsonrpc" ] as! String == expected![ "jsonrpc" ] as! String
+                expect( isJsonRPCSame ).to( beTrue() )
+                let isMethodSame = payload![ "method" ] as! String == expected![ "method" ] as! String
+                expect( isMethodSame ).to( beTrue() )
+                let isIDSame = payload![ "id" ] as! Int == expected![ "id" ] as! Int
+                expect( isIDSame ).to( beTrue() )
+                
+                let testParams = { (_ candidate: Any, _ expected: Any )  in
+                    if candidate is String {
+                        expect( candidate as! String ).to( equal( expected as! String ) )
+                    } else if candidate is [String: String] {
+                        let candidateToValue = (candidate as! [String: String])[ "to" ]
+                        let expectedToValue = (expected as! [String: String])[ "to" ]
+                        expect( candidateToValue ).to( equal(expectedToValue) )
+                        let candidateDataValue = (candidate as! [String: String])[ "data" ]
+                        let expectedDataValue = (expected as! [String: String])[ "data" ]
+                        expect( candidateDataValue ).to( equal(expectedDataValue) )
+                        
+                        
+                    }
+                }
+                
+                let candidateParams = payload![ "params" ] as! [Any]
+                let candidateFirst = candidateParams.first
+                let candidateLast = candidateParams.last
+                let expectedParams = expected![ "params" ] as! [Any]
+                let expectedFirst = type(of: expectedParams.first) == type(of: candidateFirst) ? expectedParams.first : expectedParams.last
+                let expectedLast = type(of: expectedParams.last) == type(of: candidateLast ) ? expectedParams.last : expectedParams.first
+                testParams( candidateFirst, expectedFirst )
+                testParams( candidateLast, expectedLast )
 
-                expect(payload) == expectedPayload
             }
             
             it("encodes eth call") {
@@ -45,6 +87,7 @@ class DIDResolverSpec: QuickSpec {
                 
                 expect( ddo! ) == expectedDDO
             }
+            
         }
     }
 }

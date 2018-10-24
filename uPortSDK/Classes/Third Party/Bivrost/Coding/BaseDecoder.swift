@@ -50,7 +50,7 @@ struct BaseDecoder {
     static func decodeBytesX(data: SolidityCodable.EncodeFormat, length: UInt) throws -> Data {
         let hexStringSize = String.hexStringSize(forBytes: length)
         let endIndex = data.index(data.startIndex, offsetBy: Int(hexStringSize))
-        let hexPartition = String(data[data.startIndex..<endIndex])
+        let hexPartition = String(data[data.startIndex..<endIndex]) as! String
         guard let byteData = Data(fromHexEncodedString: hexPartition),
             byteData.count == length else {
                 throw BivrostError.Decoder.invalidBytesX(hex: data, capacity: length)

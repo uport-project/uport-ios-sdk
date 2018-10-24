@@ -11,7 +11,7 @@ import BigInt
 public extension Solidity {
     struct Bool {
         private let value: Swift.Bool
-        private let wrapper: UInt8
+        fileprivate let wrapper: UInt8
 
         init(_ value: Swift.Bool) {
             self.value = value

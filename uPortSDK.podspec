@@ -23,7 +23,7 @@ TODO: Add long description of the pod here.
 
   s.homepage         = 'https://github.com/uport-project/uport-ios-sdk'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.author           = { 'Joshua Bell' => 'joshua.bell@consensys.net' }
   s.source           = { :git => 'https://github.com/uport-project/uport-ios-sdk.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
@@ -41,5 +41,5 @@ TODO: Add long description of the pod here.
   s.dependency 'UPTEthereumSigner'
   s.dependency 'BigInt'
   s.dependency 'CryptoSwift'
-  s.dependency 'Alamofire', '~> 4.7'
+  s.dependency 'PromisesSwift'
 end

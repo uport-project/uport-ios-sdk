@@ -11,6 +11,9 @@
 		03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */; };
 		03B3EFD2207BEDA2005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
 		03B3EFD3207BEDD1005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
+		043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */; };
+		049FCDBC215BE7C60094E66A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049FCDBB215BE7C60094E66A /* StoreKit.framework */; };
+		049FCDBE215BE7CB0094E66A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049FCDBD215BE7CB0094E66A /* GameKit.framework */; };
 		05C09E30D22FB7C75F092B32 /* Pods_uPortSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -33,6 +36,9 @@
 /* Begin PBXFileReference section */
 		03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBaseXTests.swift; sourceTree = "<group>"; };
 		03B3EFD1207BEDA2005697E0 /* valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; };
+		043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthrDIDResolverTests.swift; sourceTree = "<group>"; };
+		049FCDBB215BE7C60094E66A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		049FCDBD215BE7CB0094E66A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* uPortSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uPortSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,7 +57,7 @@
 		AD89E19C6603D6AB6DDBCDA4 /* Pods-uPortSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B62784F1A0E037C5B2F47E4B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B8D6DC27762FD74E9A6D6A49 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		D0DFA7640487A851DD49FC30 /* uPortSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = uPortSDK.podspec; path = ../uPortSDK.podspec; sourceTree = "<group>"; };
+		D0DFA7640487A851DD49FC30 /* uPortSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = uPortSDK.podspec; path = ../uPortSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +65,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049FCDBE215BE7CB0094E66A /* GameKit.framework in Frameworks */,
 				02CBC8D5DE669F146E03C9E6 /* Pods_uPortSDK_Example.framework in Frameworks */,
+				049FCDBC215BE7C60094E66A /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +132,7 @@
 				607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
+				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -149,6 +158,8 @@
 		B40415A41D1B937EC59C907A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				049FCDBD215BE7CB0094E66A /* GameKit.framework */,
+				049FCDBB215BE7C60094E66A /* StoreKit.framework */,
 				2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */,
 				2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */,
 			);
@@ -222,6 +233,15 @@
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 82SAVLYZ3K;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -280,11 +300,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEthereum/CoreEthereum.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatter/ISO8601DateFormatter.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
 				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
 				"${BUILT_PRODUCTS_DIR}/UPTEthereumSigner/UPTEthereumSigner.framework",
 				"${BUILT_PRODUCTS_DIR}/Valet/Valet.framework",
@@ -292,11 +313,12 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreEthereum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPTEthereumSigner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Valet.framework",
@@ -380,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */,
+				043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */,
 				03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,12 +545,15 @@
 			baseConfigurationReference = AD89E19C6603D6AB6DDBCDA4 /* Pods-uPortSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				INFOPLIST_FILE = uPortSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.uport.uPortSDK-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = me.uport.uPortSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -538,12 +564,15 @@
 			baseConfigurationReference = 94C63DE14AFD2510F097F9FB /* Pods-uPortSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 82SAVLYZ3K;
 				INFOPLIST_FILE = uPortSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.uport.uPortSDK-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = me.uport.uPortSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};

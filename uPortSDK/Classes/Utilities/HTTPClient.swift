@@ -6,85 +6,55 @@
 //
 
 import UIKit
-import Alamofire
 
-class HTTPClient: NSObject {
+enum HTTPClientError: Error {
+    case invalidJSONBody
+    case invalidURL
+    case requestIssue
+    case invalidResponse
+}
 
-    class func postRequest( url: String, jsonBody: String, completionHandler: @escaping (_: String?) -> Void ) {
-        guard let data = jsonBody.data(using: .utf8) else {
-            print( "invalid jsonBody" )
-            return
+public struct HTTPClient {
+
+    public static func synchronousGetRequest( url: String ) -> ( response: String?, error: Error? ) {
+        guard let requestURL = URL(string:url) else {
+            return ( nil, HTTPClientError.invalidURL )
         }
         
-        var params: [String: Any]?
-        do {
-            params = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-        } catch {
-            print( "error generating params from jsonBody string \(error.localizedDescription)" )
-        }
-
-        let headers = ["Accept": "application/json", "Content-Type": "application/json" ]
-        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.httpBody , headers: headers).responseJSON { (response) in
-            completionHandler( response.result.value as? String )
-        }
-    }
-
-    class func synchronousGetRequest( url: String ) -> String? {
-        var requestURL: URL? = nil
-        do {
-            requestURL = try url.asURL()
-        } catch {
-            print( "error creating URL -> \(error), from url string -> \(url)" )
-            return nil
-        }
-        
-        guard requestURL != nil else {
-            return nil
-        }
-        
-        var urlRequest = URLRequest( url: requestURL! )
+        var urlRequest = URLRequest( url: requestURL )
         urlRequest.httpMethod = "GET"
         
         let (responseData, _, error) = URLSession.shared.synchronousDataTask(urlRequest: urlRequest)
         guard error == nil else {
             print( "error making request -> \(error!)" )
-            return nil
+            return ( nil, error! )
         }
         
         guard let responseDataUnwrapped = responseData else {
             print( "server response was nil" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
         let responseString = String(data: responseDataUnwrapped, encoding: .utf8 )
         guard let responseStringUnwrapped = responseString else {
             print( "could not convert server response to String" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
-        return responseStringUnwrapped
+        return ( responseStringUnwrapped, nil )
         
     }
     
-    class func synchronousPostRequest( url: String, jsonBody: String ) -> String? {
+    public static func synchronousPostRequest( url: String, jsonBody: String ) -> (response: String?, error: Error?) {
         guard let bodyData = jsonBody.data(using: .utf8) else {
-            print( "invalid jsonBody" )
-            return nil
+            return ( nil, HTTPClientError.invalidJSONBody )
         }
         
-        var requestURL: URL? = nil
-        do {
-            requestURL = try url.asURL()
-        } catch {
-            print( "error creating URL -> \(error), from url string -> \(url)" )
-            return nil
+        guard let requestURL = URL( string: url ) else {
+            return ( nil, HTTPClientError.invalidURL )
         }
         
-        guard requestURL != nil else {
-            return nil
-        }
-        
-        var urlRequest = URLRequest( url: requestURL! )
+        var urlRequest = URLRequest( url: requestURL )
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -93,21 +63,21 @@ class HTTPClient: NSObject {
         let (responseData, _, error) = URLSession.shared.synchronousDataTask(urlRequest: urlRequest)
         guard error == nil else {
             print( "error making request -> \(error!)" )
-            return nil
+            return ( nil, error! )
         }
         
         guard let responseDataUnwrapped = responseData else {
             print( "server response was nil" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
         let responseString = String(data: responseDataUnwrapped, encoding: .utf8 )
         guard let responseStringUnwrapped = responseString else {
             print( "could not convert server response to String" )
-            return nil
+            return ( nil, HTTPClientError.invalidResponse )
         }
         
-        return responseStringUnwrapped
+        return ( responseStringUnwrapped, nil )
     }
 }
 
