@@ -2,6 +2,7 @@
 
 #import "BTCBigNumber.h"
 #import "BTCData.h"
+#import <openssl/bn.h>
 
 #define BTCBigNumberCompare(a, b) (BN_cmp(a->_bignum, b->_bignum))
 

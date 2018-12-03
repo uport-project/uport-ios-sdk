@@ -12,6 +12,7 @@
 #import "keccak.h"
 #import "CoreBitcoin/CoreBitcoin+Categories.h"
 #import <openssl/obj_mac.h>
+#import <openssl/ec.h>
 
 // https://github.com/ethereum/EIPs/issues/84
 NSString * const UPORT_ROOT_DERIVATION_PATH = @"m/7696500'/0'/0'/0'";

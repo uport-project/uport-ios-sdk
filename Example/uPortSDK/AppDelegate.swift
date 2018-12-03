@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreEthereum
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

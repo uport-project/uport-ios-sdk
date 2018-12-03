@@ -1,7 +1,8 @@
 // CoreBitcoin by Oleg Andreev <oleganza@gmail.com>, WTFPL.
 
 #import <Foundation/Foundation.h>
-#include <openssl/ec.h>
+struct ec_point;
+typedef struct ec_point_st EC_POINT;
 
 // Represents a point on the elliptic curve secp256k1.
 // Combined with BTCBigNumber arithmetic, you can do usual EC operations to manipulate private and public keys.
