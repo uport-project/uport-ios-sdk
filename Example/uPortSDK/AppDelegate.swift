@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UPTEthereumSigner
 import CoreEthereum
 
 @UIApplicationMain
@@ -16,7 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let referencePrivateKey = "278a5de700e29faae8e40e366ec5012b5ec63d36ec77e8a2417154cc1d25383f"
+        let privateKeyData32Bytes = BTCDataFromHex(referencePrivateKey)
+
+        UPTEthereumSigner.saveKey(privateKeyData32Bytes, protectionLevel: .normal) { (ethAddress, publicKey, error) in
+            NSLog("testSavingKey, created public key is -> %@ and the eth address is %@", publicKey ?? "no-key", ethAddress ?? "no-address")
+        }
+
         return true
     }
 
