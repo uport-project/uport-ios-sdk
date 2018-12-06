@@ -8,8 +8,9 @@
 
 import Foundation
 
-
-public func buildAlphabetBase(_ alphabet: String) -> (map: [Character:UInt], indexed: [Character], base: UInt, leader: Character) {
+public func buildAlphabetBase(_ alphabet: String) -> (map: [Character:UInt],
+                                                      indexed: [Character], base: UInt, leader: Character)
+{
     let indexed:[Character] = alphabet.map {$0}
     var tmpMap = [Character:UInt]()
     var i:UInt = 0

@@ -7,25 +7,33 @@
 
 import UIKit
 
-enum AccountCreationState: Int {
-    case none = 0, rootKeyCreated, deviceKeyCreated, recoveryKeyCreated, fuelTokenObtained, proxyCreationSent, complete
+enum AccountCreationState: Int
+{
+    case none = 0
+    case rootKeyCreated
+    case deviceKeyCreated
+    case recoveryKeyCreated
+    case fuelTokenObtained
+    case proxyCreationSent
+    case complete
 }
 
-class ProgressPersistence: NSObject {
-    
+class ProgressPersistence: NSObject
+{
     var state: AccountCreationState
     let stateRetrievalKey = "uPortSDK.AccountCreationState.RetrievalKey"
     
-    override init() {
-        
+    override init()
+    {
         let stateRawValue = UserDefaults.standard.integer(forKey: self.stateRetrievalKey)
-        self.state = AccountCreationState( rawValue: stateRawValue ) ?? .none
+        self.state = AccountCreationState(rawValue: stateRawValue) ?? .none
+
         super.init()
-        
     }
     
-    func reset() {
-        UserDefaults.standard.set( 0, forKey: self.stateRetrievalKey)
+    func reset()
+    {
+        UserDefaults.standard.set(0, forKey: self.stateRetrievalKey)
         self.state = .none
     }
 }

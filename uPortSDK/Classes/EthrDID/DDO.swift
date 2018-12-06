@@ -7,19 +7,20 @@
 
 import Foundation
 
-public struct DDO: Equatable {
-
+public struct DDO: Equatable
+{
     var id: String
     var publicKey = [PublicKeyEntry]()
     var authentication = [AuthenticationEntry]()
     var service = [ServiceEntry]()
     var context: String = "https://w3id.org/did/v1"
 
-    public init( id: String,
-                 publicKey: [PublicKeyEntry] = [PublicKeyEntry](),
-                 authentication: [AuthenticationEntry] = [AuthenticationEntry](),
-                 service: [ServiceEntry] = [ServiceEntry](),
-                 context: String = "https://w3id.org/did/v1" ) {
+    public init(id: String,
+                publicKey: [PublicKeyEntry] = [PublicKeyEntry](),
+                authentication: [AuthenticationEntry] = [AuthenticationEntry](),
+                service: [ServiceEntry] = [ServiceEntry](),
+                context: String = "https://w3id.org/did/v1")
+    {
         self.id = id
         self.publicKey = publicKey
         self.authentication = authentication
@@ -27,26 +28,33 @@ public struct DDO: Equatable {
         self.context = context
     }
     
-    public static func == (lhs: DDO, rhs: DDO) -> Bool {
+    public static func == (lhs: DDO, rhs: DDO) -> Bool
+    {
         var areAuthenticationsEqual = true
-        for lhsAuthentication in lhs.authentication {
-            let isInBoth = rhs.authentication.contains { (authEntry) -> Bool in
+        for lhsAuthentication in lhs.authentication
+        {
+            let isInBoth = rhs.authentication.contains
+            { (authEntry) -> Bool in
                 return authEntry == lhsAuthentication
             }
             
-            if !isInBoth {
+            if !isInBoth
+            {
                 areAuthenticationsEqual = false
                 break
             }
         }
         
         var areServiceEntryEqual = true
-        for lhsService in lhs.service {
-            let isInBoth = rhs.service.contains { (rhsService) -> Bool in
+        for lhsService in lhs.service
+        {
+            let isInBoth = rhs.service.contains
+            { (rhsService) -> Bool in
                 return lhsService == rhsService
             }
             
-            if !isInBoth {
+            if !isInBoth
+            {
                 areServiceEntryEqual = false
             }
         }
@@ -55,8 +63,8 @@ public struct DDO: Equatable {
     }
 }
 
-
-public struct PublicKeyEntry: Equatable {
+public struct PublicKeyEntry: Equatable
+{
     var id: String
     var type: DelegateType
     var owner: String
@@ -66,14 +74,15 @@ public struct PublicKeyEntry: Equatable {
     var publicKeyBase58: String?
     var value: String?
 
-    public init( id: String,
-                 type: DelegateType,
-                 owner: String,
-                 ethereumAddress: String? = nil,
-                 publicKeyHex: String? = nil,
-                 publicKeyBase64: String? = nil,
-                 publicKeyBase58: String? = nil,
-                 value: String? = nil ) {
+    public init(id: String,
+                type: DelegateType,
+                owner: String,
+                ethereumAddress: String? = nil,
+                publicKeyHex: String? = nil,
+                publicKeyBase64: String? = nil,
+                publicKeyBase58: String? = nil,
+                value: String? = nil)
+    {
         self.id = id
         self.type = type
         self.owner = owner
@@ -84,26 +93,31 @@ public struct PublicKeyEntry: Equatable {
         self.value = value
     }
     
-    public static func == (lhs: PublicKeyEntry, rhs: PublicKeyEntry) -> Bool {
+    public static func == (lhs: PublicKeyEntry, rhs: PublicKeyEntry) -> Bool
+    {
         return lhs.id == rhs.id && lhs.type == rhs.type && lhs.owner == rhs.owner
     }
 }
 
-public struct AuthenticationEntry {
+public struct AuthenticationEntry
+{
     var type: DelegateType
     var publicKey: String
 
-    public init( type: DelegateType, publicKey: String ) {
+    public init(type: DelegateType, publicKey: String)
+    {
         self.type = type
         self.publicKey = publicKey
     }
     
-    public static func == (lhs: AuthenticationEntry, rhs: AuthenticationEntry) -> Bool {
+    public static func == (lhs: AuthenticationEntry, rhs: AuthenticationEntry) -> Bool
+    {
         return lhs.type == rhs.type && lhs.publicKey == rhs.publicKey
     }
 }
 
-public struct ServiceEntry {
+public struct ServiceEntry
+{
     var type: String
     var serviceEndpoint: String
 
@@ -117,8 +131,8 @@ public struct ServiceEntry {
     }
 }
 
-
-public enum DelegateType: String {
+public enum DelegateType: String
+{
     case Secp256k1VerificationKey2018
     case Secp256k1SignatureAuthentication2018
     case Ed25519VerificationKey2018
