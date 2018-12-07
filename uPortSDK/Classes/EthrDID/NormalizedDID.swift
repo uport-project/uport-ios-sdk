@@ -17,7 +17,7 @@ public enum NormalizedDIDError: Error
 
 public struct NormalizedDID
 {
-    /// the result of processing the did
+    /// the result of processing the DID
     /// empty string if invalid didCandidate was passed to constructor
     var value = ""
     

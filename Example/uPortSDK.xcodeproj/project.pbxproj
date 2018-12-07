@@ -130,9 +130,9 @@
 			children = (
 				03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */,
 				607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */,
+				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
-				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

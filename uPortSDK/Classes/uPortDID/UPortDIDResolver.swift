@@ -2,10 +2,10 @@
 import Foundation
 import BigInt
 
-public struct DIDResolver
+public struct UPortDIDResolver
 {
     /**
-     * Given an MNID, calls the uport registry and returns the raw json
+     * Given an MNID, calls the uPort registry and returns the raw json
      */
     public static func synchronousCallRegistry(subjectId: String?,
                                                issuerId: String? = nil,
@@ -18,10 +18,12 @@ public struct DIDResolver
                   "with mnid -> \(issuerMnid), " +
                   "with issuerId -> \(issuerId ?? ""), " +
                   "with subjectID -> \(subjectId ?? "")")
+
             return nil
         }
         
-        guard let subjectAccount: Account = MNID.decode(mnid: subjectId ?? "") else {
+        guard let subjectAccount: Account = MNID.decode(mnid: subjectId ?? "") else
+        {
             print("could not create subject account " +
                   "with mnid -> \(issuerMnid), " +
                   "with issuerId -> \(issuerId ?? ""), " +
@@ -30,7 +32,8 @@ public struct DIDResolver
             return nil
         }
         
-        if issuerAccount.network != subjectAccount.network {
+        if issuerAccount.network != subjectAccount.network
+        {
             print("Issuer and subject must be on the same network")
 
             return nil
@@ -96,11 +99,11 @@ public struct DIDResolver
     }
     
     ///
-    /// Get iPFS hash from uPort Registry given an mnid
+    /// Get iPFS hash from uPort Registry given an MNID
     ///
     public static func synchronousIpfsHash(mnid: String) -> String?
     {
-        guard let docAddressHex: String = DIDResolver.synchronousCallRegistry(subjectId: mnid) else
+        guard let docAddressHex: String = UPortDIDResolver.synchronousCallRegistry(subjectId: mnid) else
         {
             print("error calling uPort Registry")
 
@@ -118,10 +121,10 @@ public struct DIDResolver
         return ipfsHashData.base58EncodedString()
     }
     
-    /// returns Did Document in json format from infura
+    /// returns Did Document in JSON format from infura
     private static func synchronousJSONProfile(mnid: String) -> String?
     {
-        guard let ipfsHash = DIDResolver.synchronousIpfsHash(mnid: mnid) else
+        guard let ipfsHash = UPortDIDResolver.synchronousIpfsHash(mnid: mnid) else
         {
             print("uPortSDK Error: couldn't get ipfshash")
             
@@ -140,10 +143,10 @@ public struct DIDResolver
         return jsonProfile
     }
     
-    /// returns DIDDocument parsed from fetched json
+    /// returns DIDDocument parsed from fetched JSON
     static func synchronousProfileDocument(mnid: String) -> DIDDocument?
     {
-        guard let profileDocumentJSON = DIDResolver.synchronousJSONProfile(mnid: mnid) else
+        guard let profileDocumentJSON = UPortDIDResolver.synchronousJSONProfile(mnid: mnid) else
         {
             print("Error fetching DIDDocument json from infura")
             return nil
@@ -177,7 +180,7 @@ public struct DIDResolver
     {
         DispatchQueue.global().async
         {
-            guard let didDocument = DIDResolver.synchronousProfileDocument(mnid: mnid) else
+            guard let didDocument = UPortDIDResolver.synchronousProfileDocument(mnid: mnid) else
             {
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute:
                 {

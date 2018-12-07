@@ -21,7 +21,7 @@ class DIDResolverSpec: QuickSpec
                     return
                 }
                 
-                let ethCall = EthCall( address: "0xaddress", data: "some0xdatastring")
+                let ethCall = EthCall(address: "0xaddress", data: "some0xdatastring")
                 guard let payloadJSON = JsonRpcBaseRequest( ethCall: ethCall ).toJsonRPC() else
                 {
                     print("missing payload")
@@ -78,9 +78,9 @@ class DIDResolverSpec: QuickSpec
                                        "000000000000000000000000f12c30cd32b4a027710c150ae742f50db07492130000000000" +
                                        "00000000000000f12c30cd32b4a027710c150ae742f50db0749213"
                 let acc = Account(network: "0x04", address: "0xf12c30cd32b4a027710c150ae742f50db0749213")!
-                let encoding = DIDResolver.encodeRegistryFunctionCall(registrationIdentifier: "uPortProfileIPFS1220",
-                                                                      issuer: acc,
-                                                                      subject: acc)
+                let encoding = UPortDIDResolver.encodeRegistryFunctionCall(registrationIdentifier: "uPortProfileIPFS1220",
+                                                                           issuer: acc,
+                                                                           subject: acc)
                 
                 expect(encoding) == expectedEncoding
             }
@@ -88,7 +88,7 @@ class DIDResolverSpec: QuickSpec
             it("can call registry with appropriate server response")
             {
                 let expectedDocAddress = "QmWzBDtv8m21ph1aM57yVDWxdG7LdQd3rNf5xrRiiV2D2E"
-                let docAddressHex = DIDResolver.synchronousIpfsHash(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
+                let docAddressHex = UPortDIDResolver.synchronousIpfsHash(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
                 
                 expect(docAddressHex) == expectedDocAddress
             }
@@ -105,7 +105,7 @@ class DIDResolverSpec: QuickSpec
                                               image: nil,
                                               name: nil)
                 
-                let ddo = DIDResolver.synchronousProfileDocument(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
+                let ddo = UPortDIDResolver.synchronousProfileDocument(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
                 
                 expect(ddo!) == expectedDDO
             }

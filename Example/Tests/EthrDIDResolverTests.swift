@@ -3,9 +3,7 @@
 //  uPortSDK_Tests
 //
 //  Created by mac on 8/27/18.
-//  Copyright © 2018 CocoaPods. All rights reserved.
 //
-
 
 import Quick
 import Nimble
@@ -14,8 +12,8 @@ import BigInt
 
 class EthrDIDResolverTests: QuickSpec
 {
-    override func spec() {
-       
+    override func spec()
+    {
         describe("EthrDIDResolver")
         {
             it("real address with activity has logs")
@@ -164,14 +162,14 @@ class EthrDIDResolverTests: QuickSpec
                         encoding = String(encodingSlice)
                     }
                     
-//                    print( "section -> \(section ?? "nil"), algorithm -> \(algorithm ?? "nil"), rawType -> \(rawType ?? "nil"), encoding -> \(encoding ?? "nil")")
+                    print("section -> \(section ?? "nil"), algorithm -> \(algorithm ?? "nil"), " +
+                          "rawType -> \(rawType ?? "nil"), encoding -> \(encoding ?? "nil")")
                     
                     expect(section).toNot(beNil())
                     expect(algorithm).toNot(beNil())
                     expect(section!.isEmpty).to(beFalse())
                     expect(algorithm!.isEmpty).to(beFalse())
                 }
-                
             }
             
             it("can parse sample attr change event")

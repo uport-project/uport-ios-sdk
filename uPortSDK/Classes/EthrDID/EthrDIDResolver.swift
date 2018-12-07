@@ -16,9 +16,10 @@ public enum EthrDIDResolverError: Error
     case invalidRegexResult
     case invalidDelegateType
     case invalidServiceEndpoint
+    case notImplemented //### Delete
 }
 
-public struct EthrDIDResolver
+public struct EthrDIDResolver: DIDResolver
 {
     public static let DEFAULT_REGISTERY_ADDRESS = "0xdca7ef03e98e0dc2b855be647c39abe984fcf21b"
     let veriKey = "veriKey"
@@ -426,5 +427,19 @@ public struct EthrDIDResolver
         }
         
         return delegateType
+    }
+
+    // MARK: - Resolver Implementation
+
+    var method: String { return "ethr" }
+
+    func canResolve(did: String) -> Bool
+    {
+        return false
+    }
+
+    func resolve(did: String) throws -> DIDDocument
+    {
+        throw EthrDIDResolverError.notImplemented
     }
 }
