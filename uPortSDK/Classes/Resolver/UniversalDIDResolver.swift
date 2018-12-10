@@ -50,9 +50,9 @@ struct UniversalDIDResolver: DIDResolver
 
     private func findResolver(for did: String) throws -> DIDResolver?
     {
-        let parsedDid = try ParsedDID(did)
+        let dido = try DIDObject(did)
 
-        var resolver = resolvers[parsedDid.method]
+        var resolver = resolvers[dido.method]
         if resolver == nil
         {
             resolver = resolvers.values.first { $0.canResolve(did: did) }

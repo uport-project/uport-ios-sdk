@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         let referencePrivateKey = "278a5de700e29faae8e40e366ec5012b5ec63d36ec77e8a2417154cc1d25383f"
         let privateKeyData32Bytes = BTCDataFromHex(referencePrivateKey)
 
-        UPTEthereumSigner.saveKey(privateKeyData32Bytes, protectionLevel: .normal) { (ethAddress, publicKey, error) in
+        UPTEthereumSigner.saveKey(privateKeyData32Bytes, protectionLevel: .normal)
+        { (ethAddress, publicKey, error) in
             NSLog("testSavingKey, created public key is -> %@ and the eth address is %@", publicKey ?? "no-key", ethAddress ?? "no-address")
         }
 

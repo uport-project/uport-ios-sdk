@@ -337,7 +337,7 @@
 		4701D7067083AF54BFE2952C4AA32099 /* cmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 44993231FD9A76EA412BD37BA8ACD070 /* cmac.c */; };
 		474C9386607CF970F40E633723A55459 /* cmac.h in Copy openssl/include/openssl Public Headers */ = {isa = PBXBuildFile; fileRef = BC47BEB1E6A6D6931C14B6933FC57469 /* cmac.h */; };
 		4786F7577CD55C84D4D3F194468F2AFE /* PromisesObjC-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A31A3DA894493BF44A6E381E521C10AA /* PromisesObjC-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		480BD46621BAB17E008012F5 /* ParsedDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46321BAB17E008012F5 /* ParsedDID.swift */; };
+		480BD46621BAB17E008012F5 /* DIDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46321BAB17E008012F5 /* DIDObject.swift */; };
 		480BD46721BAB17E008012F5 /* DIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46421BAB17E008012F5 /* DIDResolver.swift */; };
 		480BD46821BAB17E008012F5 /* UniversalDIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */; };
 		484DCBBAB67B6ECE42676066A5CCC8D5 /* pcy_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 46D751E92462B6B8F303EC20E28E63F8 /* pcy_lib.c */; };
@@ -1890,7 +1890,7 @@
 		46A6015DBC2D6F5BFB0D5CFDBC86E25E /* BeGreaterThan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThan.swift; path = Sources/Nimble/Matchers/BeGreaterThan.swift; sourceTree = "<group>"; };
 		46D751E92462B6B8F303EC20E28E63F8 /* pcy_lib.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pcy_lib.c; path = openssl/src/crypto/x509v3/pcy_lib.c; sourceTree = "<group>"; };
 		46E76339D4A8AA8F44D0F1E4F5CD74C9 /* f_int.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = f_int.c; path = openssl/src/crypto/asn1/f_int.c; sourceTree = "<group>"; };
-		480BD46321BAB17E008012F5 /* ParsedDID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsedDID.swift; sourceTree = "<group>"; };
+		480BD46321BAB17E008012F5 /* DIDObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDObject.swift; sourceTree = "<group>"; };
 		480BD46421BAB17E008012F5 /* DIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDResolver.swift; sourceTree = "<group>"; };
 		480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalDIDResolver.swift; sourceTree = "<group>"; };
 		482259549AE1BDB1B99A0B022D9D0D00 /* UPTHDSigner.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UPTHDSigner.h; path = UPTEthereumSigner/Classes/UPTHDSigner.h; sourceTree = "<group>"; };
@@ -3006,7 +3006,7 @@
 		480BD46221BAB17E008012F5 /* Resolver */ = {
 			isa = PBXGroup;
 			children = (
-				480BD46321BAB17E008012F5 /* ParsedDID.swift */,
+				480BD46321BAB17E008012F5 /* DIDObject.swift */,
 				480BD46421BAB17E008012F5 /* DIDResolver.swift */,
 				480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */,
 			);
@@ -5648,7 +5648,7 @@
 				480BD46721BAB17E008012F5 /* DIDResolver.swift in Sources */,
 				84EAF9B644A0E964FA4DDAB4A412BB37 /* Account.swift in Sources */,
 				DC9959040A8CC48A99745103A7586305 /* AccountCreator.swift in Sources */,
-				480BD46621BAB17E008012F5 /* ParsedDID.swift in Sources */,
+				480BD46621BAB17E008012F5 /* DIDObject.swift in Sources */,
 				BF569665876223B54252A23785B2495F /* Address.swift in Sources */,
 				440B22435C85FD46DCF14D2B8E7DD2F1 /* ArrayX-Generated.swift in Sources */,
 				60DDE0C0BDC7045F6BBBA6038F4B659C /* ArrayX.swift in Sources */,

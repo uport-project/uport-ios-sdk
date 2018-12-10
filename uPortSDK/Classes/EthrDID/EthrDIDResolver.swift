@@ -19,7 +19,7 @@ public enum EthrDIDResolverError: Error
     case notImplemented //### Delete
 }
 
-public struct EthrDIDResolver: DIDResolver
+public struct EthrDIDResolver//###: DIDResolver
 {
     public static let DEFAULT_REGISTERY_ADDRESS = "0xdca7ef03e98e0dc2b855be647c39abe984fcf21b"
     let veriKey = "veriKey"
@@ -438,8 +438,8 @@ public struct EthrDIDResolver: DIDResolver
         return false
     }
 
-    func resolve(did: String) throws -> DIDDocument
-    {
-        throw EthrDIDResolverError.notImplemented
-    }
+//    func resolve(did: String) throws -> DIDDocument
+//    {
+//        throw EthrDIDResolverError.notImplemented
+//    }
 }
