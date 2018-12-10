@@ -89,14 +89,13 @@ public struct Crypto {
      
      - Returns: The decrypted message as a String.
      */
-    public static func decrypt(encrypted: EncryptedMessage, secretKey: Data) -> String {
+    public static func decrypt(encrypted: EncryptedMessage, secretKey: Array<UInt8>) -> String {
         let sodium = Sodium()
         let decodedCipherText = Bytes(encrypted.cipherText.decodeBase64())
         let decodedEphemPublicKey = Bytes(encrypted.ephemPublicKey.decodeBase64())
         let decodedNonce = Bytes(encrypted.nonce.decodeBase64())
-        let secretKeyBytes = Bytes(secretKey)
         
-        let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText, senderPublicKey: decodedEphemPublicKey, recipientSecretKey: secretKeyBytes, nonce: decodedNonce)!
+        let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText, senderPublicKey: decodedEphemPublicKey, recipientSecretKey: secretKey, nonce: decodedNonce)!
         let decryptedString = String(bytes: decrypted, encoding: .utf8)!
         
         let unpadded = decryptedString.unpad()//unpad(message: decrypted)

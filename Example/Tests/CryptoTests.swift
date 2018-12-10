@@ -25,7 +25,7 @@ class CryptoTests: QuickSpec {
             
             it("Encrypt and decrypt") {
                 let originalMessage = "Hello EIP1098"
-                let boxSecret = "Qgigj54O7CsQOhR5vLTfqSQyD3zmq/Gb8ukID7XvC3o=".decodeBase64()
+                let boxSecret = Array<UInt8>(base64: "Qgigj54O7CsQOhR5vLTfqSQyD3zmq/Gb8ukID7XvC3o=")
                 let boxPub = "oGZhZ0cvwgLKslgiPEQpBkRoE+CbWEdi738efvQBsH0="
                 
                 let result = Crypto.encrypt(message: originalMessage, boxPub: boxPub)
@@ -40,7 +40,7 @@ class CryptoTests: QuickSpec {
                                          ephemPublicKey: "FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=")
                 
                 let decryptedMessage = Crypto.decrypt(encrypted: c,
-                                               secretKey: Data(hex: "7e5374ec2ef0d91761a6e72fdf8f6ac665519bfdf6da0a2329cf0d804514b816"))
+                                                      secretKey: Array<UInt8>(hex: "7e5374ec2ef0d91761a6e72fdf8f6ac665519bfdf6da0a2329cf0d804514b816"))
                 
                 expect(decryptedMessage) == "My name is Satoshi Buterin"
             }
