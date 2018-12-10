@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02CBC8D5DE669F146E03C9E6 /* Pods_uPortSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */; };
+		02CBC8D5DE669F146E03C9E6 /* Pods_uPortSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */; };
 		03B3EFD2207BEDA2005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
 		03B3EFD3207BEDD1005697E0 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 03B3EFD1207BEDA2005697E0 /* valid.json */; };
@@ -21,6 +21,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */; };
+		C8F4412F21B8DCAA00E979E1 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F4412E21B8DCAA00E979E1 /* CryptoTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		AD89E19C6603D6AB6DDBCDA4 /* Pods-uPortSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B62784F1A0E037C5B2F47E4B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B8D6DC27762FD74E9A6D6A49 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C8F4412E21B8DCAA00E979E1 /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
+		C8F4413021B9A73D00E979E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0DFA7640487A851DD49FC30 /* uPortSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = uPortSDK.podspec; path = ../uPortSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
@@ -133,6 +136,7 @@
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
 				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
+				C8F4412E21B8DCAA00E979E1 /* CryptoTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -158,6 +162,7 @@
 		B40415A41D1B937EC59C907A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8F4413021B9A73D00E979E1 /* Foundation.framework */,
 				049FCDBD215BE7CB0094E66A /* GameKit.framework */,
 				049FCDBB215BE7C60094E66A /* StoreKit.framework */,
 				2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */,
@@ -403,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8F4412F21B8DCAA00E979E1 /* CryptoTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */,
 				043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */,
 				03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */,
