@@ -35,6 +35,15 @@ public struct EthrDIDResolver: DIDResolver
         self.registryAddress = registryAddress
     }
 
+    // MARK: - Resolver Implementation
+
+    public var method: String { return "ethr" }
+
+    public func canResolve(did: String) -> Bool
+    {
+        return false
+    }
+
     public func resolve(did: String) throws -> DIDDocument
     {
         let normalizedDidObject = NormalizedDID(didCandidate: did)
@@ -436,18 +445,4 @@ public struct EthrDIDResolver: DIDResolver
         
         return delegateType
     }
-
-    // MARK: - Resolver Implementation
-
-    var method: String { return "ethr" }
-
-    func canResolve(did: String) -> Bool
-    {
-        return false
-    }
-
-//    func resolve(did: String) throws -> DIDDocument
-//    {
-//        throw EthrDIDResolverError.notImplemented
-//    }
 }

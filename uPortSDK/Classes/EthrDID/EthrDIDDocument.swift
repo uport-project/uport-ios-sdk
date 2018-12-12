@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EthrDIDDocument: DIDDocument
+public class EthrDIDDocument: DIDDocument
 {
 }
 

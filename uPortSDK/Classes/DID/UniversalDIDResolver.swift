@@ -29,7 +29,7 @@ public struct UniversalDIDResolver: DIDResolver
 
     // MARK: - DIDResolver Implementation
 
-    func resolve(did: String) throws -> DIDDocument
+    public func resolve(did: String) throws -> DIDDocument
     {
         if let resolver = try findResolver(for: did)
         {
@@ -41,9 +41,9 @@ public struct UniversalDIDResolver: DIDResolver
         }
     }
 
-    var method: String = ""
+    public var method: String = ""
 
-    func canResolve(did: String) -> Bool
+    public func canResolve(did: String) -> Bool
     {
         return ((try? findResolver(for: did)) != nil)
     }

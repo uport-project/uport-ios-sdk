@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DIDResolver
+public protocol DIDResolver
 {
     var method: String { get }
 
