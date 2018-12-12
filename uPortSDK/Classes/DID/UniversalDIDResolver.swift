@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum UniversalDIDResolverError: Error
+public enum UniversalDIDResolverError: Error
 {
     case resolverLacksMethod
     case noSuitableResolver
 }
 
-struct UniversalDIDResolver: DIDResolver
+public struct UniversalDIDResolver: DIDResolver
 {
     private var resolvers: [String : DIDResolver] = [:]
 

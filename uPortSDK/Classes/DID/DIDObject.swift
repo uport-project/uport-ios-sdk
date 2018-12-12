@@ -16,9 +16,9 @@ public enum DIDObjectError: Error
 
 public struct DIDObject
 {
-    let did: String
-    let scheme: String    // Is always "did".
-    let method: String
+    private(set) var did: String
+    private(set) var scheme: String    // Is always "did".
+    private(set) var method: String
     private(set) var id: String
     private(set) var path: String?
     private(set) var fragment: String? // Only true DID fragment (see https://w3c-ccg.github.io/did-spec/#dfn-did-fragment).

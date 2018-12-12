@@ -19,7 +19,7 @@ public enum EthrDIDResolverError: Error
     case notImplemented //### Delete
 }
 
-public struct EthrDIDResolver//###: DIDResolver
+public struct EthrDIDResolver: DIDResolver
 {
     public static let DEFAULT_REGISTERY_ADDRESS = "0xdca7ef03e98e0dc2b855be647c39abe984fcf21b"
     let veriKey = "veriKey"
@@ -35,7 +35,7 @@ public struct EthrDIDResolver//###: DIDResolver
         self.registryAddress = registryAddress
     }
 
-    public func resolve(did: String) throws -> DDO
+    public func resolve(did: String) throws -> DIDDocument
     {
         let normalizedDidObject = NormalizedDID(didCandidate: did)
         guard normalizedDidObject.error == nil else
@@ -56,7 +56,7 @@ public struct EthrDIDResolver//###: DIDResolver
             throw error
         }
         
-        var ddo: DDO?
+        var ddo: DIDDocument?
         do
         {
             ddo = try self.wrapDidDocument(normalizedDid: normalizedDidObject.value, owner: owner, history: history)
@@ -76,6 +76,7 @@ public struct EthrDIDResolver//###: DIDResolver
         let lastChanged = try? self.lastChangedSynchronous(identity: identity)
         var lastChangedBigInt: BigUInt?
         let zeroBigInt = BigUInt(integerLiteral: 0)
+
         guard let lastChangedBigIntUnwrapped = lastChanged?.hexToBigUInt() else
         {
             print("invalid bigint conversion")
@@ -107,12 +108,15 @@ public struct EthrDIDResolver//###: DIDResolver
                 continue
             }
             
-            for log in logs! {
-                guard let topicsHexPrefixed = log.topics, let dataHexPrefixed = log.data else {
+            for log in logs!
+            {
+                guard let topicsHexPrefixed = log.topics, let dataHexPrefixed = log.data else
+                {
                     continue
                 }
                 
-                let topics = topicsHexPrefixed.map({ (topic) -> String in
+                let topics = topicsHexPrefixed.map(
+                { (topic) -> String in
                     return topic.withoutHexPrefix
                 })
                 
@@ -161,7 +165,7 @@ public struct EthrDIDResolver//###: DIDResolver
         return events
     }
     
-    func wrapDidDocument(normalizedDid: String, owner: String, history: [Any]) throws -> DDO
+    func wrapDidDocument(normalizedDid: String, owner: String, history: [Any]) throws -> DIDDocument
     {
         let now = Int64(Date().timeIntervalSince1970 / 1000)
         
@@ -204,6 +208,7 @@ public struct EthrDIDResolver//###: DIDResolver
                     case DelegateType.Secp256k1SignatureAuthentication2018.rawValue, self.sigAuth:
                         authEntries[key] = AuthenticationEntry(type: .Secp256k1SignatureAuthentication2018,
                                                                publicKey: "\(normalizedDid)#delegate-\(delegateCount)")
+
                     case DelegateType.Secp256k1VerificationKey2018.rawValue, self.veriKey:
                         pkEntries[key] = PublicKeyEntry(id: "\(normalizedDid)#delegate-\(delegateCount)",
                                                         type: .Secp256k1VerificationKey2018,
@@ -245,10 +250,13 @@ public struct EthrDIDResolver//###: DIDResolver
                         {
                         case "", "null", "hex":
                             pk.publicKeyHex = event.value.value.toHexString()
+
                         case "base64":
                             pk.publicKeyBase64 = event.value.value.base64EncodedString()
+
                         case "base58":
                             pk.publicKeyBase58 = event.value.value.base58EncodedString()
+
                         default:
                             pk.value = event.value.value.toHexString()
                         }
@@ -269,10 +277,10 @@ public struct EthrDIDResolver//###: DIDResolver
             }
         }
         
-        return DDO(id: normalizedDid,
-                   publicKey: Array(pkEntries.values),
-                   authentication: Array(authEntries.values),
-                   service: Array(serviceEntries.values))
+        return DIDDocument(id: normalizedDid,
+                           publicKey: Array(pkEntries.values),
+                           authentication: Array(authEntries.values),
+                           service: Array(serviceEntries.values))
     }
     
     func destructuredAttributeChanged(eventName: String) throws -> (section : String,
@@ -403,7 +411,7 @@ public struct EthrDIDResolver//###: DIDResolver
         }
         
         var matches = [String]()
-        for index in 1..<textCheckingResult.numberOfRanges
+        for index in 1 ..< textCheckingResult.numberOfRanges
         {
             let range = Range(textCheckingResult.range(at: index), in: normalizedDid)
             if range != nil

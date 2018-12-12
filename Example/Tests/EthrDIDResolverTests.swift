@@ -49,7 +49,7 @@ class EthrDIDResolverTests: QuickSpec
                 let rpc = JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl)
                 let imaginaryAddress = "0x1234"
                 let lastChanged = try? EthrDIDResolver(rpc: rpc).lastChangedSynchronous(identity: imaginaryAddress)
-                expect(lastChanged?.hexToBigUInt()).to( equal(BigUInt(integerLiteral: 0)))
+                expect(lastChanged?.hexToBigUInt()).to(equal(BigUInt(integerLiteral: 0)))
             }
             
             it("last change is non-zero for real address with changed owner")
@@ -58,7 +58,7 @@ class EthrDIDResolverTests: QuickSpec
                 let imaginaryAddress = "0xf3beac30c498d9e26865f34fcaa57dbb935b0d74"
                 let lastChanged = try? EthrDIDResolver(rpc: rpc).lastChangedSynchronous(identity: imaginaryAddress)
                 print("lastChanged should not be 0 and is -> \(lastChanged!)")
-                expect(lastChanged?.hexToBigUInt()).toNot( equal(BigUInt(integerLiteral: 0)))
+                expect(lastChanged?.hexToBigUInt()).toNot(equal(BigUInt(integerLiteral: 0)))
             }
             
             it("can parse owner changed logs")
@@ -222,16 +222,16 @@ class EthrDIDResolverTests: QuickSpec
                                                               publicKey: publicKey)
                 let authentication = [authenticationEntry]
                 
-                let referenceDDO = DDO(id: id,
-                                       publicKey: [publicKeyEntry],
-                                       authentication: authentication,
-                                       service: [ServiceEntry](),
-                                       context: context)
+                let referenceDDO = DIDDocument(id: id,
+                                               publicKey: [publicKeyEntry],
+                                               authentication: authentication,
+                                               service: [ServiceEntry](),
+                                               context: context)
                 let realAddress = "0xb9c5714089478a327f09197987f16f9e5d936e8a"
                 let rpc = JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl)
                 let resolver = EthrDIDResolver(rpc: rpc)
                 let ddo = try! resolver.resolve(did: realAddress)
-                expect( ddo ).to(equal( referenceDDO))
+                expect(ddo).to(equal(referenceDDO))
                 print("found ddo-> \(ddo)")
             }
             

@@ -22,7 +22,7 @@ class DIDResolverSpec: QuickSpec
                 }
                 
                 let ethCall = EthCall(address: "0xaddress", data: "some0xdatastring")
-                guard let payloadJSON = JsonRpcBaseRequest( ethCall: ethCall ).toJsonRPC() else
+                guard let payloadJSON = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC() else
                 {
                     print("missing payload")
 
@@ -95,15 +95,15 @@ class DIDResolverSpec: QuickSpec
             
             it("Can get JSON DID")
             {
-                let expectedDDO = DIDDocument(context: "http://schema.org",
-                                              type: "Person",
-                                              publicKey: "0x04e8989d1826cd6258906cfaa71126e2db675eaef47ddeb9310ee10db" +
-                                                         "69b339ab960649e1934dc1e1eac1a193a94bd7dc5542befc5f733984526" +
-                                                         "5ea839b9cbe56f",
-                                              publicEncKey: "k8q5G4YoIMP7zvqMC9q84i7xUBins6dXGt8g5H007F0=",
-                                              description: nil,
-                                              image: nil,
-                                              name: nil)
+                let expectedDDO = LegacyDIDDocument(context: "http://schema.org",
+                                                    type: "Person",
+                                                    publicKey: "0x04e8989d1826cd6258906cfaa71126e2db675eaef47ddeb9310ee10db" +
+                                                               "69b339ab960649e1934dc1e1eac1a193a94bd7dc5542befc5f733984526" +
+                                                               "5ea839b9cbe56f",
+                                                    publicEncKey: "k8q5G4YoIMP7zvqMC9q84i7xUBins6dXGt8g5H007F0=",
+                                                    description: nil,
+                                                    image: nil,
+                                                    name: nil)
                 
                 let ddo = UPortDIDResolver.synchronousProfileDocument(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
                 

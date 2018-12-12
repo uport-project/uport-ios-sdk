@@ -1,5 +1,5 @@
 //
-//  DIDDocument.swift
+//  LegacyDIDDocument.swift
 //  uPortSDK
 //
 //  Created by josh on 3/6/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DIDDocument: Codable
+public struct LegacyDIDDocument: Codable
 {
     public var type: String?           // ex: "Organization", "Person"
     public var publicKey: String?      // ex: "0x04613bb3a4874d27032618f020614c21cbe4c4e4781687525f6674089f9bd3d6c7f6eb13569053d31715a3ba32e0b791b97922af6387f087d6b5548c06944ab062"
@@ -29,9 +29,9 @@ public struct DIDDocument: Codable
     }
 }
 
-extension DIDDocument: Equatable
+extension LegacyDIDDocument: Equatable
 {
-    public static func ==(lhs: DIDDocument, rhs: DIDDocument) -> Bool
+    public static func ==(lhs: LegacyDIDDocument, rhs: LegacyDIDDocument) -> Bool
     {
         return lhs.publicKey == rhs.publicKey && lhs.publicEncKey == rhs.publicEncKey
     }

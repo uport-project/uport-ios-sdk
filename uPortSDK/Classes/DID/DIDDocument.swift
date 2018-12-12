@@ -1,19 +1,19 @@
 //
-//  DDO.swift
+//  DIDDocument.swift
 //  uPortSDK
 //
-//  Created by mac on 8/23/18.
+//  Created by Cornelis van der Bent on 11/12/2018.
 //
 
 import Foundation
 
-public struct DDO: Equatable
+public class DIDDocument: Equatable
 {
+    var context: String = "https://w3id.org/did/v1"
     var id: String
     var publicKey = [PublicKeyEntry]()
     var authentication = [AuthenticationEntry]()
     var service = [ServiceEntry]()
-    var context: String = "https://w3id.org/did/v1"
 
     public init(id: String,
                 publicKey: [PublicKeyEntry] = [PublicKeyEntry](),
@@ -27,8 +27,8 @@ public struct DDO: Equatable
         self.service = service
         self.context = context
     }
-    
-    public static func == (lhs: DDO, rhs: DDO) -> Bool
+
+    public static func == (lhs: DIDDocument, rhs: DIDDocument) -> Bool
     {
         var areAuthenticationsEqual = true
         for lhsAuthentication in lhs.authentication
@@ -37,14 +37,14 @@ public struct DDO: Equatable
             { (authEntry) -> Bool in
                 return authEntry == lhsAuthentication
             }
-            
+
             if !isInBoth
             {
                 areAuthenticationsEqual = false
                 break
             }
         }
-        
+
         var areServiceEntryEqual = true
         for lhsService in lhs.service
         {
@@ -52,13 +52,13 @@ public struct DDO: Equatable
             { (rhsService) -> Bool in
                 return lhsService == rhsService
             }
-            
+
             if !isInBoth
             {
                 areServiceEntryEqual = false
             }
         }
-        
+
         return lhs.id == rhs.id && lhs.context == rhs.context && areAuthenticationsEqual && areServiceEntryEqual
     }
 }
@@ -92,7 +92,7 @@ public struct PublicKeyEntry: Equatable
         self.publicKeyBase58 = publicKeyBase58
         self.value = value
     }
-    
+
     public static func == (lhs: PublicKeyEntry, rhs: PublicKeyEntry) -> Bool
     {
         return lhs.id == rhs.id && lhs.type == rhs.type && lhs.owner == rhs.owner
@@ -109,7 +109,7 @@ public struct AuthenticationEntry
         self.type = type
         self.publicKey = publicKey
     }
-    
+
     public static func == (lhs: AuthenticationEntry, rhs: AuthenticationEntry) -> Bool
     {
         return lhs.type == rhs.type && lhs.publicKey == rhs.publicKey
@@ -121,12 +121,14 @@ public struct ServiceEntry
     var type: String
     var serviceEndpoint: String
 
-    public init( type: String, serviceEndpoint: String ) {
+    public init(type: String, serviceEndpoint: String)
+    {
         self.type = type
         self.serviceEndpoint = serviceEndpoint
     }
-    
-    public static func == (lhs: ServiceEntry, rhs: ServiceEntry) -> Bool {
+
+    public static func == (lhs: ServiceEntry, rhs: ServiceEntry) -> Bool
+    {
         return lhs.type == rhs.type && lhs.serviceEndpoint == rhs.serviceEndpoint
     }
 }

@@ -152,4 +152,28 @@ class DIDObjectTests: XCTestCase
         XCTAssertEqual(dido.method, "method")
         XCTAssertEqual(dido.id, "1234567890")
     }
+
+    func testIsReference()
+    {
+        let dido1 = try! DIDObject("did:method:1234567890/path/path/path#fragment")
+        XCTAssertTrue(dido1.isReference)
+
+        let dido2 = try! DIDObject("did:method:1234567890#fragment")
+        XCTAssertTrue(dido2.isReference)
+
+        let dido3 = try! DIDObject("did:method:1234567890/path")
+        XCTAssertTrue(dido3.isReference)
+    }
+
+    func testIsNotReference()
+    {
+        let dido1 = try! DIDObject("did:method:1234567890/")
+        XCTAssertFalse(dido1.isReference)
+
+        let dido2 = try! DIDObject("did:method:1234567890#")
+        XCTAssertFalse(dido2.isReference)
+
+        let dido3 = try! DIDObject("did:method:1234567890")
+        XCTAssertFalse(dido3.isReference)
+    }
 }

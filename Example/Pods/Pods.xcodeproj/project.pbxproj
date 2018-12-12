@@ -341,6 +341,7 @@
 		480BD46721BAB17E008012F5 /* DIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46421BAB17E008012F5 /* DIDResolver.swift */; };
 		480BD46821BAB17E008012F5 /* UniversalDIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */; };
 		484DCBBAB67B6ECE42676066A5CCC8D5 /* pcy_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 46D751E92462B6B8F303EC20E28E63F8 /* pcy_lib.c */; };
+		4886C11821C03CB10031C8C0 /* DIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886C11721C03CB10031C8C0 /* DIDDocument.swift */; };
 		48BF7931C8F95EDE938CEFB92D6FAD3A /* CwlDarwinDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFABF329A9184D1B979F60E3B9A7FAD /* CwlDarwinDefinitions.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		490F23BC77A8DB061B2C8AC86BA410A9 /* tb_eckey.c in Sources */ = {isa = PBXBuildFile; fileRef = DD8A326D5880A08CFFF3E956552C4B5D /* tb_eckey.c */; };
 		4970421006CCB3DBF414C31DA40DD507 /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE518594C376B97F4C8387C11CA5B6A /* NMBObjCMatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -371,7 +372,7 @@
 		4EA2BB85540D7B353C65141ECBA0CED6 /* NSBundle+CurrentTestBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41727C63217B6B12C8ACF65A8627930F /* NSBundle+CurrentTestBundle.swift */; };
 		4EA50347D85E0E25B6304D971F6D2942 /* BTCTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DB2B28BD5DBAAB77557CDE9BCEEDEB /* BTCTransactionBuilder.m */; };
 		4EA849992A1AF42430E186EED2D2BC54 /* eng_pkey.c in Sources */ = {isa = PBXBuildFile; fileRef = EB430700B2C7EBD5FAC0B7BEAF9ADA89 /* eng_pkey.c */; };
-		4EB046318C923C534A2354A331FD2E35 /* DIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC3DD389DF955393A402BA130CE2AD6 /* DIDDocument.swift */; };
+		4EB046318C923C534A2354A331FD2E35 /* LegacyDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC3DD389DF955393A402BA130CE2AD6 /* LegacyDIDDocument.swift */; };
 		4EC32D3D574A1164B723F119D66D77DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9849A96EBC1291F5720188D424A37B79 /* Foundation.framework */; };
 		4F92DFB390BF1534B24A5B3F3502AED7 /* obj_mac.h in Copy openssl/include/openssl Public Headers */ = {isa = PBXBuildFile; fileRef = 630AAEF488B5570BDC494846EDCFE541 /* obj_mac.h */; };
 		4FBD340A9B6A1D86DD023167AA4D10E7 /* EthereumDIDRegistry.json in Sources */ = {isa = PBXBuildFile; fileRef = 1207CC0A9224B9DE948D91D620513FE2 /* EthereumDIDRegistry.json */; };
@@ -1121,7 +1122,7 @@
 		F7D4C1604BC586DEFD5E1D2C2AF29217 /* drbg_ctr.c in Sources */ = {isa = PBXBuildFile; fileRef = E0ECD6BFA971BF6C5794C975AFC5B9BB /* drbg_ctr.c */; };
 		F7F1CA08CAB7C7372F89066C89B4D95C /* md5.h in Copy openssl/include/openssl Public Headers */ = {isa = PBXBuildFile; fileRef = 97BDF686FEB72033AE14895F5DA793EB /* md5.h */; };
 		F819B6128D57526DF0C8C27AC19E8E5E /* opensslv.h in Headers */ = {isa = PBXBuildFile; fileRef = DCAF1C0E88E8169DDD8B31892886E4DD /* opensslv.h */; };
-		F8A40787D0245A90816648D3DA6F34E6 /* DDO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A206CA935B75A23A36633E5DE086C /* DDO.swift */; };
+		F8A40787D0245A90816648D3DA6F34E6 /* EthrDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A206CA935B75A23A36633E5DE086C /* EthrDIDDocument.swift */; };
 		F8CBD2B68D19126B42ECBB08B27A78A4 /* ISO8601DateFormatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918FC8D9CD80CEA921066BBBD122E384 /* ISO8601DateFormatter.framework */; };
 		F8D6276628D65F468464BA09E27B3506 /* BTCSignatureHashType.h in Headers */ = {isa = PBXBuildFile; fileRef = EE2CB9BD8F6C093AF4C0F3060D1409CF /* BTCSignatureHashType.h */; };
 		F8E4C4107CC8461FE996FB3036B90C6E /* BTCHashID.h in Copy CoreBitcoin Public Headers */ = {isa = PBXBuildFile; fileRef = 4A01C3CFE7C03782121C8D2663908D39 /* BTCHashID.h */; };
@@ -1895,6 +1896,7 @@
 		480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalDIDResolver.swift; sourceTree = "<group>"; };
 		482259549AE1BDB1B99A0B022D9D0D00 /* UPTHDSigner.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UPTHDSigner.h; path = UPTEthereumSigner/Classes/UPTHDSigner.h; sourceTree = "<group>"; };
 		4873A6CE98F7A1C3707736BFFE74AF8F /* BTCBlockchainInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BTCBlockchainInfo.h; path = CoreBitcoin/BTCBlockchainInfo.h; sourceTree = "<group>"; };
+		4886C11721C03CB10031C8C0 /* DIDDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIDDocument.swift; sourceTree = "<group>"; };
 		48EF4D488170CCCD9E1337912B2BF940 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
 		4995F210761521772FF179364AD95B7B /* pcy_map.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pcy_map.c; path = openssl/src/crypto/x509v3/pcy_map.c; sourceTree = "<group>"; };
 		49964EFBBCF46A9F120FE01EB981D7F0 /* BTCScriptMachine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BTCScriptMachine.m; path = CoreBitcoin/BTCScriptMachine.m; sourceTree = "<group>"; };
@@ -2193,7 +2195,7 @@
 		999234B684086D42B571E18FFA417AE8 /* PromisesSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromisesSwift-umbrella.h"; sourceTree = "<group>"; };
 		99CEDF280D72AEE5A7445070C939A3D8 /* x_name.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = x_name.c; path = openssl/src/crypto/x509/x_name.c; sourceTree = "<group>"; };
 		9A8ED8E357A735B773FBE346B4FC67D7 /* asn1_lib.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = asn1_lib.c; path = openssl/src/crypto/asn1/asn1_lib.c; sourceTree = "<group>"; };
-		9AC3DD389DF955393A402BA130CE2AD6 /* DIDDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DIDDocument.swift; sourceTree = "<group>"; };
+		9AC3DD389DF955393A402BA130CE2AD6 /* LegacyDIDDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDIDDocument.swift; sourceTree = "<group>"; };
 		9ADD25C04FB82A8C0D531A8FC7544BB2 /* Data+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Extension.swift"; path = "Sources/CryptoSwift/Foundation/Data+Extension.swift"; sourceTree = "<group>"; };
 		9B06051FA252DEB86F3A05D290A976D2 /* pbe_scrypt.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pbe_scrypt.c; path = openssl/src/crypto/evp/pbe_scrypt.c; sourceTree = "<group>"; };
 		9B0A5F3E206698ACB09E21DF48DF1F37 /* ct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ct.h; path = openssl/include/openssl/ct.h; sourceTree = "<group>"; };
@@ -2419,7 +2421,7 @@
 		CF7649B0506A782C01F20FC1F4DEB81C /* UInt8+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt8+Extension.swift"; path = "Sources/CryptoSwift/UInt8+Extension.swift"; sourceTree = "<group>"; };
 		CF97381C28E3089B2695C7C7B95C7ED4 /* objects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = objects.h; path = openssl/include/openssl/objects.h; sourceTree = "<group>"; };
 		CFF82C23530D455020A8418D1DB9643D /* evp_int.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = evp_int.h; path = openssl/include/internal/evp_int.h; sourceTree = "<group>"; };
-		D02A206CA935B75A23A36633E5DE086C /* DDO.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DDO.swift; sourceTree = "<group>"; };
+		D02A206CA935B75A23A36633E5DE086C /* EthrDIDDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthrDIDDocument.swift; sourceTree = "<group>"; };
 		D05D82D916717322439A4A97427D4B3A /* bio_enc.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = bio_enc.c; path = openssl/src/crypto/evp/bio_enc.c; sourceTree = "<group>"; };
 		D084E1FCB6A52A1F8FBD11B0E719189E /* a_octet.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = a_octet.c; path = openssl/src/crypto/asn1/a_octet.c; sourceTree = "<group>"; };
 		D0A211FBD3C5D40BBD7C6AF4A54E8070 /* Promise+Race.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Race.swift"; path = "Sources/Promises/Promise+Race.swift"; sourceTree = "<group>"; };
@@ -2823,7 +2825,7 @@
 		13E6772663CC4C9942F01D517154EE8C /* uPortDID */ = {
 			isa = PBXGroup;
 			children = (
-				9AC3DD389DF955393A402BA130CE2AD6 /* DIDDocument.swift */,
+				9AC3DD389DF955393A402BA130CE2AD6 /* LegacyDIDDocument.swift */,
 				B7B01D723575B70094D4CAA1AC54F7E4 /* UPortDIDResolver.swift */,
 			);
 			name = uPortDID;
@@ -3003,15 +3005,16 @@
 			path = "../Target Support Files/BigInt";
 			sourceTree = "<group>";
 		};
-		480BD46221BAB17E008012F5 /* Resolver */ = {
+		480BD46221BAB17E008012F5 /* DID */ = {
 			isa = PBXGroup;
 			children = (
 				480BD46321BAB17E008012F5 /* DIDObject.swift */,
 				480BD46421BAB17E008012F5 /* DIDResolver.swift */,
 				480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */,
+				4886C11721C03CB10031C8C0 /* DIDDocument.swift */,
 			);
-			name = Resolver;
-			path = uPortSDK/Classes/Resolver;
+			name = DID;
+			path = uPortSDK/Classes/DID;
 			sourceTree = "<group>";
 		};
 		4B4AF3320EB0B76E87720D6C329357D1 /* ABI */ = {
@@ -3669,7 +3672,7 @@
 		669DCEDC4E32FA0A97D675B9B1AE7A9E /* EthrDID */ = {
 			isa = PBXGroup;
 			children = (
-				D02A206CA935B75A23A36633E5DE086C /* DDO.swift */,
+				D02A206CA935B75A23A36633E5DE086C /* EthrDIDDocument.swift */,
 				B0E98D633BD68AA6EF6939E00B062C43 /* EthrDID.swift */,
 				94F33132FFF866F50F1D9A937576B8B9 /* EthrDIDResolver.swift */,
 				E05B942C6B76705DC1641EBD49AC7578 /* NormalizedDID.swift */,
@@ -4101,9 +4104,9 @@
 		BD4ECF1606621D916E793F2C3EF891DF /* uPortSDK */ = {
 			isa = PBXGroup;
 			children = (
-				480BD46221BAB17E008012F5 /* Resolver */,
 				0C8DD09E196643C68B2E419698042780 /* Contracts */,
 				81D4FB96108280D9FBCB5C93663C3CC9 /* Core */,
+				480BD46221BAB17E008012F5 /* DID */,
 				13E6772663CC4C9942F01D517154EE8C /* uPortDID */,
 				669DCEDC4E32FA0A97D675B9B1AE7A9E /* EthrDID */,
 				B7F8F809DE55665C36337901FC34C7FE /* Identity */,
@@ -5664,10 +5667,11 @@
 				36C4EFA16638FF3FC8F8E4CF7C25D452 /* BytesX.swift in Sources */,
 				499CF1E4894AB197670B564501BB6558 /* ChainDefinition.swift in Sources */,
 				B7B46D2EC9C7067C5455E15656304006 /* DataExtension.swift in Sources */,
-				F8A40787D0245A90816648D3DA6F34E6 /* DDO.swift in Sources */,
-				4EB046318C923C534A2354A331FD2E35 /* DIDDocument.swift in Sources */,
+				F8A40787D0245A90816648D3DA6F34E6 /* EthrDIDDocument.swift in Sources */,
+				4EB046318C923C534A2354A331FD2E35 /* LegacyDIDDocument.swift in Sources */,
 				DC28AC1219DC75D5E87E13813F0CA12B /* UPortDIDResolver.swift in Sources */,
 				67BA4A3D80630BD65DDA1CDE51038706 /* DynamicType.swift in Sources */,
+				4886C11821C03CB10031C8C0 /* DIDDocument.swift in Sources */,
 				480BD46821BAB17E008012F5 /* UniversalDIDResolver.swift in Sources */,
 				731A06E47D470449528B3C6FB5301E9E /* EthAddress.swift in Sources */,
 				5CB1F0859E1B164BB81C16BEED871FC6 /* EthCall.swift in Sources */,
