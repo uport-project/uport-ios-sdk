@@ -17,7 +17,7 @@ public struct UniversalDIDResolver: DIDResolver
 {
     private var resolvers: [String : DIDResolver] = [:]
 
-    mutating func register(resolver: DIDResolver) throws
+    public mutating func register(resolver: DIDResolver) throws
     {
         guard resolver.method.isEmpty == false else
         {

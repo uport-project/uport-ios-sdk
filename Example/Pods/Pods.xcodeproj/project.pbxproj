@@ -342,6 +342,7 @@
 		480BD46821BAB17E008012F5 /* UniversalDIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480BD46521BAB17E008012F5 /* UniversalDIDResolver.swift */; };
 		484DCBBAB67B6ECE42676066A5CCC8D5 /* pcy_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 46D751E92462B6B8F303EC20E28E63F8 /* pcy_lib.c */; };
 		4886C11821C03CB10031C8C0 /* DIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886C11721C03CB10031C8C0 /* DIDDocument.swift */; };
+		4886C11A21C23ADF0031C8C0 /* UPortDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886C11921C23ADF0031C8C0 /* UPortDIDDocument.swift */; };
 		48BF7931C8F95EDE938CEFB92D6FAD3A /* CwlDarwinDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFABF329A9184D1B979F60E3B9A7FAD /* CwlDarwinDefinitions.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		490F23BC77A8DB061B2C8AC86BA410A9 /* tb_eckey.c in Sources */ = {isa = PBXBuildFile; fileRef = DD8A326D5880A08CFFF3E956552C4B5D /* tb_eckey.c */; };
 		4970421006CCB3DBF414C31DA40DD507 /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE518594C376B97F4C8387C11CA5B6A /* NMBObjCMatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -372,7 +373,7 @@
 		4EA2BB85540D7B353C65141ECBA0CED6 /* NSBundle+CurrentTestBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41727C63217B6B12C8ACF65A8627930F /* NSBundle+CurrentTestBundle.swift */; };
 		4EA50347D85E0E25B6304D971F6D2942 /* BTCTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DB2B28BD5DBAAB77557CDE9BCEEDEB /* BTCTransactionBuilder.m */; };
 		4EA849992A1AF42430E186EED2D2BC54 /* eng_pkey.c in Sources */ = {isa = PBXBuildFile; fileRef = EB430700B2C7EBD5FAC0B7BEAF9ADA89 /* eng_pkey.c */; };
-		4EB046318C923C534A2354A331FD2E35 /* LegacyDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC3DD389DF955393A402BA130CE2AD6 /* LegacyDIDDocument.swift */; };
+		4EB046318C923C534A2354A331FD2E35 /* UPortIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC3DD389DF955393A402BA130CE2AD6 /* UPortIdentityDocument.swift */; };
 		4EC32D3D574A1164B723F119D66D77DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9849A96EBC1291F5720188D424A37B79 /* Foundation.framework */; };
 		4F92DFB390BF1534B24A5B3F3502AED7 /* obj_mac.h in Copy openssl/include/openssl Public Headers */ = {isa = PBXBuildFile; fileRef = 630AAEF488B5570BDC494846EDCFE541 /* obj_mac.h */; };
 		4FBD340A9B6A1D86DD023167AA4D10E7 /* EthereumDIDRegistry.json in Sources */ = {isa = PBXBuildFile; fileRef = 1207CC0A9224B9DE948D91D620513FE2 /* EthereumDIDRegistry.json */; };
@@ -1897,6 +1898,7 @@
 		482259549AE1BDB1B99A0B022D9D0D00 /* UPTHDSigner.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UPTHDSigner.h; path = UPTEthereumSigner/Classes/UPTHDSigner.h; sourceTree = "<group>"; };
 		4873A6CE98F7A1C3707736BFFE74AF8F /* BTCBlockchainInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BTCBlockchainInfo.h; path = CoreBitcoin/BTCBlockchainInfo.h; sourceTree = "<group>"; };
 		4886C11721C03CB10031C8C0 /* DIDDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIDDocument.swift; sourceTree = "<group>"; };
+		4886C11921C23ADF0031C8C0 /* UPortDIDDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPortDIDDocument.swift; sourceTree = "<group>"; };
 		48EF4D488170CCCD9E1337912B2BF940 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
 		4995F210761521772FF179364AD95B7B /* pcy_map.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pcy_map.c; path = openssl/src/crypto/x509v3/pcy_map.c; sourceTree = "<group>"; };
 		49964EFBBCF46A9F120FE01EB981D7F0 /* BTCScriptMachine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BTCScriptMachine.m; path = CoreBitcoin/BTCScriptMachine.m; sourceTree = "<group>"; };
@@ -2195,7 +2197,7 @@
 		999234B684086D42B571E18FFA417AE8 /* PromisesSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromisesSwift-umbrella.h"; sourceTree = "<group>"; };
 		99CEDF280D72AEE5A7445070C939A3D8 /* x_name.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = x_name.c; path = openssl/src/crypto/x509/x_name.c; sourceTree = "<group>"; };
 		9A8ED8E357A735B773FBE346B4FC67D7 /* asn1_lib.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = asn1_lib.c; path = openssl/src/crypto/asn1/asn1_lib.c; sourceTree = "<group>"; };
-		9AC3DD389DF955393A402BA130CE2AD6 /* LegacyDIDDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LegacyDIDDocument.swift; sourceTree = "<group>"; };
+		9AC3DD389DF955393A402BA130CE2AD6 /* UPortIdentityDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UPortIdentityDocument.swift; sourceTree = "<group>"; };
 		9ADD25C04FB82A8C0D531A8FC7544BB2 /* Data+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Extension.swift"; path = "Sources/CryptoSwift/Foundation/Data+Extension.swift"; sourceTree = "<group>"; };
 		9B06051FA252DEB86F3A05D290A976D2 /* pbe_scrypt.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pbe_scrypt.c; path = openssl/src/crypto/evp/pbe_scrypt.c; sourceTree = "<group>"; };
 		9B0A5F3E206698ACB09E21DF48DF1F37 /* ct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ct.h; path = openssl/include/openssl/ct.h; sourceTree = "<group>"; };
@@ -2825,8 +2827,9 @@
 		13E6772663CC4C9942F01D517154EE8C /* uPortDID */ = {
 			isa = PBXGroup;
 			children = (
-				9AC3DD389DF955393A402BA130CE2AD6 /* LegacyDIDDocument.swift */,
+				9AC3DD389DF955393A402BA130CE2AD6 /* UPortIdentityDocument.swift */,
 				B7B01D723575B70094D4CAA1AC54F7E4 /* UPortDIDResolver.swift */,
+				4886C11921C23ADF0031C8C0 /* UPortDIDDocument.swift */,
 			);
 			name = uPortDID;
 			path = uPortSDK/Classes/uPortDID;
@@ -5651,6 +5654,7 @@
 				480BD46721BAB17E008012F5 /* DIDResolver.swift in Sources */,
 				84EAF9B644A0E964FA4DDAB4A412BB37 /* Account.swift in Sources */,
 				DC9959040A8CC48A99745103A7586305 /* AccountCreator.swift in Sources */,
+				4886C11A21C23ADF0031C8C0 /* UPortDIDDocument.swift in Sources */,
 				480BD46621BAB17E008012F5 /* DIDObject.swift in Sources */,
 				BF569665876223B54252A23785B2495F /* Address.swift in Sources */,
 				440B22435C85FD46DCF14D2B8E7DD2F1 /* ArrayX-Generated.swift in Sources */,
@@ -5668,7 +5672,7 @@
 				499CF1E4894AB197670B564501BB6558 /* ChainDefinition.swift in Sources */,
 				B7B46D2EC9C7067C5455E15656304006 /* DataExtension.swift in Sources */,
 				F8A40787D0245A90816648D3DA6F34E6 /* EthrDIDDocument.swift in Sources */,
-				4EB046318C923C534A2354A331FD2E35 /* LegacyDIDDocument.swift in Sources */,
+				4EB046318C923C534A2354A331FD2E35 /* UPortIdentityDocument.swift in Sources */,
 				DC28AC1219DC75D5E87E13813F0CA12B /* UPortDIDResolver.swift in Sources */,
 				67BA4A3D80630BD65DDA1CDE51038706 /* DynamicType.swift in Sources */,
 				4886C11821C03CB10031C8C0 /* DIDDocument.swift in Sources */,

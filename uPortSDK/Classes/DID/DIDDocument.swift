@@ -9,23 +9,23 @@ import Foundation
 
 public class DIDDocument: Equatable
 {
-    var context: String = "https://w3id.org/did/v1"
-    var id: String
-    var publicKey = [PublicKeyEntry]()
-    var authentication = [AuthenticationEntry]()
-    var service = [ServiceEntry]()
+    public var context: String = "https://w3id.org/did/v1"
+    public var id: String
+    public var publicKey = [PublicKeyEntry]()
+    public var authentication = [AuthenticationEntry]()
+    public var service = [ServiceEntry]()
 
-    public init(id: String,
+    public init(context: String = "https://w3id.org/did/v1",
+                id: String,
                 publicKey: [PublicKeyEntry] = [PublicKeyEntry](),
                 authentication: [AuthenticationEntry] = [AuthenticationEntry](),
-                service: [ServiceEntry] = [ServiceEntry](),
-                context: String = "https://w3id.org/did/v1")
+                service: [ServiceEntry] = [ServiceEntry]())
     {
+        self.context = context
         self.id = id
         self.publicKey = publicKey
         self.authentication = authentication
         self.service = service
-        self.context = context
     }
 
     public static func == (lhs: DIDDocument, rhs: DIDDocument) -> Bool
@@ -139,4 +139,5 @@ public enum DelegateType: String
     case Secp256k1SignatureAuthentication2018
     case Ed25519VerificationKey2018
     case RsaVerificationKey2018
+    case Curve25519EncryptionPublicKey
 }

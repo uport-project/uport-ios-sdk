@@ -48,10 +48,10 @@ class UniversalDIDResolverTests: XCTestCase
                                                       publicKey: publicKey)
         let authentication = [authenticationEntry]
 
-        return DIDDocument(id: id,
+        return DIDDocument(context: context,
+                           id: id,
                            publicKey: [publicKeyEntry],
                            authentication: authentication,
-                           service: [ServiceEntry](),
-                           context: context)
+                           service: [ServiceEntry]())
     }
 }

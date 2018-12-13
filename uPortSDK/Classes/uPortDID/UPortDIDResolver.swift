@@ -144,7 +144,7 @@ public struct UPortDIDResolver
     }
     
     /// returns DIDDocument parsed from fetched JSON
-    static func synchronousProfileDocument(mnid: String) -> LegacyDIDDocument?
+    static func synchronousProfileDocument(mnid: String) -> UPortIdentityDocument?
     {
         guard let profileDocumentJSON = UPortDIDResolver.synchronousJSONProfile(mnid: mnid) else
         {
@@ -160,10 +160,10 @@ public struct UPortDIDResolver
         }
         
         let decoder = JSONDecoder()
-        var didDocument: LegacyDIDDocument?
+        var didDocument: UPortIdentityDocument?
         do
         {
-            didDocument = try decoder.decode(LegacyDIDDocument.self, from: jsonData)
+            didDocument = try decoder.decode(UPortIdentityDocument.self, from: jsonData)
         }
         catch
         {
@@ -176,7 +176,7 @@ public struct UPortDIDResolver
     }
 
     /// Public endpoint for retrieving a DID Document from an mnid
-    public func profileDocument(mnid: String, callback: @escaping ((LegacyDIDDocument?, Error?) -> Void))
+    public func profileDocument(mnid: String, callback: @escaping ((UPortIdentityDocument?, Error?) -> Void))
     {
         DispatchQueue.global().async
         {

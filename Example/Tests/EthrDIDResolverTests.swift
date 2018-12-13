@@ -222,11 +222,11 @@ class EthrDIDResolverTests: QuickSpec
                                                               publicKey: publicKey)
                 let authentication = [authenticationEntry]
                 
-                let referenceDDO = DIDDocument(id: id,
+                let referenceDDO = DIDDocument(context: context,
+                                               id: id,
                                                publicKey: [publicKeyEntry],
                                                authentication: authentication,
-                                               service: [ServiceEntry](),
-                                               context: context)
+                                               service: [ServiceEntry]())
                 let realAddress = "0xb9c5714089478a327f09197987f16f9e5d936e8a"
                 let rpc = JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl)
                 let resolver = EthrDIDResolver(rpc: rpc)
