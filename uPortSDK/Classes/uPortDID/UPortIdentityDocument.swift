@@ -28,7 +28,7 @@ public struct UPortIdentityDocument: Codable
         self.name = name
     }
 
-    func convertToDIDDocument(did: String) throws -> UPortDIDDocument
+    public func convertToDIDDocument(did: String) throws -> UPortDIDDocument
     {
         let normalizedDid = try normalizeDid(did)
 

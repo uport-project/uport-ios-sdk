@@ -16,7 +16,6 @@ public enum EthrDIDResolverError: Error
     case invalidRegexResult
     case invalidDelegateType
     case invalidServiceEndpoint
-    case notImplemented //### Delete
 }
 
 public struct EthrDIDResolver: DIDResolver
@@ -37,7 +36,10 @@ public struct EthrDIDResolver: DIDResolver
 
     // MARK: - Resolver Implementation
 
-    public var method: String { return "ethr" }
+    public var method: String
+    {
+        return "ethr"
+    }
 
     public func canResolve(did: String) -> Bool
     {

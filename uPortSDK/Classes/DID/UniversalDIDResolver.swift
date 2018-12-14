@@ -15,7 +15,7 @@ public enum UniversalDIDResolverError: Error
 
 public struct UniversalDIDResolver: DIDResolver
 {
-    private var resolvers: [String : DIDResolver] = [:]
+    private var resolvers: [String : DIDResolver] = [ : ]
 
     public mutating func register(resolver: DIDResolver) throws
     {

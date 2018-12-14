@@ -4,7 +4,7 @@ import Quick
 import Nimble
 @testable import uPortSDK
 
-class DIDResolverSpec: QuickSpec
+class UPortDIDResolverSpec: QuickSpec
 {
     override func spec()
     {
@@ -78,7 +78,7 @@ class DIDResolverSpec: QuickSpec
                                        "000000000000000000000000f12c30cd32b4a027710c150ae742f50db07492130000000000" +
                                        "00000000000000f12c30cd32b4a027710c150ae742f50db0749213"
                 let acc = Account(network: "0x04", address: "0xf12c30cd32b4a027710c150ae742f50db0749213")!
-                let encoding = UPortDIDResolver.encodeRegistryFunctionCall(registrationIdentifier: "uPortProfileIPFS1220",
+                let encoding = try? UPortDIDResolver.encodeRegistryFunctionCall(registrationIdentifier: "uPortProfileIPFS1220",
                                                                            issuer: acc,
                                                                            subject: acc)
                 
@@ -88,7 +88,7 @@ class DIDResolverSpec: QuickSpec
             it("can call registry with appropriate server response")
             {
                 let expectedDocAddress = "QmWzBDtv8m21ph1aM57yVDWxdG7LdQd3rNf5xrRiiV2D2E"
-                let docAddressHex = UPortDIDResolver.synchronousIpfsHash(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
+                let docAddressHex = try? UPortDIDResolver.synchronousIpfsHash(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
                 
                 expect(docAddressHex) == expectedDocAddress
             }
@@ -100,15 +100,15 @@ class DIDResolverSpec: QuickSpec
                                                         publicKey: "0x04e8989d1826cd6258906cfaa71126e2" +
                                                                      "db675eaef47ddeb9310ee10db69b339a" +
                                                                      "b960649e1934dc1e1eac1a193a94bd7d" +
-                    "c5542befc5f7339845265ea839b9cbe56f", //### Correct with 65 bytes?
+                                                                     "c5542befc5f7339845265ea839b9cbe56f",
                                                         publicEncKey: "k8q5G4YoIMP7zvqMC9q84i7xUBins6dXGt8g5H007F0=",
                                                         description: nil,
                                                         image: nil,
                                                         name: nil)
                 
-                let ddo = UPortDIDResolver.synchronousProfileDocument(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
+                let ddo = try? UPortDIDResolver.synchronousProfileDocument(mnid: "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC")
                 
-                expect(ddo!) == expectedDDO
+                expect(ddo) == expectedDDO
             }
         }
     }
