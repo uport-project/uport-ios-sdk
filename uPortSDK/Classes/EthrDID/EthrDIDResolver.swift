@@ -43,7 +43,7 @@ public struct EthrDIDResolver: DIDResolver
 
     public func canResolve(did: String) -> Bool
     {
-        return false
+        return !NormalizedDID(didCandidate: did).value.isEmpty
     }
 
     public func resolve(did: String) throws -> DIDDocument
