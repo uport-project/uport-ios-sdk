@@ -187,6 +187,21 @@ public struct UPortDIDResolver: DIDResolver
 
     public func canResolve(did: String) -> Bool
     {
-        return true //### Implement
+        do
+        {
+            let dido = try DIDObject(did)
+            if dido.method == method
+            {
+                return MNID.decode(mnid: dido.id) != nil
+            }
+            else
+            {
+                return false
+            }
+        }
+        catch
+        {
+            return false
+        }
     }
 }
