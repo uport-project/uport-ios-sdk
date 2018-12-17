@@ -23,19 +23,22 @@ class UniversalDIDResolverTests: XCTestCase
     {
         var universalResolver = UniversalDIDResolver()
 
-        let resolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
-        XCTAssertNotNil(resolver)
-        XCTAssertNoThrow(try universalResolver.register(resolver: resolver))
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
 
         let ethrDid = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a"
-        let referenceDocument = createReferenceDocument()
+        let referenceDocument = createEthrReferenceDocument()
 
         var document: DIDDocument?
         XCTAssertNoThrow(document = try universalResolver.resolve(did: ethrDid))
         XCTAssertEqual(document, referenceDocument)
     }
 
-    private func createReferenceDocument() -> DIDDocument
+    private func createEthrReferenceDocument() -> DIDDocument
     {
         let context = "https://w3id.org/did/v1"
         let id = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a"
@@ -53,5 +56,38 @@ class UniversalDIDResolverTests: XCTestCase
                            publicKey: [publicKeyEntry],
                            authentication: authentication,
                            service: [ServiceEntry]())
+    }
+
+    func testResolveUPortDid()
+    {
+        var universalResolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let uportDid = "did:uport:2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC"
+        let referenceDocument = createUPortReferenceDocument()
+
+        var document: UPortDIDDocument?
+        XCTAssertNoThrow(document = try universalResolver.resolve(did: uportDid) as? UPortDIDDocument)
+        XCTAssertEqual(document?.uportProfile, referenceDocument)
+    }
+
+    private func createUPortReferenceDocument() -> UPortIdentityDocument
+    {
+        return UPortIdentityDocument(context: "http://schema.org",
+                                     type: "Person",
+                                     publicKey: "0x04e8989d1826cd6258906cfaa71126e2" +
+                                                "db675eaef47ddeb9310ee10db69b339a" +
+                                                "b960649e1934dc1e1eac1a193a94bd7d" +
+                                                "c5542befc5f7339845265ea839b9cbe56f",
+                                     publicEncKey: "k8q5G4YoIMP7zvqMC9q84i7xUBins6dXGt8g5H007F0=",
+                                     description: nil,
+                                     image: nil,
+                                     name: nil)
     }
 }

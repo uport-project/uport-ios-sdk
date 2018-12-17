@@ -98,9 +98,9 @@ class UPortDIDResolverSpec: QuickSpec
                 let expectedDDO = UPortIdentityDocument(context: "http://schema.org",
                                                         type: "Person",
                                                         publicKey: "0x04e8989d1826cd6258906cfaa71126e2" +
-                                                                     "db675eaef47ddeb9310ee10db69b339a" +
-                                                                     "b960649e1934dc1e1eac1a193a94bd7d" +
-                                                                     "c5542befc5f7339845265ea839b9cbe56f",
+                                                                   "db675eaef47ddeb9310ee10db69b339a" +
+                                                                   "b960649e1934dc1e1eac1a193a94bd7d" +
+                                                                   "c5542befc5f7339845265ea839b9cbe56f",
                                                         publicEncKey: "k8q5G4YoIMP7zvqMC9q84i7xUBins6dXGt8g5H007F0=",
                                                         description: nil,
                                                         image: nil,

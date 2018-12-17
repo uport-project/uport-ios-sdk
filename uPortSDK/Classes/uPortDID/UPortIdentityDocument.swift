@@ -16,6 +16,16 @@ public struct UPortIdentityDocument: Codable
     public var name: String?           // ex: "uPort @ Devcon3" , "Vitalik Buterout"
     public var didDescription: String? // ex: "uPort Attestation"
     public var context: String?
+
+    enum CodingKeys: String, CodingKey
+    {
+        case type = "@type"
+        case publicKey = "publicKey"
+        case publicEncKey = "publicEncKey"
+        case image = "image"
+        case didDescription = "didDescription"
+        case context = "@context"
+    }
     
     public init(context: String?, type: String?, publicKey: String?, publicEncKey: String?, description: String?, image: String?, name: String?)
     {
@@ -40,28 +50,20 @@ public struct UPortIdentityDocument: Codable
         if publicEncKey != nil
         {
             let publicEncKeyEntry = PublicKeyEntry(id: "\(normalizedDid)#keys-2",
-                type: .Curve25519EncryptionPublicKey,
-                owner: normalizedDid,
-                publicKeyBase64: publicEncKey)
+                                                   type: .Curve25519EncryptionPublicKey,
+                                                   owner: normalizedDid,
+                                                   publicKeyBase64: publicEncKey)
             publicKeyEntries.append(publicEncKeyEntry)
         }
 
         let authenticationEntry = AuthenticationEntry(type: .Secp256k1SignatureAuthentication2018,
                                                       publicKey: "\(normalizedDid)#keys-1")
 
-        let profile = UPortIdentityDocument(context: nil,
-                                            type: self.type,
-                                            publicKey: nil,
-                                            publicEncKey: nil,
-                                            description: self.didDescription,
-                                            image: self.image,
-                                            name: self.name)
-
         return UPortDIDDocument(context: "https://w3id.org/did/v1",
                                 id: did,
                                 publicKey: publicKeyEntries,
                                 authentication: [authenticationEntry],
-                                profile: profile)
+                                profile: self)
     }
 
     private func normalizeDid(_ did: String) throws -> String
