@@ -17,6 +17,7 @@
 		05C09E30D22FB7C75F092B32 /* Pods_uPortSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751F2E487A06AE52F328828 /* Pods_uPortSDK_Tests.framework */; };
 		48079B3821BAC479005D1E42 /* DIDObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48079B3721BAC479005D1E42 /* DIDObjectTests.swift */; };
 		4886C11521BFBACE0031C8C0 /* UniversalDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886C11421BFBACE0031C8C0 /* UniversalDIDResolverTests.swift */; };
+		48F769B421C8036E0012EA77 /* UPortIdentityDocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F769B221C803690012EA77 /* UPortIdentityDocumentTests.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		2CAE714A3ED3AC52EDE105C7 /* Pods_uPortSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uPortSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48079B3721BAC479005D1E42 /* DIDObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIDObjectTests.swift; sourceTree = "<group>"; };
 		4886C11421BFBACE0031C8C0 /* UniversalDIDResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalDIDResolverTests.swift; sourceTree = "<group>"; };
+		48F769B221C803690012EA77 /* UPortIdentityDocumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPortIdentityDocumentTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* uPortSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uPortSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,13 +134,14 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */,
-				607FACEB1AFB9204008FA782 /* UPortDIDResolverTests.swift */,
-				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
 				48079B3721BAC479005D1E42 /* DIDObjectTests.swift */,
+				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
+				03960B59205B42CA0024A7B4 /* SwiftBaseXTests.swift */,
 				4886C11421BFBACE0031C8C0 /* UniversalDIDResolverTests.swift */,
-				607FACE91AFB9204008FA782 /* Supporting Files */,
+				607FACEB1AFB9204008FA782 /* UPortDIDResolverTests.swift */,
+				48F769B221C803690012EA77 /* UPortIdentityDocumentTests.swift */,
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
+				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */,
 				48079B3821BAC479005D1E42 /* DIDObjectTests.swift in Sources */,
 				03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */,
+				48F769B421C8036E0012EA77 /* UPortIdentityDocumentTests.swift in Sources */,
 				4886C11521BFBACE0031C8C0 /* UniversalDIDResolverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

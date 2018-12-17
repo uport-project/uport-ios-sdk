@@ -179,7 +179,6 @@ public struct UPortDIDResolver: DIDResolver
     public func resolve(did: String) throws -> DIDDocument
     {
         let dido = try DIDObject(did)
-        //let hash = try UPortDIDResolver.synchronousIpfsHash(mnid: dido.id)
         let document = try UPortDIDResolver.synchronousProfileDocument(mnid: dido.id)
         let ddo = try document.convertToDIDDocument(did: did)
 
