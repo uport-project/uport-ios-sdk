@@ -256,14 +256,14 @@ class EthrDIDResolverTests: QuickSpec
                 
                 for validDid in validDids
                 {
-                    let normalizedDid = NormalizedDID(didCandidate: validDid)
+                    let normalizedDid = NormalizedEthrDID(didCandidate: validDid)
                     expect(normalizedDid.error).to(beNil())
                     expect(normalizedDid.value.lowercased()).to(equal("did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a"))
                 }
                 
                 for invalidDid in invalidDids
                 {
-                    let normalizedDid = NormalizedDID(didCandidate: invalidDid)
+                    let normalizedDid = NormalizedEthrDID(didCandidate: invalidDid)
                     expect(normalizedDid.error).toNot(beNil())
                 }
             }

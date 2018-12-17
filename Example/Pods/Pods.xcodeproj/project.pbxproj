@@ -124,7 +124,7 @@
 		190A12E93B90734F1E9B22E13F9A5983 /* FBLPromise+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = BA33202F0A45A9FB37D1F727919169AC /* FBLPromise+Testing.h */; };
 		1989DB051B36B7755A79F2019BEDAB2E /* BTCNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F0115E992D107ED3EAD41F2DB3A5A50 /* BTCNetwork.h */; };
 		19A350C9BB2940599207EB50BE3BD519 /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 23BAC1995397EA7A05FA8A5F2DC7EFAF /* aes_core.c */; };
-		19E28F7EC25B1383C36D2C0C37E4BC5A /* NormalizedDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05B942C6B76705DC1641EBD49AC7578 /* NormalizedDID.swift */; };
+		19E28F7EC25B1383C36D2C0C37E4BC5A /* NormalizedEthrDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05B942C6B76705DC1641EBD49AC7578 /* NormalizedEthrDID.swift */; };
 		19EDC3310FAA682AFDBE364E65BA1335 /* eng_init.c in Sources */ = {isa = PBXBuildFile; fileRef = F6AE64A8CB9E50A3F2F9AE525BEA08E8 /* eng_init.c */; };
 		19F07F985F20DE09107B7CD7EC61F72B /* CwlCatchException.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2908170E2D3365F4C4FCA4C83E5661 /* CwlCatchException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1AE411691CACFCE2A3675E71150D1BE3 /* ec_curve.c in Sources */ = {isa = PBXBuildFile; fileRef = E4C1012DB4B5FD5D9C50515648240FB8 /* ec_curve.c */; };
@@ -2501,7 +2501,7 @@
 		DFA336050C128641D75F39F9A5B1EE3F /* ocb128.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ocb128.c; path = openssl/src/crypto/modes/ocb128.c; sourceTree = "<group>"; };
 		DFA8C4D1B92B54913B1303B79D880C5B /* a_object.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = a_object.c; path = openssl/src/crypto/asn1/a_object.c; sourceTree = "<group>"; };
 		E0521DAE3E502D51CF09D59800D9C1E9 /* bn_mont.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = bn_mont.c; path = openssl/src/crypto/bn/bn_mont.c; sourceTree = "<group>"; };
-		E05B942C6B76705DC1641EBD49AC7578 /* NormalizedDID.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NormalizedDID.swift; sourceTree = "<group>"; };
+		E05B942C6B76705DC1641EBD49AC7578 /* NormalizedEthrDID.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NormalizedEthrDID.swift; sourceTree = "<group>"; };
 		E09927E7177FAD830FE742EC3F4C61CB /* evp_cnf.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = evp_cnf.c; path = openssl/src/crypto/evp/evp_cnf.c; sourceTree = "<group>"; };
 		E0BA2236BAF73D3B55ACB2954A834747 /* CoreEthereum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreEthereum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0EA5EDAEF2C5CCBBAA41B94086B48C6 /* des_old.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = des_old.h; path = openssl/include/openssl/des_old.h; sourceTree = "<group>"; };
@@ -3678,7 +3678,7 @@
 				D02A206CA935B75A23A36633E5DE086C /* EthrDIDDocument.swift */,
 				B0E98D633BD68AA6EF6939E00B062C43 /* EthrDID.swift */,
 				94F33132FFF866F50F1D9A937576B8B9 /* EthrDIDResolver.swift */,
-				E05B942C6B76705DC1641EBD49AC7578 /* NormalizedDID.swift */,
+				E05B942C6B76705DC1641EBD49AC7578 /* NormalizedEthrDID.swift */,
 			);
 			name = EthrDID;
 			path = uPortSDK/Classes/EthrDID;
@@ -5693,7 +5693,7 @@
 				A7C432BEA2BF125431783417DDA3742B /* JsonRpcBase.swift in Sources */,
 				9922026C60E26CCE7CBF378E788C961C /* MNID.swift in Sources */,
 				954B225AF118A5578CEA03216A46F5BF /* Networks.swift in Sources */,
-				19E28F7EC25B1383C36D2C0C37E4BC5A /* NormalizedDID.swift in Sources */,
+				19E28F7EC25B1383C36D2C0C37E4BC5A /* NormalizedEthrDID.swift in Sources */,
 				828853BCBA96899284D7CF1ED7C1192D /* ProgressPersistence.swift in Sources */,
 				CCEA8F4FEC1A419D708840D27A2143D6 /* Solidity.swift in Sources */,
 				C682ED85FF00D6D44A17F4F59FE796B2 /* SolidityCodable.swift in Sources */,

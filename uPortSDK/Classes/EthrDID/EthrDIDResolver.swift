@@ -43,12 +43,12 @@ public struct EthrDIDResolver: DIDResolver
 
     public func canResolve(did: String) -> Bool
     {
-        return !NormalizedDID(didCandidate: did).value.isEmpty
+        return !NormalizedEthrDID(didCandidate: did).value.isEmpty
     }
 
     public func resolve(did: String) throws -> DIDDocument
     {
-        let normalizedDidObject = NormalizedDID(didCandidate: did)
+        let normalizedDidObject = NormalizedEthrDID(didCandidate: did)
         guard normalizedDidObject.error == nil else
         {
             throw normalizedDidObject.error!
