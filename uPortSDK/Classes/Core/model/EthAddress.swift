@@ -1,5 +1,5 @@
 //
-//  Address.swift
+//  EthAddress.swift
 //  uPortSDK
 //
 //  Created by mac on 8/21/18.

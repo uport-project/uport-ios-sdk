@@ -1,4 +1,9 @@
-// https://github.com/Quick/Quick
+//
+//  UPortDIDResolverTests.swift
+//  uPortSDK_Tests
+//
+//  Created by ConsenSys on 10/12/2018.
+//
 
 import Quick
 import Nimble

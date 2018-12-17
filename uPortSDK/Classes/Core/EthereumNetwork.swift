@@ -1,5 +1,5 @@
 //
-//  Networks.swift
+//  EthereumNetworks.swift
 //  uPortSDK
 //
 //  Created by mac on 3/26/18.

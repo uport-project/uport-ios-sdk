@@ -1,3 +1,9 @@
+//
+//  UPortDIDResolver.swift
+//  uPortSDK
+//
+//  Created by ConsenSys on 3/6/18.
+//
 
 import Foundation
 import BigInt

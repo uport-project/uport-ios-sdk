@@ -3,7 +3,7 @@
 //  uPortSDK_Tests
 //
 //  Created by Cornelis van der Bent on 07/12/2018.
-//  Copyright © 2018 CocoaPods. All rights reserved.
+//  Copyright © 2018 ConsenSys. All rights reserved.
 //
 
 import XCTest
