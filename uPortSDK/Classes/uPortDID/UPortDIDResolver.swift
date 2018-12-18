@@ -184,9 +184,14 @@ public struct UPortDIDResolver: DIDResolver
 
     public func resolve(did: String) throws -> DIDDocument
     {
-        let dido = try DIDObject(did)
-        let document = try UPortDIDResolver.synchronousProfileDocument(mnid: dido.id)
-        let ddo = try document.convertToDIDDocument(did: did)
+        var dido = try? DIDObject(did)
+        if dido == nil
+        {
+            dido = try DIDObject("did:\(method):\(did)")
+        }
+
+        let document = try UPortDIDResolver.synchronousProfileDocument(mnid: dido!.id)
+        let ddo = try document.convertToDIDDocument(did: dido!.did)
 
         return ddo
     }
@@ -207,7 +212,7 @@ public struct UPortDIDResolver: DIDResolver
         }
         catch
         {
-            return false
+            return MNID.decode(mnid: did) != nil
         }
     }
 }

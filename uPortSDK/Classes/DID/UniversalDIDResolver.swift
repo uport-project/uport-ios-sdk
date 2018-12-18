@@ -45,19 +45,19 @@ public struct UniversalDIDResolver: DIDResolver
 
     public func canResolve(did: String) -> Bool
     {
-        return ((try? findResolver(for: did)) != nil)
+        return findResolver(for: did) != nil
     }
 
-    private func findResolver(for did: String) throws -> DIDResolver?
+    private func findResolver(for did: String) -> DIDResolver?
     {
-        let dido = try DIDObject(did)
-
-        var resolver = resolvers[dido.method]
-        if resolver == nil
+        if let dido = try? DIDObject(did),
+           let resolver = resolvers[dido.method]
         {
-            resolver = resolvers.values.first { $0.canResolve(did: did) }
+            return resolver
         }
-
-        return resolver
+        else
+        {
+            return resolvers.values.first { $0.canResolve(did: did) }
+        }
     }
 }

@@ -38,24 +38,23 @@ class UniversalDIDResolverTests: XCTestCase
         XCTAssertEqual(document, referenceDocument)
     }
 
-    private func createEthrReferenceDocument() -> DIDDocument
+    func testResolveEthrId()
     {
-        let context = "https://w3id.org/did/v1"
-        let id = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a"
-        let publicKeyEntry = PublicKeyEntry(id: "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#owner",
-                                            type: .Secp256k1VerificationKey2018,
-                                            owner: "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a",
-                                            ethereumAddress: "0xb9c5714089478a327f09197987f16f9e5d936e8a")
-        let publicKey = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#owner"
-        let authenticationEntry = AuthenticationEntry(type: .Secp256k1SignatureAuthentication2018,
-                                                      publicKey: publicKey)
-        let authentication = [authenticationEntry]
+        var universalResolver = UniversalDIDResolver()
 
-        return DIDDocument(context: context,
-                           id: id,
-                           publicKey: [publicKeyEntry],
-                           authentication: authentication,
-                           service: [ServiceEntry]())
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let id = "0xb9c5714089478a327f09197987f16f9e5d936e8a"
+        let referenceDocument = createEthrReferenceDocument()
+
+        var document: DIDDocument?
+        XCTAssertNoThrow(document = try universalResolver.resolve(did: id))
+        XCTAssertEqual(document, referenceDocument)
     }
 
     func testResolveUPortDid()
@@ -75,6 +74,47 @@ class UniversalDIDResolverTests: XCTestCase
         var document: UPortDIDDocument?
         XCTAssertNoThrow(document = try universalResolver.resolve(did: uportDid) as? UPortDIDDocument)
         XCTAssertEqual(document?.uportProfile, referenceDocument)
+    }
+
+    func testResolveUPortMnid()
+    {
+        var universalResolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let mnid = "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC"
+        let referenceDocument = createUPortReferenceDocument()
+
+        var document: UPortDIDDocument?
+        XCTAssertNoThrow(document = try universalResolver.resolve(did: mnid) as? UPortDIDDocument)
+        XCTAssertEqual(document?.uportProfile, referenceDocument)
+    }
+
+    // MARK: - Helpers
+
+    private func createEthrReferenceDocument() -> DIDDocument
+    {
+        let context = "https://w3id.org/did/v1"
+        let id = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a"
+        let publicKeyEntry = PublicKeyEntry(id: "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#owner",
+                                            type: .Secp256k1VerificationKey2018,
+                                            owner: "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a",
+                                            ethereumAddress: "0xb9c5714089478a327f09197987f16f9e5d936e8a")
+        let publicKey = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#owner"
+        let authenticationEntry = AuthenticationEntry(type: .Secp256k1SignatureAuthentication2018,
+                                                      publicKey: publicKey)
+        let authentication = [authenticationEntry]
+
+        return DIDDocument(context: context,
+                           id: id,
+                           publicKey: [publicKeyEntry],
+                           authentication: authentication,
+                           service: [ServiceEntry]())
     }
 
     private func createUPortReferenceDocument() -> UPortIdentityDocument
