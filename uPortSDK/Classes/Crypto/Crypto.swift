@@ -136,7 +136,8 @@ extension Array where Element == UInt8
         {
             let unpadded = self[0..<firstZero]
             return String(bytes: unpadded, encoding: .utf8)!
-        } else {
+        } else
+        {
             return String(bytes: self, encoding: .utf8)!
         }
     }

@@ -33,7 +33,8 @@ class CryptoTests: XCTestCase
     
     func testZeroPaddingUnicode()
     {
-        let messages: Array<String> = [
+        let messages: Array<String> =
+        [
             "hello",
             "小路の藪",
             "柑子、パイ",
@@ -47,9 +48,11 @@ class CryptoTests: XCTestCase
             "無、グーリンダイのポンポコピ",
             "ーのポンポコナーの。やぶら小路",
             "🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧",
-            "🎄 🌟 ❄️ 🎁 🎅 🦌"]
+            "🎄 🌟 ❄️ 🎁 🎅 🦌"
+        ]
         
-        for message in messages {
+        for message in messages
+        {
             let padded = message.padToBlock()            
             XCTAssertNotEqual(Array(message.utf8), padded)
             XCTAssertTrue(padded.count % 64 == 0)
@@ -112,20 +115,25 @@ class CryptoTests: XCTestCase
                                             ciphertext: "f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy")
         let inputJson = input.toJson()
         
-        if let inputDictionary = try! JSONSerialization.jsonObject(with: inputJson, options: []) as? [String: Any] {
-            if let nonce = inputDictionary["nonce"] as? String {
+        if let inputDictionary = try! JSONSerialization.jsonObject(with: inputJson, options: []) as? [String: Any]
+        {
+            if let nonce = inputDictionary["nonce"] as? String
+            {
                 XCTAssertEqual(expectedDictionary["nonce"] as! String, nonce)
             }
             
-            if let ciphertext = inputDictionary["ciphertext"] as? String {
+            if let ciphertext = inputDictionary["ciphertext"] as? String
+            {
                 XCTAssertEqual(expectedDictionary["ciphertext"] as! String, ciphertext)
             }
             
-            if let version = inputDictionary["version"] as? String {
+            if let version = inputDictionary["version"] as? String
+            {
                 XCTAssertEqual(expectedDictionary["version"] as! String, version)
             }
             
-            if let ephemPublicKey = inputDictionary["ephemPublicKey"] as? String {
+            if let ephemPublicKey = inputDictionary["ephemPublicKey"] as? String
+            {
                 XCTAssertEqual(expectedDictionary["ephemPublicKey"] as! String, ephemPublicKey)
             }
         }
