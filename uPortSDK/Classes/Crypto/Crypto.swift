@@ -48,7 +48,7 @@ public struct Crypto
     }
     
     /**
-     Encrypts a message with a sender's public key, recipient's secret key, and encryption nonce.
+     Encrypts a message with a sender's secret key, recipient's public key, and encryption nonce.
      
      - Parameter message: The plaintext message to be encrypted.
      - Parameter boxPub: The public encryption key of the receiver, encoded as a base64 [String].
