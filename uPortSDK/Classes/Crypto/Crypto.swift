@@ -106,7 +106,7 @@ public struct Crypto
         let decodedNonce = Bytes(encrypted.nonce.decodeBase64())
         
         let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText, senderPublicKey: decodedEphemPublicKey, recipientSecretKey: secretKey, nonce: decodedNonce)!        
-        let unpadded = decrypted.unpad()
+        let unpadded = decrypted.unpadFromBlock()
         return unpadded
     }
     
@@ -130,7 +130,7 @@ extension String
 
 extension Array where Element == UInt8
 {
-    func unpad() -> String
+    func unpadFromBlock() -> String
     {
         if let firstZero = self.firstIndex(of: 0)
         {

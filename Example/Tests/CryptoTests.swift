@@ -27,7 +27,7 @@ class CryptoTests: XCTestCase
     {
         let original = "hello"
         let padded = original.padToBlock()
-        let unpadded = padded.unpad()
+        let unpadded = padded.unpadFromBlock()
         XCTAssertEqual(unpadded, original)
     }
     
@@ -57,7 +57,7 @@ class CryptoTests: XCTestCase
             XCTAssertNotEqual(Array(message.utf8), padded)
             XCTAssertTrue(padded.count % 64 == 0)
             
-            let unpadded = padded.unpad()
+            let unpadded = padded.unpadFromBlock()
             XCTAssertEqual(message, unpadded)
             
         }
