@@ -10,7 +10,8 @@ import Sodium
  * This struct exposes methods to encrypt and decrypt messages according to the uPort spec at
  * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
  */
-public struct Crypto {
+public struct Crypto
+{
     public struct Constants
     {
         static let asyncEncryptionAlgorithm = "x25519-xsalsa20-poly1305"
@@ -20,23 +21,27 @@ public struct Crypto {
      * This class encapsulates an encrypted message that was produced using
      * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
      */
-    public struct EncryptedMessage: Codable {
+    public struct EncryptedMessage: Codable
+    {
         var cipherText: String
         var nonce: String
         var ephemPublicKey: String
         var version: String = Constants.asyncEncryptionAlgorithm
         
-        public init(cipherText: String, nonce: String, ephemPublicKey: String) {
+        public init(cipherText: String, nonce: String, ephemPublicKey: String)
+        {
             self.cipherText = cipherText
             self.nonce = nonce
             self.ephemPublicKey = ephemPublicKey
         }
         
-        public func encode() -> Data {
+        public func encode() -> Data
+        {
             return try! Data(JSONEncoder().encode(self))
         }
         
-        public static func decode(jsonData: Data) -> EncryptedMessage {
+        public static func decode(jsonData: Data) -> EncryptedMessage
+        {
             return try! JSONDecoder().decode(EncryptedMessage.self, from: jsonData)
         }
     }
@@ -49,7 +54,8 @@ public struct Crypto {
      
      - Returns: An `EncryptedMessage` instance containing a `version`, `nonce`, `ephemPublicKey` and `ciphertext`
      */
-    public static func encrypt(message: String, boxPub: String) -> EncryptedMessage {
+    public static func encrypt(message: String, boxPub: String) -> EncryptedMessage
+    {
         let sodium = Sodium()
         
         //Decode base64 public key
@@ -91,7 +97,8 @@ public struct Crypto {
      
      - Returns: The decrypted message as a String.
      */
-    public static func decrypt(encrypted: EncryptedMessage, secretKey: Array<UInt8>) -> String {
+    public static func decrypt(encrypted: EncryptedMessage, secretKey: Array<UInt8>) -> String
+    {
         let sodium = Sodium()
         let decodedCipherText = Bytes(encrypted.cipherText.decodeBase64())
         let decodedEphemPublicKey = Bytes(encrypted.ephemPublicKey.decodeBase64())
@@ -104,12 +111,15 @@ public struct Crypto {
     
 }
 
-extension String {
-    func decodeBase64() -> Data {
+extension String
+{
+    func decodeBase64() -> Data
+    {
         return Data(base64Encoded: self)!
     }
     
-    func padToBlock() -> Array<UInt8> {
+    func padToBlock() -> Array<UInt8>
+    {
         let bytes: [UInt8] = Array(self.utf8)
         let paddingSize = Int(ceil(Double(self.count) / Crypto.Constants.blockSize ) * Crypto.Constants.blockSize) - self.count
         let padding: Array<UInt8> = Array(repeating: 0, count: paddingSize )
@@ -117,9 +127,12 @@ extension String {
     }
 }
 
-extension Array where Element == UInt8 {
-    func unpad() -> String {
-        if let firstZero = self.firstIndex(of: 0) {
+extension Array where Element == UInt8
+{
+    func unpad() -> String
+    {
+        if let firstZero = self.firstIndex(of: 0)
+        {
             let unpadded = self[0..<firstZero]
             return String(bytes: unpadded, encoding: .utf8)!
         } else {
