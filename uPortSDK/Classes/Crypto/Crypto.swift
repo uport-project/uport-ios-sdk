@@ -11,9 +11,11 @@ import Sodium
  * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
  */
 public struct Crypto {
-    private static let ASYNC_ENC_ALGORITHM = "x25519-xsalsa20-poly1305"
-    public static let BLOCK_SIZE = 64
-    
+    public struct Constants
+    {
+        static let asyncEncryptionAlgorithm = "x25519-xsalsa20-poly1305"
+        static let blockSize = 64.0
+    }
     /**
      * This class encapsulates an encrypted message that was produced using
      * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
@@ -22,7 +24,7 @@ public struct Crypto {
         var cipherText: String
         var nonce: String
         var ephemPublicKey: String
-        var version: String = ASYNC_ENC_ALGORITHM
+        var version: String = Constants.asyncEncryptionAlgorithm
         
         public init(cipherText: String, nonce: String, ephemPublicKey: String) {
             self.cipherText = cipherText
@@ -62,11 +64,11 @@ public struct Crypto {
         let nonceString = Data(nonce).base64EncodedString()
         
         //pad message
-        let msg = message.pad()
-        let msgBytes = Bytes(msg.utf8)
+        let msg = message.padToBlock()
+        //let msgBytes = Bytes(msg.utf8)
         
         //seal box
-        let cipherText = sodium.box.seal(message: msgBytes,
+        let cipherText = sodium.box.seal(message: msg,
                                          recipientPublicKey: Bytes(boxPubDecoded),
                                          senderSecretKey: ephemKeyPair.secretKey,
                                          nonce: nonce)
@@ -95,10 +97,8 @@ public struct Crypto {
         let decodedEphemPublicKey = Bytes(encrypted.ephemPublicKey.decodeBase64())
         let decodedNonce = Bytes(encrypted.nonce.decodeBase64())
         
-        let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText, senderPublicKey: decodedEphemPublicKey, recipientSecretKey: secretKey, nonce: decodedNonce)!
-        let decryptedString = String(bytes: decrypted, encoding: .utf8)!
-        
-        let unpadded = decryptedString.unpad()//unpad(message: decrypted)
+        let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText, senderPublicKey: decodedEphemPublicKey, recipientSecretKey: secretKey, nonce: decodedNonce)!        
+        let unpadded = decrypted.unpad()
         return unpadded
     }
     
@@ -109,15 +109,23 @@ extension String {
         return Data(base64Encoded: self)!
     }
     
-    func pad() -> String {
-        let paddingSize = ((self.count / Crypto.BLOCK_SIZE ) + 1) * Crypto.BLOCK_SIZE
-        let padding = String(repeatElement("\0", count: paddingSize - self.count))
-        return self + padding
-    }
-    
-    func unpad() -> String{
-        var unpadded = self
-        unpadded = self.replacingOccurrences(of: "\0", with: "")
-        return unpadded
+    func padToBlock() -> Array<UInt8> {
+        let bytes: [UInt8] = Array(self.utf8)
+        let paddingSize = Int(ceil(Double(self.count) / Crypto.Constants.blockSize ) * Crypto.Constants.blockSize) - self.count
+        let padding: Array<UInt8> = Array(repeating: 0, count: paddingSize )
+        return bytes + padding
     }
 }
+
+extension Array where Element == UInt8 {
+    func unpad() -> String {
+        if let firstZero = self.firstIndex(of: 0) {
+            let unpadded = self[0..<firstZero]
+            return String(bytes: unpadded, encoding: .utf8)!
+        } else {
+            return String(bytes: self, encoding: .utf8)!
+        }
+    }
+}
+
+
