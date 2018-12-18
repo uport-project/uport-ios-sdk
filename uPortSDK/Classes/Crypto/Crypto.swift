@@ -23,24 +23,25 @@ public struct Crypto
      */
     public struct EncryptedMessage: Codable
     {
-        var cipherText: String
+        var version: String = Constants.asyncEncryptionAlgorithm
         var nonce: String
         var ephemPublicKey: String
-        var version: String = Constants.asyncEncryptionAlgorithm
+        var ciphertext: String
         
-        public init(cipherText: String, nonce: String, ephemPublicKey: String)
+        
+        public init(nonce: String, ephemPublicKey: String, ciphertext: String)
         {
-            self.cipherText = cipherText
             self.nonce = nonce
             self.ephemPublicKey = ephemPublicKey
+            self.ciphertext = ciphertext
         }
         
-        public func encode() -> Data
+        public func toJson() -> Data
         {
             return try! Data(JSONEncoder().encode(self))
         }
         
-        public static func decode(jsonData: Data) -> EncryptedMessage
+        public static func fromJson(jsonData: Data) -> EncryptedMessage
         {
             return try! JSONDecoder().decode(EncryptedMessage.self, from: jsonData)
         }
@@ -82,9 +83,9 @@ public struct Crypto
         let cipherString = Data(cipherText!).base64EncodedString()
         
         //Create encrypted payload object
-        let encPayload = EncryptedMessage(cipherText: cipherString,
-                                          nonce: nonceString,
-                                          ephemPublicKey: ephemPublicKeyString)
+        let encPayload = EncryptedMessage(nonce: nonceString,
+                                          ephemPublicKey: ephemPublicKeyString,
+                                          ciphertext: cipherString)
         
         return encPayload
     }
@@ -100,7 +101,7 @@ public struct Crypto
     public static func decrypt(encrypted: EncryptedMessage, secretKey: Array<UInt8>) -> String
     {
         let sodium = Sodium()
-        let decodedCipherText = Bytes(encrypted.cipherText.decodeBase64())
+        let decodedCipherText = Bytes(encrypted.ciphertext.decodeBase64())
         let decodedEphemPublicKey = Bytes(encrypted.ephemPublicKey.decodeBase64())
         let decodedNonce = Bytes(encrypted.nonce.decodeBase64())
         
@@ -121,7 +122,7 @@ extension String
     func padToBlock() -> Array<UInt8>
     {
         let bytes: [UInt8] = Array(self.utf8)
-        let paddingSize = Int(ceil(Double(self.count) / Crypto.Constants.blockSize ) * Crypto.Constants.blockSize) - self.count
+        let paddingSize = Int(ceil(Double(bytes.count) / Crypto.Constants.blockSize ) * Crypto.Constants.blockSize) - bytes.count
         let padding: Array<UInt8> = Array(repeating: 0, count: paddingSize )
         return bytes + padding
     }

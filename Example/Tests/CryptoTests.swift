@@ -27,12 +27,37 @@ class CryptoTests: XCTestCase
     {
         let original = "hello"
         let padded = original.padToBlock()
-        print(padded)
-        print(padded.count)
         let unpadded = padded.unpad()
-        print(unpadded)
-        print(unpadded == original)
         XCTAssertEqual(unpadded, original)
+    }
+    
+    func testZeroPaddingUnicode()
+    {
+        let messages: Array<String> = [
+            "hello",
+            "小路の藪",
+            "柑子、パイ",
+            "ポパイポ パイ",
+            "ポのシューリンガ",
+            "ン。五劫の擦り切れ",
+            "、食う寝る処に住む処",
+            "。グーリンダイのポンポ",
+            "コピーのポンポコナーの、",
+            "長久命の長助、寿限無、寿限",
+            "無、グーリンダイのポンポコピ",
+            "ーのポンポコナーの。やぶら小路",
+            "🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧",
+            "🎄 🌟 ❄️ 🎁 🎅 🦌"]
+        
+        for message in messages {
+            let padded = message.padToBlock()            
+            XCTAssertNotEqual(Array(message.utf8), padded)
+            XCTAssertTrue(padded.count % 64 == 0)
+            
+            let unpadded = padded.unpad()
+            XCTAssertEqual(message, unpadded)
+            
+        }
     }
     
     func testEncryptAndDecrypt()
@@ -48,13 +73,43 @@ class CryptoTests: XCTestCase
     
     func testDecrypt()
     {
-        let c = Crypto.EncryptedMessage(cipherText: "f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy",
-                                        nonce: "1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej",
-                                        ephemPublicKey: "FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=")
+        let c = Crypto.EncryptedMessage(nonce: "1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej",
+                                        ephemPublicKey: "FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=",
+                                        ciphertext: "f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy")
         
         let decryptedMessage = Crypto.decrypt(encrypted: c,
                                               secretKey: Array<UInt8>(hex: "7e5374ec2ef0d91761a6e72fdf8f6ac665519bfdf6da0a2329cf0d804514b816"))
         
         XCTAssertEqual(decryptedMessage,"My name is Satoshi Buterin")
+    }
+    
+    func testJsonDeserialization()
+    {
+        let json =
+        """
+        {"version":"x25519-xsalsa20-poly1305","nonce":"JAX+g+/e3RnnNXHRS4ct5Sb+XdgYoJeY","ephemPublicKey":"JLBIe7eSVyq6egVexeWrlKQyOukSo66G3N0PlimMUyI","ciphertext":"Yr2o6x831YWFZr6KESzSkBqpMv1wYkxPULbVSZi21J+2vywrVeZnDe/U2GW40wzUpLv4HhFgL1kvt+cORrapsqCfSy2L1ltMtkilX06rJ+Q"}
+        """
+        
+        let enc = Crypto.EncryptedMessage.fromJson(jsonData: json.data(using: .utf8)!)
+        XCTAssertEqual("x25519-xsalsa20-poly1305", enc.version)
+        XCTAssertEqual("JAX+g+/e3RnnNXHRS4ct5Sb+XdgYoJeY", enc.nonce)
+        XCTAssertEqual("JLBIe7eSVyq6egVexeWrlKQyOukSo66G3N0PlimMUyI", enc.ephemPublicKey)
+        XCTAssertEqual("Yr2o6x831YWFZr6KESzSkBqpMv1wYkxPULbVSZi21J+2vywrVeZnDe/U2GW40wzUpLv4HhFgL1kvt+cORrapsqCfSy2L1ltMtkilX06rJ+Q", enc.ciphertext)
+        
+    }
+    
+    func testJsonSerialization()
+    {
+        let input = Crypto.EncryptedMessage(nonce: "1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej",
+                                            ephemPublicKey: "FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=",
+                                            ciphertext: "f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy")
+        
+        //language=JSON
+        let expected = """
+        {"ciphertext":"f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy", "nonce":"1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej","ephemPublicKey":"FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=","version":"x25519-xsalsa20-poly1305"}
+        """
+        
+        let json = input.toJson()
+        XCTAssertEqual(expected, String(data: json, encoding: .utf8)!)
     }
 }
