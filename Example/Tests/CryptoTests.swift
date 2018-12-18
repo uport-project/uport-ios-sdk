@@ -100,16 +100,35 @@ class CryptoTests: XCTestCase
     
     func testJsonSerialization()
     {
+        //language=JSON
+        let expected = """
+        {"ciphertext":"f8kBcl\\/NCyf3sybfbwAKk\\/np2Bzt9lRVkZejr6uh5FgnNlH\\/ic62DZzy","nonce":"1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej","ephemPublicKey":"FBH1\\/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=","version":"x25519-xsalsa20-poly1305"}
+        """
+        let expectedDictionary = try! JSONSerialization.jsonObject(with: expected.data(using: .utf8)!, options: []) as! [String: Any]
+        
+        
         let input = Crypto.EncryptedMessage(nonce: "1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej",
                                             ephemPublicKey: "FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=",
                                             ciphertext: "f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy")
+        let inputJson = input.toJson()
         
-        //language=JSON
-        let expected = """
-        {"ciphertext":"f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy", "nonce":"1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej","ephemPublicKey":"FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=","version":"x25519-xsalsa20-poly1305"}
-        """
+        if let inputDictionary = try! JSONSerialization.jsonObject(with: inputJson, options: []) as? [String: Any] {
+            if let nonce = inputDictionary["nonce"] as? String {
+                XCTAssertEqual(expectedDictionary["nonce"] as! String, nonce)
+            }
+            
+            if let ciphertext = inputDictionary["ciphertext"] as? String {
+                XCTAssertEqual(expectedDictionary["ciphertext"] as! String, ciphertext)
+            }
+            
+            if let version = inputDictionary["version"] as? String {
+                XCTAssertEqual(expectedDictionary["version"] as! String, version)
+            }
+            
+            if let ephemPublicKey = inputDictionary["ephemPublicKey"] as? String {
+                XCTAssertEqual(expectedDictionary["ephemPublicKey"] as! String, ephemPublicKey)
+            }
+        }
         
-        let json = input.toJson()
-        XCTAssertEqual(expected, String(data: json, encoding: .utf8)!)
     }
 }
