@@ -41,17 +41,14 @@ public struct EthrDID
         { fulfill, reject in
             DispatchQueue.global().async
             {
-                DispatchQueue.global().async
+                do
                 {
-                    do
-                    {
-                        let response = try self.lookupOwnerSynchronous(cache: cache)
-                        fulfill( response )
-                    }
-                    catch
-                    {
-                        reject(error)
-                    }
+                    let response = try self.lookupOwnerSynchronous(cache: cache)
+                    fulfill( response )
+                }
+                catch
+                {
+                    reject(error)
                 }
             }
         }
