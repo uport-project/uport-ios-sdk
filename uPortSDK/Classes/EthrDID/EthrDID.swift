@@ -39,7 +39,7 @@ public struct EthrDID
     {
         return Promise<String>
         { fulfill, reject in
-            DispatchQueue.global().async
+            DispatchQueue.global(qos: .userInitiated).async
             {
                 do
                 {
@@ -56,7 +56,7 @@ public struct EthrDID
     
     public func lookupOwner(cache: Bool = true, callback: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void)
     {
-        DispatchQueue.global().async
+        DispatchQueue.global(qos: .userInitiated).async
         {
             do
             {

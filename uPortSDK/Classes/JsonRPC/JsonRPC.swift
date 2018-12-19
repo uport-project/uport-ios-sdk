@@ -25,16 +25,24 @@ public struct JsonRPC
 {
     private var rpcURL: String?
 
-    init(rpcURL: String)
+    public private(set) var completionQueue: DispatchQueue
+
+    init(rpcURL: String, completionQueue: DispatchQueue = DispatchQueue.main)
     {
+        self.completionQueue = completionQueue
         self.rpcURL = rpcURL
     }
     
-    public func ethCall(address: String, data: String, callback: @escaping (_ result: String?, _ error: Error?) -> Void)
+    public func ethCall(address: String,
+                        data: String,
+                        completionHandler: @escaping (_ result: String?, _ error: Error?) -> Void)
     {
         guard let rpcURL = self.rpcURL else
         {
-            callback(nil, JsonRpcError.invalidRpcUrl)
+            self.completionQueue.async
+            {
+                completionHandler(nil, JsonRpcError.invalidRpcUrl)
+            }
 
             return
         }
@@ -42,22 +50,25 @@ public struct JsonRPC
         let ethCall = EthCall(address: address, data: data)
         guard let params = JsonRpcBaseRequest(ethCall: ethCall).toJsonRPC() else
         {
-            callback(nil, JsonRpcError.jsonConversionIssue)
+            self.completionQueue.async
+            {
+                completionHandler(nil, JsonRpcError.jsonConversionIssue)
+            }
 
             return
         }
 
-        DispatchQueue.global().async
+        DispatchQueue.global(qos: .userInitiated).async
         {
             let (response, error) = HTTPClient.synchronousPostRequest(url: rpcURL, jsonBody: params)
-            DispatchQueue.main.async
+            self.completionQueue.async
             {
-                callback(response, error)
+                completionHandler(response, error)
             }
         }
     }
     
-    public func ethCall( address: String, data: String ) -> Promise<String?>
+    public func ethCall(address: String, data: String) -> Promise<String?>
     {
         return Promise<String?>
         { fulfill, reject in
@@ -102,11 +113,14 @@ public struct JsonRPC
     
     
     public func transactionCount(address: String,
-                                 callback: @escaping (_ transactionCount: BigInt?, _ error: Error?) -> Void)
+                                 completionHandler: @escaping (_ transactionCount: BigInt?, _ error: Error?) -> Void)
     {
         guard let rpcURL = self.rpcURL else
         {
-            callback(nil, JsonRpcError.invalidRpcUrl)
+            self.completionQueue.async
+            {
+                completionHandler(nil, JsonRpcError.invalidRpcUrl)
+            }
 
             return
         }
@@ -114,19 +128,22 @@ public struct JsonRPC
         guard let payloadRequest = JsonRpcBaseRequest(address: address,
                                                       method: "eth_getTransactionCount").toJsonRPC() else
         {
-            callback(nil, JsonRpcError.jsonConversionIssue)
+            self.completionQueue.async
+            {
+                completionHandler(nil, JsonRpcError.jsonConversionIssue)
+            }
 
             return
         }
 
-        DispatchQueue.global().async
+        DispatchQueue.global(qos: .userInitiated).async
         {
             let (jsonRpcString, error) = HTTPClient.synchronousPostRequest(url: rpcURL, jsonBody: payloadRequest)
             guard error == nil else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, error!)
+                    completionHandler(nil, error!)
                 }
 
                 return
@@ -134,9 +151,9 @@ public struct JsonRPC
 
             guard let jsonRpcStringUnwrapped = jsonRpcString else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, JsonRpcError.missingPayload)
+                    completionHandler(nil, JsonRpcError.missingPayload)
                 }
 
                 return
@@ -145,9 +162,9 @@ public struct JsonRPC
             let parsedResponse = JsonRpcBaseResponse.fromJson(json: jsonRpcStringUnwrapped)
             guard parsedResponse.error == nil else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, parsedResponse.error!)
+                    completionHandler(nil, parsedResponse.error!)
                 }
 
                 return
@@ -155,9 +172,9 @@ public struct JsonRPC
 
             guard let stringResult = parsedResponse.result as? String else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, JsonRpcError.invalidResult)
+                    completionHandler(nil, JsonRpcError.invalidResult)
                 }
 
                 return
@@ -165,17 +182,17 @@ public struct JsonRPC
 
             guard let count = BigInt(stringResult.withoutHexPrefix, radix: 16) else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, JsonRpcError.invalidResult)
+                    completionHandler(nil, JsonRpcError.invalidResult)
                 }
 
                 return
             }
 
-            DispatchQueue.main.async
+            self.completionQueue.async
             {
-                callback(count, nil)
+                completionHandler(count, nil)
             }
         }
 
@@ -185,7 +202,7 @@ public struct JsonRPC
     {
         return Promise<BigInt>
         { fulfill, reject in
-            self.transactionCount(address: address, callback:
+            self.transactionCount(address: address, completionHandler:
             { (transactionCountBigInt, error ) in
                 guard error == nil else
                 {
@@ -206,30 +223,36 @@ public struct JsonRPC
         }
     }
 
-    public func gasPrice(callback: @escaping (_ gasPrice: BigInt?, _ error: Error?) -> Void)
+    public func gasPrice(completionHandler: @escaping (_ gasPrice: BigInt?, _ error: Error?) -> Void)
     {
         guard let rpcURL = self.rpcURL else
         {
-            callback(nil, JsonRpcError.invalidRpcUrl)
+            self.completionQueue.async
+            {
+                completionHandler(nil, JsonRpcError.invalidRpcUrl)
+            }
 
             return
         }
 
         guard let payloadRequest = JsonRpcBaseRequest(methodName: "eth_gasPrice", params: [Any]()).toJsonRPC() else
         {
-            callback(nil, JsonRpcError.jsonConversionIssue)
+            self.completionQueue.async
+            {
+                completionHandler(nil, JsonRpcError.jsonConversionIssue)
+            }
 
             return
         }
 
-        DispatchQueue.global().async
+        DispatchQueue.global(qos: .userInitiated).async
         {
             let (jsonRpcString, error) = HTTPClient.synchronousPostRequest(url: rpcURL, jsonBody: payloadRequest)
             guard error == nil else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, error!)
+                    completionHandler(nil, error!)
                 }
 
                 return
@@ -237,9 +260,9 @@ public struct JsonRPC
 
             guard let jsonRpcStringUnwrapped = jsonRpcString else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, JsonRpcError.missingPayload)
+                    completionHandler(nil, JsonRpcError.missingPayload)
                 }
 
                 return
@@ -248,9 +271,9 @@ public struct JsonRPC
             let parsedResponse = JsonRpcBaseResponse.fromJson(json: jsonRpcStringUnwrapped)
             guard parsedResponse.error == nil else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, parsedResponse.error!)
+                    completionHandler(nil, parsedResponse.error!)
                 }
 
                 return
@@ -258,26 +281,27 @@ public struct JsonRPC
 
             guard let stringResult = parsedResponse.result as? String else
             {
-                DispatchQueue.main.async
+                self.completionQueue.async
                 {
-                    callback(nil, JsonRpcError.invalidResult)
+                    completionHandler(nil, JsonRpcError.invalidResult)
                 }
 
                 return
             }
 
-            guard let count = BigInt(stringResult.withoutHexPrefix, radix: 16) else {
-                DispatchQueue.main.async
-                {
-                    callback(nil, JsonRpcError.invalidResult)
-                }
-
-                return
-            }
-
-            DispatchQueue.main.async
+            guard let count = BigInt(stringResult.withoutHexPrefix, radix: 16) else
             {
-                callback(count, nil)
+                self.completionQueue.async
+                {
+                    completionHandler(nil, JsonRpcError.invalidResult)
+                }
+
+                return
+            }
+
+            self.completionQueue.async
+            {
+                completionHandler(count, nil)
             }
         }
     }
@@ -370,7 +394,7 @@ public struct JsonRPC
     {
         return Promise<[JsonRpcLogItem]>
         { fulfill, reject in
-            DispatchQueue.global().async
+            DispatchQueue.global(qos: .userInitiated).async
             {
                 var logItems: [JsonRpcLogItem]?
                 do

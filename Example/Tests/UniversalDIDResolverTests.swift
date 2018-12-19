@@ -19,7 +19,7 @@ class UniversalDIDResolverTests: XCTestCase
     {
     }
 
-    func testResolveEthrDid()
+    func testResolveEthrDidSync()
     {
         var universalResolver = UniversalDIDResolver()
 
@@ -38,7 +38,36 @@ class UniversalDIDResolverTests: XCTestCase
         XCTAssertEqual(document, referenceDocument)
     }
 
-    func testResolveEthrId()
+    func testResolveEthrDidAsync()
+    {
+        var universalResolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let ethrDid = "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a"
+        let referenceDocument = createEthrReferenceDocument()
+
+        let expectation = self.expectation(description: "Resolve Ethr DID async")
+        universalResolver.resolveAsync(did: ethrDid)
+        { (document, error) in
+            XCTAssertNil(error)
+            XCTAssertEqual(document, referenceDocument)
+
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+        { (error) in
+            XCTAssertNil(error)
+        }
+    }
+
+    func testResolveEthrIdSync()
     {
         var universalResolver = UniversalDIDResolver()
 
@@ -57,7 +86,36 @@ class UniversalDIDResolverTests: XCTestCase
         XCTAssertEqual(document, referenceDocument)
     }
 
-    func testResolveUPortDid()
+    func testResolveEthrIdAsync()
+    {
+        var universalResolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let id = "0xb9c5714089478a327f09197987f16f9e5d936e8a"
+        let referenceDocument = createEthrReferenceDocument()
+
+        let expectation = self.expectation(description: "Resolve Ethr ID async")
+        universalResolver.resolveAsync(did: id)
+        { (document, error) in
+            XCTAssertNil(error)
+            XCTAssertEqual(document, referenceDocument)
+
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+        { (error) in
+            XCTAssertNil(error)
+        }
+    }
+
+    func testResolveUPortDidSync()
     {
         var universalResolver = UniversalDIDResolver()
 
@@ -76,7 +134,36 @@ class UniversalDIDResolverTests: XCTestCase
         XCTAssertEqual(document?.uportProfile, referenceDocument)
     }
 
-    func testResolveUPortMnid()
+    func testResolveUPortDidAsync()
+    {
+        var universalResolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let uportDid = "did:uport:2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC"
+        let referenceDocument = createUPortReferenceDocument()
+
+        let expectation = self.expectation(description: "Resolve uPort DID async")
+        universalResolver.resolveAsync(did: uportDid)
+        { (document, error) in
+            XCTAssertNil(error)
+            XCTAssertEqual((document as? UPortDIDDocument)?.uportProfile, referenceDocument)
+
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+        { (error) in
+            XCTAssertNil(error)
+        }
+    }
+
+    func testResolveUPortMnidSync()
     {
         var universalResolver = UniversalDIDResolver()
 
@@ -93,6 +180,35 @@ class UniversalDIDResolverTests: XCTestCase
         var document: UPortDIDDocument?
         XCTAssertNoThrow(document = try universalResolver.resolveSync(did: mnid) as? UPortDIDDocument)
         XCTAssertEqual(document?.uportProfile, referenceDocument)
+    }
+
+    func testResolveUPortMnidAsync()
+    {
+        var universalResolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        XCTAssertNotNil(uPortResolver)
+        XCTAssertNotNil(ethrResolver)
+        XCTAssertNoThrow(try universalResolver.register(resolver: ethrResolver))
+        XCTAssertNoThrow(try universalResolver.register(resolver: uPortResolver))
+
+        let mnid = "2ozs2ntCXceKkAQKX4c9xp2zPS8pvkJhVqC"
+        let referenceDocument = createUPortReferenceDocument()
+
+        let expectation = self.expectation(description: "Resolve uPort MNID async")
+        universalResolver.resolveAsync(did: mnid)
+        { (document, error) in
+            XCTAssertNil(error)
+            XCTAssertEqual((document as? UPortDIDDocument)?.uportProfile, referenceDocument)
+
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+        { (error) in
+            XCTAssertNil(error)
+        }
     }
 
     // MARK: - Helpers

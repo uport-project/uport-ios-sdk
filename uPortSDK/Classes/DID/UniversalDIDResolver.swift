@@ -17,6 +17,13 @@ public struct UniversalDIDResolver: DIDResolver
 {
     private var resolvers: [String : DIDResolver] = [ : ]
 
+    public private(set) var completionQueue: DispatchQueue
+
+    init(completionQueue: DispatchQueue = DispatchQueue.main)
+    {
+        self.completionQueue = completionQueue
+    }
+
     public mutating func register(resolver: DIDResolver) throws
     {
         guard resolver.method.isEmpty == false else
@@ -31,13 +38,36 @@ public struct UniversalDIDResolver: DIDResolver
 
     public func resolveSync(did: String) throws -> DIDDocument
     {
-        if let resolver = try findResolver(for: did)
+        if let resolver = findResolver(for: did)
         {
             return try resolver.resolveSync(did: did)
         }
         else
         {
             throw UniversalDIDResolverError.noSuitableResolver
+        }
+    }
+
+    public func resolveAsync(did: String,
+                             completionHandler: @escaping (_ document: DIDDocument?, _ error: Error?) -> Void)
+    {
+        DispatchQueue.global(qos: .userInitiated).async
+        {
+            do
+            {
+                let document = try self.resolveSync(did: did)
+                self.completionQueue.async
+                {
+                    completionHandler(document, nil)
+                }
+            }
+            catch
+            {
+                self.completionQueue.async
+                {
+                    completionHandler(nil, error)
+                }
+            }
         }
     }
 

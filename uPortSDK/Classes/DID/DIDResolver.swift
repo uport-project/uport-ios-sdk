@@ -13,7 +13,5 @@ public protocol DIDResolver
 
     func resolveSync(did: String) throws -> DIDDocument
 
-  //  func resolveAsync(did: String, completion: @escaping (DIDDocument?, Error?) -> Void)
-
     func canResolve(did: String) -> Bool
 }

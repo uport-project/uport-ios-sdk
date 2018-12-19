@@ -150,7 +150,7 @@ public struct UPortDIDResolver: DIDResolver
     /// Public endpoint for retrieving a DID Document from an mnid
     public func profileDocument(mnid: String, callback: @escaping ((UPortIdentityDocument?, Error?) -> Void))
     {
-        DispatchQueue.global().async
+        DispatchQueue.global(qos: .userInitiated).async
         {
             do
             {
