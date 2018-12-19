@@ -34,7 +34,7 @@ class UniversalDIDResolverTests: XCTestCase
         let referenceDocument = createEthrReferenceDocument()
 
         var document: DIDDocument?
-        XCTAssertNoThrow(document = try universalResolver.resolve(did: ethrDid))
+        XCTAssertNoThrow(document = try universalResolver.resolveSync(did: ethrDid))
         XCTAssertEqual(document, referenceDocument)
     }
 
@@ -53,7 +53,7 @@ class UniversalDIDResolverTests: XCTestCase
         let referenceDocument = createEthrReferenceDocument()
 
         var document: DIDDocument?
-        XCTAssertNoThrow(document = try universalResolver.resolve(did: id))
+        XCTAssertNoThrow(document = try universalResolver.resolveSync(did: id))
         XCTAssertEqual(document, referenceDocument)
     }
 
@@ -72,7 +72,7 @@ class UniversalDIDResolverTests: XCTestCase
         let referenceDocument = createUPortReferenceDocument()
 
         var document: UPortDIDDocument?
-        XCTAssertNoThrow(document = try universalResolver.resolve(did: uportDid) as? UPortDIDDocument)
+        XCTAssertNoThrow(document = try universalResolver.resolveSync(did: uportDid) as? UPortDIDDocument)
         XCTAssertEqual(document?.uportProfile, referenceDocument)
     }
 
@@ -91,7 +91,7 @@ class UniversalDIDResolverTests: XCTestCase
         let referenceDocument = createUPortReferenceDocument()
 
         var document: UPortDIDDocument?
-        XCTAssertNoThrow(document = try universalResolver.resolve(did: mnid) as? UPortDIDDocument)
+        XCTAssertNoThrow(document = try universalResolver.resolveSync(did: mnid) as? UPortDIDDocument)
         XCTAssertEqual(document?.uportProfile, referenceDocument)
     }
 

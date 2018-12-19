@@ -46,7 +46,7 @@ public struct EthrDIDResolver: DIDResolver
         return !NormalizedEthrDID(didCandidate: did).value.isEmpty
     }
 
-    public func resolve(did: String) throws -> DIDDocument
+    public func resolveSync(did: String) throws -> DIDDocument
     {
         let normalizedDidObject = NormalizedEthrDID(didCandidate: did)
         guard normalizedDidObject.error == nil else

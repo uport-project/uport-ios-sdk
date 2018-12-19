@@ -230,7 +230,7 @@ class EthrDIDResolverTests: QuickSpec
                 let realAddress = "0xb9c5714089478a327f09197987f16f9e5d936e8a"
                 let rpc = JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl)
                 let resolver = EthrDIDResolver(rpc: rpc)
-                let ddo = try! resolver.resolve(did: realAddress)
+                let ddo = try! resolver.resolveSync(did: realAddress)
                 expect(ddo).to(equal(referenceDDO))
                 print("found ddo-> \(ddo)")
             }

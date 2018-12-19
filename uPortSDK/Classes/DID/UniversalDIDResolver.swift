@@ -29,11 +29,11 @@ public struct UniversalDIDResolver: DIDResolver
 
     // MARK: - DIDResolver Implementation
 
-    public func resolve(did: String) throws -> DIDDocument
+    public func resolveSync(did: String) throws -> DIDDocument
     {
         if let resolver = try findResolver(for: did)
         {
-            return try resolver.resolve(did: did)
+            return try resolver.resolveSync(did: did)
         }
         else
         {

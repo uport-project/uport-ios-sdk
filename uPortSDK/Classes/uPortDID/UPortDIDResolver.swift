@@ -182,7 +182,7 @@ public struct UPortDIDResolver: DIDResolver
         return "uport"
     }
 
-    public func resolve(did: String) throws -> DIDDocument
+    public func resolveSync(did: String) throws -> DIDDocument
     {
         var dido = try? DIDObject(did)
         if dido == nil
