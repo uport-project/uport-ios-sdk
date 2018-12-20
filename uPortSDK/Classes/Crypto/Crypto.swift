@@ -5,6 +5,7 @@
 
 import Foundation
 import Sodium
+import Clibsodium
 
 /**
  * This struct exposes methods to encrypt and decrypt messages according to the uPort spec at
@@ -45,6 +46,32 @@ public struct Crypto
         {
             return try! JSONDecoder().decode(EncryptedMessage.self, from: jsonData)
         }
+    }
+    
+    /**
+     Calculates the encryption public key corresponding to the secret key.
+     
+     - Parameter secretKey: The base64 encoding string secret key
+     - Returns: A base64 encoded public key
+     */
+    public static func getEncryptionPublicKey(secretKey: String) -> String?
+    {
+        let secretKeyDecoded = secretKey.decodeBase64()
+        let skBytes = Bytes(secretKeyDecoded)
+        guard skBytes.count == 32 else {
+            print("Secret Key must be 32 bytes")
+            return nil
+        }
+        
+        var pk = [UInt8](repeating: 0, count: 32)
+        
+        guard 0 == crypto_scalarmult_base(&pk, skBytes) else
+        {
+            print("Calculation failed")
+            return nil
+        }
+
+        return Data(pk).base64EncodedString()
     }
     
     /**

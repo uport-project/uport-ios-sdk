@@ -23,6 +23,35 @@ class CryptoTests: XCTestCase
         super.tearDown()
     }
     
+    func testGetPublicKey()
+    {
+        let secretKey = "2zKGhQCdzrpOoejE+dbIxvN5r+0wCEcUnV465+fXEtc="
+        let expectedPublicKey = "8hWKNxUltyh4dyBDcg5wKy6i9y0EI+0LeaqG/zuVgXo="
+        
+        if let pk = Crypto.getEncryptionPublicKey(secretKey: secretKey) {
+            XCTAssertEqual(pk, expectedPublicKey)
+        }
+    }
+    
+    func testGetPublicKeyRandomVectors()
+    {
+        let fixtures = parseTestCases("ScalarMultTestValues")
+        for vec in fixtures {
+            let expectedPk1 = vec[0]
+            let sk1 = vec[1]
+            let expectedPk2 = vec[2]
+            let sk2 = vec[3]
+
+            if let actualPk1 = Crypto.getEncryptionPublicKey(secretKey: sk1) {
+                XCTAssertEqual(actualPk1, expectedPk1)
+            }
+
+            if let actualPk2 = Crypto.getEncryptionPublicKey(secretKey: sk2) {
+                XCTAssertEqual(actualPk2, expectedPk2)
+            }
+        }
+    }
+    
     func testPadding()
     {
         let original = "hello"
@@ -167,4 +196,19 @@ class CryptoTests: XCTestCase
         let recoveredMessage = Crypto.decrypt(encrypted: enc, secretKey: boxSecret)
         XCTAssertEqual(recoveredMessage, loremIpsum)
     }
+    
+    func parseTestCases(_ fileName: String) -> [[String]] {
+        do {
+            let file = Bundle(for: type(of: self)).url(forResource: fileName, withExtension: "json")
+            let data = try Data(contentsOf: file!)
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [[String]] else {
+                return []
+            }
+            return json!
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
 }

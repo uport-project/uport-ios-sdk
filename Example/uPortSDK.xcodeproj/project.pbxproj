@@ -21,6 +21,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* DIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* DIDResolverTests.swift */; };
+		C872E94121CC325300BEE877 /* ScalarMultTestValues.json in Resources */ = {isa = PBXBuildFile; fileRef = C872E94021CC325300BEE877 /* ScalarMultTestValues.json */; };
 		C8F4412F21B8DCAA00E979E1 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F4412E21B8DCAA00E979E1 /* CryptoTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		AD89E19C6603D6AB6DDBCDA4 /* Pods-uPortSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B62784F1A0E037C5B2F47E4B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B8D6DC27762FD74E9A6D6A49 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C872E94021CC325300BEE877 /* ScalarMultTestValues.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ScalarMultTestValues.json; sourceTree = "<group>"; };
 		C8F4412E21B8DCAA00E979E1 /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		C8F4413021B9A73D00E979E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0DFA7640487A851DD49FC30 /* uPortSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = uPortSDK.podspec; path = ../uPortSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -137,6 +139,7 @@
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
 				043D488921345D2300C2EFDC /* EthrDIDResolverTests.swift */,
 				C8F4412E21B8DCAA00E979E1 /* CryptoTests.swift */,
+				C872E94021CC325300BEE877 /* ScalarMultTestValues.json */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03B3EFD3207BEDD1005697E0 /* valid.json in Resources */,
+				C872E94121CC325300BEE877 /* ScalarMultTestValues.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
