@@ -7,10 +7,10 @@
 
 import UIKit
 
-typealias AccountCreatorCallback = ( Error?, Account ) -> Void
+typealias AccountCreatorCallback = (Error?, Account) -> Void
 
-class AccountCreator: NSObject {
-
+class AccountCreator: NSObject
+{
     private var progress = ProgressPersistence()
     /*
     func createAccount( networkId: String, forceRestart: Bool = false, onCompletion: AccountCreatorCallback) {
@@ -129,10 +129,6 @@ class AccountCreator: NSObject {
             
         default:
             return callback(RuntimeException("Exhausted account creation options, ${state.name}"), Account.blank)
- 
-
-
-
     }
      */
 }

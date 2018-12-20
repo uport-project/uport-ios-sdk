@@ -2,40 +2,142 @@
 //  DIDDocument.swift
 //  uPortSDK
 //
-//  Created by josh on 3/6/18.
+//  Created by Cornelis van der Bent on 11/12/2018.
 //
 
 import Foundation
 
+public class DIDDocument: Equatable
+{
+    public var context: String = "https://w3id.org/did/v1"
+    public var id: String
+    public var publicKey = [PublicKeyEntry]()
+    public var authentication = [AuthenticationEntry]()
+    public var service = [ServiceEntry]()
 
-public struct DIDDocument: Codable {
-    public var type: String? //ex: "Organization", "Person"
-    
-    public var publicKey: String?  //ex: "0x04613bb3a4874d27032618f020614c21cbe4c4e4781687525f6674089f9bd3d6c7f6eb13569053d31715a3ba32e0b791b97922af6387f087d6b5548c06944ab062"
-    
-    public var publicEncKey: String?  //ex: "0x04613bb3a4874d27032618f020614c21cbe4c4e4781687525f6674089f9bd3d6c7f6eb13569053d31715a3ba32e0b791b97922af6387f087d6b5548c06944ab062"
-    
-    public var image: String?     //ex: {"@type":"ImageObject","name":"avatar","contentUrl":"/ipfs/QmSCnmXC91Arz2gj934Ce4DeR7d9fULWRepjzGMX6SSazB"}
-    
-    public var name: String? //ex: "uPort @ Devcon3" , "Vitalik Buterout"
-    
-    public var didDescription: String? // ex: "uPort Attestation"
-    
-    public var context: String?
-    
-    public init( context: String?, type: String?, publicKey: String?, publicEncKey: String?, description: String?, image: String?, name: String?) {
+    public init(context: String = "https://w3id.org/did/v1",
+                id: String,
+                publicKey: [PublicKeyEntry] = [PublicKeyEntry](),
+                authentication: [AuthenticationEntry] = [AuthenticationEntry](),
+                service: [ServiceEntry] = [ServiceEntry]())
+    {
         self.context = context
-        self.type = type
+        self.id = id
         self.publicKey = publicKey
-        self.publicEncKey = publicEncKey
-        self.didDescription = description
-        self.image = image
-        self.name = name
+        self.authentication = authentication
+        self.service = service
+    }
+
+    public static func == (lhs: DIDDocument, rhs: DIDDocument) -> Bool
+    {
+        var areAuthenticationsEqual = true
+        for lhsAuthentication in lhs.authentication
+        {
+            let isInBoth = rhs.authentication.contains
+            { (authEntry) -> Bool in
+                return authEntry == lhsAuthentication
+            }
+
+            if !isInBoth
+            {
+                areAuthenticationsEqual = false
+                break
+            }
+        }
+
+        var areServiceEntryEqual = true
+        for lhsService in lhs.service
+        {
+            let isInBoth = rhs.service.contains
+            { (rhsService) -> Bool in
+                return lhsService == rhsService
+            }
+
+            if !isInBoth
+            {
+                areServiceEntryEqual = false
+            }
+        }
+
+        return lhs.id == rhs.id && lhs.context == rhs.context && areAuthenticationsEqual && areServiceEntryEqual
     }
 }
 
-extension DIDDocument: Equatable {
-    public static func ==(lhs: DIDDocument, rhs: DIDDocument) -> Bool {
-        return lhs.publicKey == rhs.publicKey && lhs.publicEncKey == rhs.publicEncKey
+public struct PublicKeyEntry: Equatable
+{
+    var id: String
+    var type: DelegateType
+    var owner: String
+    var ethereumAddress: String?
+    var publicKeyHex: String?
+    var publicKeyBase64: String?
+    var publicKeyBase58: String?
+    var value: String?
+
+    public init(id: String,
+                type: DelegateType,
+                owner: String,
+                ethereumAddress: String? = nil,
+                publicKeyHex: String? = nil,
+                publicKeyBase64: String? = nil,
+                publicKeyBase58: String? = nil,
+                value: String? = nil)
+    {
+        self.id = id
+        self.type = type
+        self.owner = owner
+        self.ethereumAddress = ethereumAddress
+        self.publicKeyHex = publicKeyHex
+        self.publicKeyBase64 = publicKeyBase64
+        self.publicKeyBase58 = publicKeyBase58
+        self.value = value
     }
+
+    public static func == (lhs: PublicKeyEntry, rhs: PublicKeyEntry) -> Bool
+    {
+        return lhs.id == rhs.id && lhs.type == rhs.type && lhs.owner == rhs.owner
+    }
+}
+
+public struct AuthenticationEntry
+{
+    var type: DelegateType
+    var publicKey: String
+
+    public init(type: DelegateType, publicKey: String)
+    {
+        self.type = type
+        self.publicKey = publicKey
+    }
+
+    public static func == (lhs: AuthenticationEntry, rhs: AuthenticationEntry) -> Bool
+    {
+        return lhs.type == rhs.type && lhs.publicKey == rhs.publicKey
+    }
+}
+
+public struct ServiceEntry
+{
+    var type: String
+    var serviceEndpoint: String
+
+    public init(type: String, serviceEndpoint: String)
+    {
+        self.type = type
+        self.serviceEndpoint = serviceEndpoint
+    }
+
+    public static func == (lhs: ServiceEntry, rhs: ServiceEntry) -> Bool
+    {
+        return lhs.type == rhs.type && lhs.serviceEndpoint == rhs.serviceEndpoint
+    }
+}
+
+public enum DelegateType: String
+{
+    case Secp256k1VerificationKey2018
+    case Secp256k1SignatureAuthentication2018
+    case Ed25519VerificationKey2018
+    case RsaVerificationKey2018
+    case Curve25519EncryptionPublicKey
 }

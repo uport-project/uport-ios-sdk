@@ -7,22 +7,29 @@
 
 import UIKit
 
-public struct Account {
-    
+public struct Account
+{
     let network: String!
     let address: String!
     
-    public init?( network: String, address: String ) {
-        guard !network.isEmpty && !address.isEmpty else {
+    public init?(network: String, address: String)
+    {
+        guard !network.isEmpty && !address.isEmpty else
+        {
             return nil
         }
         
         var addressWithoutHexPrefix = address.withoutHexPrefix
         let ethereumAddressNumChars = 40
         let numZerosToPad = ethereumAddressNumChars - addressWithoutHexPrefix.count
-        if 0 < numZerosToPad {
-            addressWithoutHexPrefix = addressWithoutHexPrefix.pad(toMultipleOf: numZerosToPad, character: "0", location: .left)
-        } else if numZerosToPad < 0 {
+        if 0 < numZerosToPad
+        {
+            addressWithoutHexPrefix = addressWithoutHexPrefix.pad(toMultipleOf: numZerosToPad,
+                                                                  character: "0",
+                                                                  location: .left)
+        }
+        else if numZerosToPad < 0
+        {
             return nil
         }
         
@@ -30,8 +37,8 @@ public struct Account {
         self.address = "0x\(addressWithoutHexPrefix)"
     }
     
-    public static func from( network: Data, address: Data ) -> Account? {
-        return Account.init( network: network.hexEncodedString(), address: address.hexEncodedString() )
+    public static func from(network: Data, address: Data) -> Account?
+    {
+        return Account.init(network: network.hexEncodedString(), address: address.hexEncodedString())
     }
-    
 }
