@@ -7,6 +7,11 @@ import Foundation
 import Sodium
 import Clibsodium
 
+public enum CryptoError: Error
+{
+    case secretKeyNot32Bytes
+}
+
 /**
  * This struct exposes methods to encrypt and decrypt messages according to the uPort spec at
  * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
@@ -18,6 +23,7 @@ public struct Crypto
         static let asyncEncryptionAlgorithm = "x25519-xsalsa20-poly1305"
         static let blockSize = 64.0
     }
+    
     /**
      * This class encapsulates an encrypted message that was produced using
      * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
@@ -29,7 +35,6 @@ public struct Crypto
         var ephemPublicKey: String
         var ciphertext: String
         
-        
         public init(nonce: String, ephemPublicKey: String, ciphertext: String)
         {
             self.nonce = nonce
@@ -37,14 +42,14 @@ public struct Crypto
             self.ciphertext = ciphertext
         }
         
-        public func toJson() -> Data
+        public func toJson() throws -> Data
         {
-            return try! Data(JSONEncoder().encode(self))
+            return try Data(JSONEncoder().encode(self))
         }
         
-        public static func fromJson(jsonData: Data) -> EncryptedMessage
+        public static func fromJson(jsonData: Data) throws -> EncryptedMessage
         {
-            return try! JSONDecoder().decode(EncryptedMessage.self, from: jsonData)
+            return try JSONDecoder().decode(EncryptedMessage.self, from: jsonData)
         }
     }
     
@@ -54,13 +59,13 @@ public struct Crypto
      - Parameter secretKey: The base64 encoding string secret key
      - Returns: A base64 encoded public key
      */
-    public static func getEncryptionPublicKey(secretKey: String) -> String?
+    public static func getEncryptionPublicKey(secretKey: String) throws -> String?
     {
         let secretKeyDecoded = secretKey.decodeBase64()
         let skBytes = Bytes(secretKeyDecoded)
-        guard skBytes.count == 32 else {
-            print("Secret Key must be 32 bytes")
-            return nil
+        guard skBytes.count == 32 else
+        {
+            throw CryptoError.secretKeyNot32Bytes
         }
         
         var pk = [UInt8](repeating: 0, count: 32)
@@ -99,7 +104,6 @@ public struct Crypto
         
         //pad message
         let msg = message.padToBlock()
-        //let msgBytes = Bytes(msg.utf8)
         
         //seal box
         let cipherText = sodium.box.seal(message: msg,
@@ -163,7 +167,8 @@ extension Array where Element == UInt8
         {
             let unpadded = self[0..<firstZero]
             return String(bytes: unpadded, encoding: .utf8)!
-        } else
+        }
+        else
         {
             return String(bytes: self, encoding: .utf8)!
         }

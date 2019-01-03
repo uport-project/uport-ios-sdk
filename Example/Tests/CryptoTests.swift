@@ -28,7 +28,7 @@ class CryptoTests: XCTestCase
         let secretKey = "2zKGhQCdzrpOoejE+dbIxvN5r+0wCEcUnV465+fXEtc="
         let expectedPublicKey = "8hWKNxUltyh4dyBDcg5wKy6i9y0EI+0LeaqG/zuVgXo="
         
-        if let pk = Crypto.getEncryptionPublicKey(secretKey: secretKey) {
+        if let pk = try! Crypto.getEncryptionPublicKey(secretKey: secretKey) {
             XCTAssertEqual(pk, expectedPublicKey)
         }
     }
@@ -42,11 +42,11 @@ class CryptoTests: XCTestCase
             let expectedPk2 = vec[2]
             let sk2 = vec[3]
             
-            if let actualPk1 = Crypto.getEncryptionPublicKey(secretKey: sk1) {
+            if let actualPk1 = try! Crypto.getEncryptionPublicKey(secretKey: sk1) {
                 XCTAssertEqual(actualPk1, expectedPk1)
             }
             
-            if let actualPk2 = Crypto.getEncryptionPublicKey(secretKey: sk2) {
+            if let actualPk2 = try! Crypto.getEncryptionPublicKey(secretKey: sk2) {
                 XCTAssertEqual(actualPk2, expectedPk2)
             }
         }
@@ -122,7 +122,7 @@ class CryptoTests: XCTestCase
         {"version":"x25519-xsalsa20-poly1305","nonce":"JAX+g+/e3RnnNXHRS4ct5Sb+XdgYoJeY","ephemPublicKey":"JLBIe7eSVyq6egVexeWrlKQyOukSo66G3N0PlimMUyI","ciphertext":"Yr2o6x831YWFZr6KESzSkBqpMv1wYkxPULbVSZi21J+2vywrVeZnDe/U2GW40wzUpLv4HhFgL1kvt+cORrapsqCfSy2L1ltMtkilX06rJ+Q"}
         """
         
-        let enc = Crypto.EncryptedMessage.fromJson(jsonData: json.data(using: .utf8)!)
+        let enc = try! Crypto.EncryptedMessage.fromJson(jsonData: json.data(using: .utf8)!)
         XCTAssertEqual("x25519-xsalsa20-poly1305", enc.version)
         XCTAssertEqual("JAX+g+/e3RnnNXHRS4ct5Sb+XdgYoJeY", enc.nonce)
         XCTAssertEqual("JLBIe7eSVyq6egVexeWrlKQyOukSo66G3N0PlimMUyI", enc.ephemPublicKey)
@@ -142,7 +142,7 @@ class CryptoTests: XCTestCase
         let input = Crypto.EncryptedMessage(nonce: "1dvWO7uOnBnO7iNDJ9kO9pTasLuKNlej",
                                             ephemPublicKey: "FBH1/pAEHOOW14Lu3FWkgV3qOEcuL78Zy+qW1RwzMXQ=",
                                             ciphertext: "f8kBcl/NCyf3sybfbwAKk/np2Bzt9lRVkZejr6uh5FgnNlH/ic62DZzy")
-        let inputJson = input.toJson()
+        let inputJson = try! input.toJson()
         
         if let inputDictionary = try! JSONSerialization.jsonObject(with: inputJson, options: []) as? [String: Any]
         {
