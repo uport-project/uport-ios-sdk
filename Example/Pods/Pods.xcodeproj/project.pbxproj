@@ -2590,7 +2590,7 @@
 		C84163D166EFBA0921CB5CFB701B9F5D /* uPortSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = uPortSDK.modulemap; sourceTree = "<group>"; };
 		C884C2EAB445F8B80C3750378A8C32E8 /* ecp_smpl.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ecp_smpl.c; path = openssl/src/crypto/ec/ecp_smpl.c; sourceTree = "<group>"; };
 		C8931B094C18A1F72225134FAB1FD123 /* err.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = err.h; path = openssl/include/openssl/err.h; sourceTree = "<group>"; };
-		C8AB882E21CC70CB0060EB7C /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Crypto.swift; path = ../uPortSDK/Classes/Crypto/Crypto.swift; sourceTree = "<group>"; };
+		C8AB882E21CC70CB0060EB7C /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		C9073A1AB31B0A891A7AE70EF6C17F6F /* BTCTransactionBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BTCTransactionBuilder.h; path = CoreBitcoin/BTCTransactionBuilder.h; sourceTree = "<group>"; };
 		C92C57A34767DB3B0C449696E872BE41 /* ocsp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ocsp.h; path = openssl/include/openssl/ocsp.h; sourceTree = "<group>"; };
 		C96EC0EADF6DE33578E0616DF13EAF5B /* BeGreaterThan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThan.swift; path = Sources/Nimble/Matchers/BeGreaterThan.swift; sourceTree = "<group>"; };
@@ -4402,7 +4402,8 @@
 			children = (
 				C8AB882E21CC70CB0060EB7C /* Crypto.swift */,
 			);
-			path = Crypto;
+			name = Crypto;
+			path = uPortSDK/Classes/Crypto;
 			sourceTree = "<group>";
 		};
 		C93EF3A8932ED8B5228BE565E6ABCF4D /* Support Files */ = {
