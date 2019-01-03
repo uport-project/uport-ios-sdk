@@ -28,7 +28,8 @@ class CryptoTests: XCTestCase
         let secretKey = "2zKGhQCdzrpOoejE+dbIxvN5r+0wCEcUnV465+fXEtc="
         let expectedPublicKey = "8hWKNxUltyh4dyBDcg5wKy6i9y0EI+0LeaqG/zuVgXo="
         
-        if let pk = try! Crypto.getEncryptionPublicKey(secretKey: secretKey) {
+        if let pk = try! Crypto.getEncryptionPublicKey(secretKey: secretKey)
+        {
             XCTAssertEqual(pk, expectedPublicKey)
         }
     }
@@ -42,11 +43,13 @@ class CryptoTests: XCTestCase
             let expectedPk2 = vec[2]
             let sk2 = vec[3]
             
-            if let actualPk1 = try! Crypto.getEncryptionPublicKey(secretKey: sk1) {
+            if let actualPk1 = try! Crypto.getEncryptionPublicKey(secretKey: sk1)
+            {
                 XCTAssertEqual(actualPk1, expectedPk1)
             }
             
-            if let actualPk2 = try! Crypto.getEncryptionPublicKey(secretKey: sk2) {
+            if let actualPk2 = try! Crypto.getEncryptionPublicKey(secretKey: sk2)
+            {
                 XCTAssertEqual(actualPk2, expectedPk2)
             }
         }
@@ -198,14 +201,18 @@ class CryptoTests: XCTestCase
     }
     
     func parseTestCases(_ fileName: String) -> [[String]] {
-        do {
+        do
+        {
             let file = Bundle(for: type(of: self)).url(forResource: fileName, withExtension: "json")
             let data = try Data(contentsOf: file!)
-            guard let json = try? JSONSerialization.jsonObject(with: data) as? [[String]] else {
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [[String]] else
+            {
                 return []
             }
             return json!
-        } catch {
+        }
+        catch
+        {
             print(error)
             return []
         }
