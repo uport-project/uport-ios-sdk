@@ -343,6 +343,9 @@
 		484DCBBAB67B6ECE42676066A5CCC8D5 /* pcy_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 46D751E92462B6B8F303EC20E28E63F8 /* pcy_lib.c */; };
 		4886C11821C03CB10031C8C0 /* DIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886C11721C03CB10031C8C0 /* DIDDocument.swift */; };
 		4886C11A21C23ADF0031C8C0 /* UPortDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886C11921C23ADF0031C8C0 /* UPortDIDDocument.swift */; };
+		48AD383721CB9F5600BAE015 /* JWTTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AD383621CB9F5600BAE015 /* JWTTools.swift */; };
+		48AD383E21D3F65E00BAE015 /* JWTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AD383D21D3F65E00BAE015 /* JWTHeader.swift */; };
+		48AD384021D3F6A600BAE015 /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AD383F21D3F6A600BAE015 /* JWTPayload.swift */; };
 		48BF7931C8F95EDE938CEFB92D6FAD3A /* CwlDarwinDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFABF329A9184D1B979F60E3B9A7FAD /* CwlDarwinDefinitions.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		490F23BC77A8DB061B2C8AC86BA410A9 /* tb_eckey.c in Sources */ = {isa = PBXBuildFile; fileRef = DD8A326D5880A08CFFF3E956552C4B5D /* tb_eckey.c */; };
 		4970421006CCB3DBF414C31DA40DD507 /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE518594C376B97F4C8387C11CA5B6A /* NMBObjCMatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -1899,6 +1902,9 @@
 		4873A6CE98F7A1C3707736BFFE74AF8F /* BTCBlockchainInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BTCBlockchainInfo.h; path = CoreBitcoin/BTCBlockchainInfo.h; sourceTree = "<group>"; };
 		4886C11721C03CB10031C8C0 /* DIDDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIDDocument.swift; sourceTree = "<group>"; };
 		4886C11921C23ADF0031C8C0 /* UPortDIDDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPortDIDDocument.swift; sourceTree = "<group>"; };
+		48AD383621CB9F5600BAE015 /* JWTTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTools.swift; sourceTree = "<group>"; };
+		48AD383D21D3F65E00BAE015 /* JWTHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTHeader.swift; sourceTree = "<group>"; };
+		48AD383F21D3F6A600BAE015 /* JWTPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
 		48EF4D488170CCCD9E1337912B2BF940 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
 		4995F210761521772FF179364AD95B7B /* pcy_map.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pcy_map.c; path = openssl/src/crypto/x509v3/pcy_map.c; sourceTree = "<group>"; };
 		49964EFBBCF46A9F120FE01EB981D7F0 /* BTCScriptMachine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BTCScriptMachine.m; path = CoreBitcoin/BTCScriptMachine.m; sourceTree = "<group>"; };
@@ -3020,6 +3026,16 @@
 			path = uPortSDK/Classes/DID;
 			sourceTree = "<group>";
 		};
+		48AD383521CB9F3D00BAE015 /* JWT */ = {
+			isa = PBXGroup;
+			children = (
+				48AD383621CB9F5600BAE015 /* JWTTools.swift */,
+				48AD383D21D3F65E00BAE015 /* JWTHeader.swift */,
+				48AD383F21D3F6A600BAE015 /* JWTPayload.swift */,
+			);
+			path = JWT;
+			sourceTree = "<group>";
+		};
 		4B4AF3320EB0B76E87720D6C329357D1 /* ABI */ = {
 			isa = PBXGroup;
 			children = (
@@ -4107,6 +4123,7 @@
 		BD4ECF1606621D916E793F2C3EF891DF /* uPortSDK */ = {
 			isa = PBXGroup;
 			children = (
+				48AD383521CB9F3D00BAE015 /* JWT */,
 				0C8DD09E196643C68B2E419698042780 /* Contracts */,
 				81D4FB96108280D9FBCB5C93663C3CC9 /* Core */,
 				480BD46221BAB17E008012F5 /* DID */,
@@ -5651,6 +5668,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48AD383E21D3F65E00BAE015 /* JWTHeader.swift in Sources */,
 				480BD46721BAB17E008012F5 /* DIDResolver.swift in Sources */,
 				84EAF9B644A0E964FA4DDAB4A412BB37 /* Account.swift in Sources */,
 				DC9959040A8CC48A99745103A7586305 /* AccountCreator.swift in Sources */,
@@ -5670,6 +5688,7 @@
 				B79D84E6ED2CB04CB80FE4A43D146B26 /* BytesX-Generated.swift in Sources */,
 				36C4EFA16638FF3FC8F8E4CF7C25D452 /* BytesX.swift in Sources */,
 				499CF1E4894AB197670B564501BB6558 /* ChainDefinition.swift in Sources */,
+				48AD384021D3F6A600BAE015 /* JWTPayload.swift in Sources */,
 				B7B46D2EC9C7067C5455E15656304006 /* DataExtension.swift in Sources */,
 				F8A40787D0245A90816648D3DA6F34E6 /* EthrDIDDocument.swift in Sources */,
 				4EB046318C923C534A2354A331FD2E35 /* UPortIdentityDocument.swift in Sources */,
@@ -5677,6 +5696,7 @@
 				67BA4A3D80630BD65DDA1CDE51038706 /* DynamicType.swift in Sources */,
 				4886C11821C03CB10031C8C0 /* DIDDocument.swift in Sources */,
 				480BD46821BAB17E008012F5 /* UniversalDIDResolver.swift in Sources */,
+				48AD383721CB9F5600BAE015 /* JWTTools.swift in Sources */,
 				731A06E47D470449528B3C6FB5301E9E /* EthAddress.swift in Sources */,
 				5CB1F0859E1B164BB81C16BEED871FC6 /* EthCall.swift in Sources */,
 				4FBD340A9B6A1D86DD023167AA4D10E7 /* EthereumDIDRegistry.json in Sources */,

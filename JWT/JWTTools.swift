@@ -1,0 +1,208 @@
+//
+//  JWTTools.swift
+//  uPortSDK
+//
+//  Created by Cornelis van der Bent on 20/12/2018.
+//
+
+import Foundation
+import BigInt
+import CoreEthereum
+import Security
+
+public enum JWTToolsError: Error
+{
+    case malformedNotThreeParts
+    case malformedEmptyHeader
+    case malformedEmptyPayload
+    case malformedEmptySignature
+    case malformedNotBase64Url
+    case malformedNotBase64
+    case malformedNotUtf8
+    case malformedNotDictionary
+    case deserializationError(String)
+    case invalidSignatureSize(Int)
+}
+
+public struct JWTTools
+{
+    private struct Constants
+    {
+        static let signatureSize = 64
+    }
+
+    private static var universalResolver: UniversalDIDResolver?
+    {
+        var resolver = UniversalDIDResolver()
+
+        let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
+        let uPortResolver = UPortDIDResolver()
+        try! resolver.register(resolver: ethrResolver)
+        try! resolver.register(resolver: uPortResolver)
+
+        return resolver
+    }
+
+    /// Decodes a secured JWT into its three parts.
+    ///
+    /// This function only accepts secured (i.e. containing a signature
+    ///
+    /// - Parameters:
+    ///     - jwt: The JWT string to be decoded.
+    ///
+    /// - Throws: An error if one of the decoding checks or steps fails.
+    ///
+    /// - Returns: The decoded header, payload, signature, plus the signed data (i.e. "<header>.<payload>")
+    ///
+    public static func decode(jwt: String) throws -> (header: JWTHeader,
+                                                      payload: JWTPayload,
+                                                      signature: Data,
+                                                      signedData: Data)
+    {
+        let parts = jwt.components(separatedBy: ".")
+        try validate(parts: parts)
+
+        let headerBase64 = try JWTTools.base64urlToBase64(base64url: parts[0])
+        let payloadBase64 = try JWTTools.base64urlToBase64(base64url: parts[1])
+        let signatureBase64 = try JWTTools.base64urlToBase64(base64url: parts[2])
+
+        let header = try JWTHeader(dictionary: JWTTools.base64ToDictionary(base64: headerBase64))
+        let payload = try JWTPayload(dictionary: JWTTools.base64ToDictionary(base64: payloadBase64))
+        guard let signature = Data(base64Encoded: signatureBase64) else
+        {
+            throw JWTToolsError.malformedNotBase64
+        }
+
+        guard signature.count == Constants.signatureSize ||
+              signature.count == Constants.signatureSize + 1 else
+        {
+            throw JWTToolsError.invalidSignatureSize(signature.count)
+        }
+
+        return (header, payload, signature, Data((parts[0] + "." + parts[1]).utf8))
+    }
+
+    public static func verify(jwt: String, completionHandler: @escaping (_ payload: JWTPayload?, _ error: Error?) -> Void)
+    {
+        do
+        {
+            let (_, payload, signature, signedData) = try JWTTools.decode(jwt: jwt)
+
+            JWTTools.universalResolver?.resolveAsync(did: payload.iss)
+            { (document, error) in
+                guard error == nil else
+                {
+                    completionHandler(nil, error)
+
+                    return
+                }
+
+                // CoreEthereum's compact signature format requires recovery byte at index 0 (not 64).
+                var signatures = [Data]()
+                if (signature.count == Constants.signatureSize)
+                {
+                    signatures.append([27] + signature)
+                    signatures.append([28] + signature)
+                }
+                else
+                {
+                    signatures.append([signature[64]] + signature[0 ..< Constants.signatureSize])
+                }
+
+                let hash = signedData.sha256()
+                var matchCount = 0
+                signatures.forEach
+                { signature in
+                    document?.publicKey.forEach
+                    { publicKey in
+                        if let keyData = try? (publicKey.publicKeyHex?.decodeHex() ??
+                                               publicKey.publicKeyBase64?.decodeBase64() ??
+                                               publicKey.publicKeyBase58?.decodeBase58())
+                        {
+                            if let key = BTCKey.verifyCompactSignature(signature, forHash: hash)
+                            {
+                                matchCount += (keyData == Data(referencing: key.publicKey)) ? 1 : 0
+                            }
+                        }
+                    }
+                }
+
+                completionHandler(matchCount > 0 ? payload : nil, nil)
+            }
+        }
+        catch
+        {
+            completionHandler(nil, error)
+        }
+    }
+
+    private static func validate(parts: [String]) throws
+    {
+        guard parts.count == 3 else
+        {
+            throw JWTToolsError.malformedNotThreeParts
+        }
+
+        guard !parts[0].isEmpty else
+        {
+            throw JWTToolsError.malformedEmptyHeader
+        }
+
+        guard !parts[1].isEmpty else
+        {
+            throw JWTToolsError.malformedEmptyPayload
+        }
+
+        guard !parts[2].isEmpty else
+        {
+            throw JWTToolsError.malformedEmptySignature
+        }
+    }
+
+    private static func base64urlToBase64(base64url: String) throws -> String
+    {
+        let regex = try NSRegularExpression(pattern: "^[a-zA-Z0-9_-]*$")
+        guard regex.numberOfMatches(in: base64url, range: NSRange(location: 0, length: base64url.count)) == 1 else
+        {
+            throw JWTToolsError.malformedNotBase64Url
+        }
+
+        var base64 = base64url.replacingOccurrences(of: "-", with: "+").replacingOccurrences(of: "_", with: "/")
+
+        if base64.count % 4 != 0
+        {
+            base64.append(String(repeating: "=", count: 4 - (base64.count % 4)))
+        }
+
+        return base64
+    }
+
+    private static func base64ToDictionary(base64: String) throws -> [String: Any]
+    {
+        guard let data = Data(base64Encoded: base64) else
+        {
+            throw JWTToolsError.malformedNotBase64
+        }
+
+        guard String(data: data, encoding: .utf8) != nil else
+        {
+            throw JWTToolsError.malformedNotUtf8
+        }
+
+        do
+        {
+            let object = try JSONSerialization.jsonObject(with: data)
+
+            guard let dictionary = object as? [String : Any] else
+            {
+                throw JWTToolsError.malformedNotDictionary
+            }
+
+            return dictionary
+        }
+        catch
+        {
+            throw JWTToolsError.deserializationError(error.localizedDescription)
+        }
+    }
+}
