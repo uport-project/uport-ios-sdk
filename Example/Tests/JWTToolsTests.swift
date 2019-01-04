@@ -60,7 +60,7 @@ class JWTToolsTests: XCTestCase
 
     func testVerifyIncomingJWT()
     {
-        let expectation = self.expectation(description: "Verify JWT")
+        let expectation = self.expectation(description: "Verify Incoming JWT")
 
         JWTTools.verify(jwt: incomingJwt)
         { (payload, error) in
@@ -70,9 +70,9 @@ class JWTToolsTests: XCTestCase
         waitForExpectations(timeout: 3)
     }
 
-    func testVerifyShareRequest()
+    func testVerifyShareRequestJWT()
     {
-        let expectation = self.expectation(description: "Verify JWT")
+        let expectation = self.expectation(description: "Verify Share Request JWT")
 
         JWTTools.verify(jwt: validShareReqToken1)
         { (payload, error) in

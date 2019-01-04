@@ -22,8 +22,11 @@ public enum JWTToolsError: Error
     case malformedNotDictionary
     case deserializationError(String)
     case invalidSignatureSize(Int)
+    case failedToVerify
+    case missingDidDocument
 }
 
+/// Class with JWT related functionality.
 public struct JWTTools
 {
     private struct Constants
@@ -82,6 +85,19 @@ public struct JWTTools
         return (header, payload, signature, Data((parts[0] + "." + parts[1]).utf8))
     }
 
+    /// Verifies a JWT asynchronously on background thread.
+    ///
+    /// Verification involves resolving the DID, which is the `iss` payload field, over internet. This is done on a
+    /// background thread, so it's fine to call this function on the main thread.
+    ///
+    /// DID types currently supported are uPort and Ethereum.
+    ///
+    /// - Parameters:
+    ///   - jwt: The JWT string.
+    ///   - completionHandler: Called when the verification result becomes available. This handler is called on the
+    ///                        main thread.
+    ///   - payload: When verification is succesful, the JWT's payload is returned.
+    ///   - error: The error is something went wrong.
     public static func verify(jwt: String, completionHandler: @escaping (_ payload: JWTPayload?, _ error: Error?) -> Void)
     {
         do
@@ -97,43 +113,83 @@ public struct JWTTools
                     return
                 }
 
-                // CoreEthereum's compact signature format requires recovery byte at index 0 (not 64).
-                var signatures = [Data]()
-                if (signature.count == Constants.signatureSize)
+                guard let document = document else
                 {
-                    signatures.append([27] + signature)
-                    signatures.append([28] + signature)
+                    completionHandler(nil, JWTToolsError.missingDidDocument)
+
+                    return
+                }
+
+                var matchCount = 0
+                do
+                {
+                    let hash = signedData.sha256()
+                    let signatures = JWTTools.makeCompactSignatures(signature: signature)
+                    try signatures.forEach
+                    { signature in
+                        try matchCount += JWTTools.matchPublicKeys(publicKeys: document.publicKey,
+                                                                   signature: signature,
+                                                                   hash: hash)
+                    }
+                }
+                catch
+                {
+                    completionHandler(nil, error)
+
+                    return
+                }
+
+                if matchCount > 0
+                {
+                    completionHandler(payload, nil)
                 }
                 else
                 {
-                    signatures.append([signature[64]] + signature[0 ..< Constants.signatureSize])
+                    completionHandler(nil, JWTToolsError.failedToVerify)
                 }
-
-                let hash = signedData.sha256()
-                var matchCount = 0
-                signatures.forEach
-                { signature in
-                    document?.publicKey.forEach
-                    { publicKey in
-                        if let keyData = try? (publicKey.publicKeyHex?.decodeHex() ??
-                                               publicKey.publicKeyBase64?.decodeBase64() ??
-                                               publicKey.publicKeyBase58?.decodeBase58())
-                        {
-                            if let key = BTCKey.verifyCompactSignature(signature, forHash: hash)
-                            {
-                                matchCount += (keyData == Data(referencing: key.publicKey)) ? 1 : 0
-                            }
-                        }
-                    }
-                }
-
-                completionHandler(matchCount > 0 ? payload : nil, nil)
             }
         }
         catch
         {
             completionHandler(nil, error)
         }
+    }
+
+    private static func makeCompactSignatures(signature: Data) -> [Data]
+    {
+        // CoreEthereum's compact signature format requires recovery byte at index 0 (not 64).
+        var signatures = [Data]()
+        if (signature.count == Constants.signatureSize)
+        {
+            signatures.append([27] + signature)
+            signatures.append([28] + signature)
+        }
+        else
+        {
+            signatures.append([signature[64]] + signature[0 ..< Constants.signatureSize])
+        }
+
+        return signatures
+    }
+
+    private static func matchPublicKeys(publicKeys: [PublicKeyEntry], signature: Data, hash: Data) throws -> Int
+    {
+        var matchCount = 0
+
+        try publicKeys.forEach
+        { publicKey in
+            if let keyData = try (publicKey.publicKeyHex?.decodeHex() ??
+                publicKey.publicKeyBase64?.decodeBase64() ??
+                publicKey.publicKeyBase58?.decodeBase58())
+            {
+                if let key = BTCKey.verifyCompactSignature(signature, forHash: hash)
+                {
+                    matchCount += (keyData == Data(referencing: key.publicKey)) ? 1 : 0
+                }
+            }
+        }
+
+        return matchCount
     }
 
     private static func validate(parts: [String]) throws
