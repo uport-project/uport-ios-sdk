@@ -35,11 +35,11 @@ public enum BaseXError: Error
     case invalidCharacter
 }
 
-public func encode (alpha: (map: [Character : UInt],
-                    indexed: [Character],
-                    base: UInt,
-                    leader: Character),
-                    data: Data) -> String
+public func encode(alpha: (map: [Character : UInt],
+                   indexed: [Character],
+                   base: UInt,
+                   leader: Character),
+                   data: Data) -> String
 {
     guard data.count != 0 else
     {
@@ -65,7 +65,8 @@ public func encode (alpha: (map: [Character : UInt],
             carry = (carry / alpha.base) | 0
         }
     }
-    
+
+    // TODO: Check if this leading zero handling is correct. The code in `decode()` below is incorrect.
     var output: String = ""
     // deal with leading zeros
     for k in 0 ..< data.count
@@ -91,11 +92,11 @@ public func encode (alpha: (map: [Character : UInt],
     return final
 }
 
-public func decode (alpha: (map: [Character : UInt],
-                    indexed:[Character],
-                    base: UInt,
-                    leader: Character),
-                    data: String) throws -> Data
+public func decode(alpha: (map: [Character : UInt],
+                   indexed: [Character],
+                   base: UInt,
+                   leader: Character),
+                   data: String) throws -> Data
 {
     guard !data.isEmpty else
     {
@@ -125,7 +126,9 @@ public func decode (alpha: (map: [Character : UInt],
             carry >>= 8
         }
     }
-    
+
+    // TODO: Delete this part as it's no longer used. Was used for HEX decoding but it's incorrect: "000004" is
+    //       converted to 6 bytes (5 zeros), instead of 3.
     // deal with leading zeros
     for k in 0 ..< data.count
     {
@@ -193,12 +196,20 @@ public extension String
 {
     public func decodeHex() throws -> Data
     {
-        return try decode(alpha:HEX, data: strip0x(self))
+        return try decodeFullHex()
     }
     
     public func decodeFullHex() throws -> Data
     {
-        let stripped = strip0x(self)
+        var stripped = strip0x(self)
+
+        // A valid hexadecimal string has an even number of characters. If uneven it's assumed the leading 0 is left
+        // out, so it's added here.
+        if stripped.count % 2 == 1
+        {
+            stripped = "0" + stripped
+        }
+
         var data = Data(capacity: stripped.count / 2)
         let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
         regex.enumerateMatches(in: stripped, range: NSMakeRange(0, stripped.utf16.count))
@@ -214,5 +225,15 @@ public extension String
     public func decodeBase58() throws -> Data
     {
         return try decode(alpha:BASE58, data: self)
+    }
+
+    func decodeBase64() throws -> Data
+    {
+        guard let data = Data(base64Encoded: self) else
+        {
+            throw BaseXError.invalidCharacter
+        }
+
+        return data
     }
 }

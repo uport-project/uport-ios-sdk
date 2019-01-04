@@ -79,6 +79,11 @@ class SwiftBaseXTests: XCTestCase
         XCTAssertEqual(try! "0x68656c6c6f".decodeFullHex(), "hello".data(using: String.Encoding.utf8)!)
     }
 
+    func testHexDecodeLeading0()
+    {
+        XCTAssertEqual(try! "000004".decodeHex().count, "000004".count / 2)
+    }
+
     func testBase58DecodeExtension()
     {
         XCTAssertEqual(try! "Cn8eVZg".decodeBase58(), "hello".data(using: String.Encoding.utf8)!)
@@ -89,9 +94,9 @@ class SwiftBaseXTests: XCTestCase
         let fixtures = parseTestCases("valid")
         for pair in fixtures
         {
-            XCTAssertEqual(pair["base64"]?.decodeBase64().hexEncodedString(), pair["hex"])
+            XCTAssertEqual(try pair["base64"]?.decodeBase64().hexEncodedString(), pair["hex"])
             let fullHex = pair["fullhex"] != nil ? pair["fullhex"] : pair["hex"]
-            XCTAssertEqual(pair["base64"]?.decodeBase64().fullHexEncodedString(), fullHex)
+            XCTAssertEqual(try pair["base64"]?.decodeBase64().fullHexEncodedString(), fullHex)
         }
     }
     
@@ -100,9 +105,9 @@ class SwiftBaseXTests: XCTestCase
         let fixtures = parseTestCases("valid")
         for pair in fixtures
         {
-            XCTAssertEqual(try! pair["hex"]?.decodeHex(), pair["base64"]?.decodeBase64())
+            XCTAssertEqual(try! pair["hex"]?.decodeHex(), try pair["base64"]?.decodeBase64())
             let fullHex = pair["fullhex"] != nil ? pair["fullhex"] : pair["hex"]
-            XCTAssertEqual(try! fullHex?.decodeFullHex(), pair["base64"]?.decodeBase64())
+            XCTAssertEqual(try! fullHex?.decodeFullHex(), try pair["base64"]?.decodeBase64())
         }
     }
 
@@ -111,7 +116,7 @@ class SwiftBaseXTests: XCTestCase
         let fixtures = parseTestCases("valid")
         for pair in fixtures
         {
-            XCTAssertEqual(try! pair["base58"]?.decodeBase58(), pair["base64"]?.decodeBase64())
+            XCTAssertEqual(try! pair["base58"]?.decodeBase58(), try pair["base64"]?.decodeBase64())
         }
     }
 
@@ -120,7 +125,7 @@ class SwiftBaseXTests: XCTestCase
         let fixtures = parseTestCases("valid")
         for pair in fixtures
         {
-            XCTAssertEqual(pair["base64"]?.decodeBase64().base58EncodedString(), pair["base58"])
+            XCTAssertEqual(try pair["base64"]?.decodeBase64().base58EncodedString(), pair["base58"])
         }
     }
 
@@ -144,12 +149,6 @@ class SwiftBaseXTests: XCTestCase
             return []
         }
     }
-}
 
-extension String
-{
-    func decodeBase64() -> Data
-    {
-        return Data(base64Encoded: self)!
-    }
+    // TODO: Add decodeBase64() tests.
 }
