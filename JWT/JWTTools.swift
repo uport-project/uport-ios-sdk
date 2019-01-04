@@ -12,6 +12,8 @@ import Security
 
 public enum JWTToolsError: Error
 {
+    case notValidIssuedInFuture
+    case notValidPastExpiryDate
     case malformedNotThreeParts
     case malformedEmptyHeader
     case malformedEmptyPayload
@@ -32,6 +34,7 @@ public struct JWTTools
     private struct Constants
     {
         static let signatureSize = 64
+        static let timeSkew = TimeInterval(0.3)
     }
 
     private static var universalResolver: UniversalDIDResolver?
@@ -56,7 +59,6 @@ public struct JWTTools
     /// - Throws: An error if one of the decoding checks or steps fails.
     ///
     /// - Returns: The decoded header, payload, signature, plus the signed data (i.e. "<header>.<payload>")
-    ///
     public static func decode(jwt: String) throws -> (header: JWTHeader,
                                                       payload: JWTPayload,
                                                       signature: Data,
@@ -81,6 +83,8 @@ public struct JWTTools
         {
             throw JWTToolsError.invalidSignatureSize(signature.count)
         }
+
+        try JWTTools.checkDates(payload: payload)
 
         return (header, payload, signature, Data((parts[0] + "." + parts[1]).utf8))
     }
@@ -212,6 +216,19 @@ public struct JWTTools
         guard !parts[2].isEmpty else
         {
             throw JWTToolsError.malformedEmptySignature
+        }
+    }
+
+    private static func checkDates(payload: JWTPayload) throws
+    {
+        if let issueDate = payload.iat, issueDate > (Date() + Constants.timeSkew)
+        {
+            throw JWTToolsError.notValidIssuedInFuture
+        }
+
+        if let expiryDate = payload.exp, expiryDate <= (Date() - Constants.timeSkew)
+        {
+            throw JWTToolsError.notValidPastExpiryDate
         }
     }
 
