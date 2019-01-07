@@ -35,6 +35,9 @@ public protocol JWTToolsDateProvider
 }
 
 /// Class with JWT related functionality.
+///
+/// Current implementation supports the "ES256K" and "ES256K-R" algorithms.  It's forgiving and does not check the
+/// "alg" JWT header field.
 public struct JWTTools
 {
     private struct Constants
@@ -99,8 +102,10 @@ public struct JWTTools
             throw JWTToolsError.malformedNotBase64
         }
 
-        guard signature.count == Constants.signatureSize ||
-              signature.count == Constants.signatureSize + 1 else
+        // TODO: This check only covers the two currently supported algorithms.  This check should be tied to the
+        //       JWT header's "alg" field.
+        guard signature.count == Constants.signatureSize ||       // Covers "ES256K".
+              signature.count == Constants.signatureSize + 1 else // Covers "ES256K-R".
         {
             throw JWTToolsError.invalidSignatureSize(signature.count)
         }
