@@ -40,13 +40,14 @@ public struct JWTTools
     private struct Constants
     {
         static let signatureSize = 64
-        static let timeSkew = TimeInterval(0.3)
+        static let timeSkew = TimeInterval(5 * 60)
     }
 
     private static var universalResolver: UniversalDIDResolver?
     {
         var resolver = UniversalDIDResolver()
 
+        // TODO: Make this endpoint configurable.
         let ethrResolver = EthrDIDResolver(rpc: JsonRPC(rpcURL: Networks.shared.rinkeby.rpcUrl))
         let uPortResolver = UPortDIDResolver()
         try! resolver.register(resolver: ethrResolver)
@@ -104,8 +105,6 @@ public struct JWTTools
             throw JWTToolsError.invalidSignatureSize(signature.count)
         }
 
-        try JWTTools.checkDates(payload: payload)
-
         return (header, payload, signature, Data((parts[0] + "." + parts[1]).utf8))
     }
 
@@ -127,6 +126,8 @@ public struct JWTTools
         do
         {
             let (_, payload, signature, signedData) = try JWTTools.decode(jwt: jwt)
+
+            try JWTTools.checkDates(payload: payload)
 
             JWTTools.universalResolver?.resolveAsync(did: payload.iss)
             { (document, error) in

@@ -25,7 +25,8 @@ public struct JWTPayload
     public var callback: String? = nil
     public var type: String? = nil
 
-    /// Dictionary containing the fully parsed JWT payload, including the fields above.
+    /// Dictionary containing the full JWT payload, including the fields above. Note that `"iat"` and `"exp"`
+    /// will return the raw/string value (not a `Date` object).
     public var claims: [String : Any]? = nil
 
     public init(dictionary: [String : Any]) throws

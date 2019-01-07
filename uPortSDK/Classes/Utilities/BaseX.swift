@@ -66,7 +66,7 @@ public func encode(alpha: (map: [Character : UInt],
         }
     }
 
-    // TODO: Check if this leading zero handling is correct. The code in `decode()` below is incorrect.
+    // TODO: Check if this leading zero handling is correct for hexadecimal. The code in `decode()` below is incorrect.
     var output: String = ""
     // deal with leading zeros
     for k in 0 ..< data.count
@@ -127,9 +127,9 @@ public func decode(alpha: (map: [Character : UInt],
         }
     }
 
-    // TODO: Delete this part as it's no longer used. Was used for HEX decoding but it's incorrect: "000004" is
-    //       converted to 6 bytes (5 zeros), instead of 3.
-    // deal with leading zeros
+    // TODO: This is only needed for Base58. Earlier this function was used for hexadecimal which led to wrong results:
+    //       `"000004"` was converted to 6 bytes (with 5 zeros), instead of 3 bytes.
+    // Deal with leading zeros.
     for k in 0 ..< data.count
     {
         if (data[data.index(data.startIndex, offsetBy: k)] == alpha.leader)
