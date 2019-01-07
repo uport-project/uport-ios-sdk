@@ -9,6 +9,21 @@
 import XCTest
 @testable import uPortSDK
 
+class DateProvider: JWTToolsDateProvider
+{
+    var date: Date
+
+    init(date: Date)
+    {
+        self.date = date
+    }
+
+    func now() -> Date
+    {
+        return date
+    }
+}
+
 class JWTToolsTests: XCTestCase
 {
     let incomingJwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpc3MiOiIyb21SSlpMMjNaQ1lnYzFyWnJG" +
@@ -25,6 +40,16 @@ class JWTToolsTests: XCTestCase
                               "nlldjUxeHNka0R0dSIsIm5ldCI6IjB4NCIsImV4cCI6MTUyMDM2NzAzMiwidHlwZSI6InNoYXJl" +
                               "UmVxIn0.C8mPCCtWlYAnroduqysXYRl5xvrOdx1r4iq3A3SmGDGZu47UGTnjiZCOrOQ8A5lZ0M9" +
                               "JfDpZDETCKGdJ7KUeWQ"
+
+    override func setUp()
+    {
+        super.setUp()
+    }
+
+    override func tearDown()
+    {
+        super.tearDown()
+    }
 
     func testTwoPartsException()
     {
@@ -62,8 +87,14 @@ class JWTToolsTests: XCTestCase
     {
         let expectation = self.expectation(description: "Verify Incoming JWT")
 
+        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 1522540300))
         JWTTools.verify(jwt: incomingJwt)
         { (payload, error) in
+            if let error = error
+            {
+                XCTFail("\(error)")
+            }
+
             XCTAssertNotNil(payload)
             expectation.fulfill()
         }
@@ -75,8 +106,14 @@ class JWTToolsTests: XCTestCase
     {
         let expectation = self.expectation(description: "Verify Share Request JWT")
 
+        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 1520366666))
         JWTTools.verify(jwt: validShareReqToken1)
         { (payload, error) in
+            if let error = error
+            {
+                XCTFail("\(error)")
+            }
+
             XCTAssertNotNil(payload)
             expectation.fulfill()
         }

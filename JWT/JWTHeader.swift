@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Possible errors thrown.
 public enum JWTHeaderError: Error
 {
     case missingJwtType
@@ -14,12 +15,13 @@ public enum JWTHeaderError: Error
     case unsupportedAlgorithm(String)
 }
 
-public class JWTHeader
+/// Contains JWT header data.
+public struct JWTHeader
 {
     public enum Algorithm: String
     {
         case ES256K = "ES256K"
-        case ES256K_R = "ES256K-R"
+        case ES256K_R = "ES256K-R"  // With recovery byte.
     }
 
     public var algorithm: Algorithm

@@ -28,6 +28,12 @@ public enum JWTToolsError: Error
     case missingDidDocument
 }
 
+/// Protocol to support testing.
+public protocol JWTToolsDateProvider
+{
+    func now() -> Date
+}
+
 /// Class with JWT related functionality.
 public struct JWTTools
 {
@@ -47,6 +53,20 @@ public struct JWTTools
         try! resolver.register(resolver: uPortResolver)
 
         return resolver
+    }
+
+    public static var dateProvider: JWTToolsDateProvider?
+
+    private static func now() -> Date
+    {
+        if let dateProvider = dateProvider
+        {
+            return dateProvider.now()
+        }
+        else
+        {
+            return Date()
+        }
     }
 
     /// Decodes a secured JWT into its three parts.
@@ -221,12 +241,12 @@ public struct JWTTools
 
     private static func checkDates(payload: JWTPayload) throws
     {
-        if let issueDate = payload.iat, issueDate > (Date() + Constants.timeSkew)
+        if let issueDate = payload.iat, issueDate > (now() + Constants.timeSkew)
         {
             throw JWTToolsError.notValidIssuedInFuture
         }
 
-        if let expiryDate = payload.exp, expiryDate <= (Date() - Constants.timeSkew)
+        if let expiryDate = payload.exp, expiryDate <= (now() - Constants.timeSkew)
         {
             throw JWTToolsError.notValidPastExpiryDate
         }
