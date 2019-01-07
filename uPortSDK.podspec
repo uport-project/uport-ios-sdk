@@ -42,4 +42,5 @@ TODO: Add long description of the pod here.
   s.dependency 'BigInt'
   s.dependency 'CryptoSwift'
   s.dependency 'PromisesSwift'
+  s.dependency 'Sodium'
 end
