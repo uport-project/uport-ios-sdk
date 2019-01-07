@@ -64,6 +64,7 @@ class JWTToolsTests: XCTestCase
 
         JWTTools.verify(jwt: incomingJwt)
         { (payload, error) in
+            XCTAssertNotNil(payload)
             expectation.fulfill()
         }
 
@@ -76,6 +77,7 @@ class JWTToolsTests: XCTestCase
 
         JWTTools.verify(jwt: validShareReqToken1)
         { (payload, error) in
+            XCTAssertNotNil(payload)
             expectation.fulfill()
         }
 
