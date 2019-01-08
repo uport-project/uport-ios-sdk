@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'uPortSDK'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'A short description of uPortSDK.'
 
 # This description is used to generate tags and improve search results.
@@ -42,4 +42,5 @@ TODO: Add long description of the pod here.
   s.dependency 'BigInt'
   s.dependency 'CryptoSwift'
   s.dependency 'PromisesSwift'
+  s.dependency 'Sodium'
 end

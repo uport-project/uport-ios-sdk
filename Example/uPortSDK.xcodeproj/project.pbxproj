@@ -25,6 +25,9 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* UPortDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* UPortDIDResolverTests.swift */; };
+		C8AB883221CC711C0060EB7C /* ScalarMultTestValues.json in Resources */ = {isa = PBXBuildFile; fileRef = C8AB883121CC711C0060EB7C /* ScalarMultTestValues.json */; };
+		C8AB883321CC711C0060EB7C /* ScalarMultTestValues.json in Resources */ = {isa = PBXBuildFile; fileRef = C8AB883121CC711C0060EB7C /* ScalarMultTestValues.json */; };
+		C8AB883521CC714E0060EB7C /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AB883421CC714E0060EB7C /* CryptoTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,8 @@
 		AD89E19C6603D6AB6DDBCDA4 /* Pods-uPortSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uPortSDK_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uPortSDK_Example/Pods-uPortSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B62784F1A0E037C5B2F47E4B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B8D6DC27762FD74E9A6D6A49 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C8AB883121CC711C0060EB7C /* ScalarMultTestValues.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ScalarMultTestValues.json; sourceTree = "<group>"; };
+		C8AB883421CC714E0060EB7C /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		D0DFA7640487A851DD49FC30 /* uPortSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = uPortSDK.podspec; path = ../uPortSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
@@ -145,6 +150,8 @@
 				48AD383921CBF12800BAE015 /* JWTToolsTests.swift */,
 				03B3EFD1207BEDA2005697E0 /* valid.json */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				C8AB883121CC711C0060EB7C /* ScalarMultTestValues.json */,
+				C8AB883421CC714E0060EB7C /* CryptoTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -290,6 +297,7 @@
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				03B3EFD2207BEDA2005697E0 /* valid.json in Resources */,
+				C8AB883221CC711C0060EB7C /* ScalarMultTestValues.json in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03B3EFD3207BEDD1005697E0 /* valid.json in Resources */,
+				C8AB883321CC711C0060EB7C /* ScalarMultTestValues.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +328,7 @@
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
 				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
+				"${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework",
 				"${BUILT_PRODUCTS_DIR}/UPTEthereumSigner/UPTEthereumSigner.framework",
 				"${BUILT_PRODUCTS_DIR}/Valet/Valet.framework",
 				"${BUILT_PRODUCTS_DIR}/uPortSDK/uPortSDK.framework",
@@ -332,6 +342,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPTEthereumSigner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Valet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/uPortSDK.framework",
@@ -417,6 +428,7 @@
 				043D488A21345D2300C2EFDC /* EthrDIDResolverTests.swift in Sources */,
 				48AD383A21CBF12800BAE015 /* JWTToolsTests.swift in Sources */,
 				48079B3821BAC479005D1E42 /* DIDObjectTests.swift in Sources */,
+				C8AB883521CC714E0060EB7C /* CryptoTests.swift in Sources */,
 				03960B5A205B42CA0024A7B4 /* SwiftBaseXTests.swift in Sources */,
 				48F769B421C8036E0012EA77 /* UPortIdentityDocumentTests.swift in Sources */,
 				4886C11521BFBACE0031C8C0 /* UniversalDIDResolverTests.swift in Sources */,
