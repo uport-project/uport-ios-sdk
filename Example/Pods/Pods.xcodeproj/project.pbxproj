@@ -362,6 +362,9 @@
 		48132448CF01CAEE164D7450CE453F12 /* KeyPairGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315AA850FE4770143B27C1E9A93096F /* KeyPairGenerator.swift */; };
 		4842F6130B529567DA56BA4D22735F78 /* PromiseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC19C2FC49C02E0023F83CD80D82A91 /* PromiseError.swift */; };
 		484DCBBAB67B6ECE42676066A5CCC8D5 /* pcy_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = A0B29FB7EEBB59F9CEE5AEF251798CC8 /* pcy_lib.c */; };
+		4855C24721E493AA009C349C /* JWTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4855C24421E493AA009C349C /* JWTHeader.swift */; };
+		4855C24821E493AA009C349C /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4855C24521E493AA009C349C /* JWTPayload.swift */; };
+		4855C24921E493AA009C349C /* JWTTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4855C24621E493AA009C349C /* JWTTools.swift */; };
 		48BF7931C8F95EDE938CEFB92D6FAD3A /* CwlDarwinDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0030133403C9F2CD432E5ED973A53F1 /* CwlDarwinDefinitions.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		48D2F6E7A62E8CD3D1A01EE75152F8D0 /* FBLPromise+Validate.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 025F7D4B7096E70E62320FECC1F2CD21 /* FBLPromise+Validate.h */; };
 		48DDE6FA22995435A8D9FCDD17FB0932 /* MNID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3976D728F5F7A5492F0EB005192A3E /* MNID.swift */; };
@@ -2002,6 +2005,9 @@
 		46DCF90009B0EE66721D2EA2715F103C /* Promise+Wrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Wrap.swift"; path = "Sources/Promises/Promise+Wrap.swift"; sourceTree = "<group>"; };
 		473BBEB4F8AB6B39C8E78E8C25CEE32D /* bn_kron.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = bn_kron.c; path = openssl/src/crypto/bn/bn_kron.c; sourceTree = "<group>"; };
 		47F38F6FC4993544EAE4E9308AB13AE3 /* Promise+Timeout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Timeout.swift"; path = "Sources/Promises/Promise+Timeout.swift"; sourceTree = "<group>"; };
+		4855C24421E493AA009C349C /* JWTHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTHeader.swift; sourceTree = "<group>"; };
+		4855C24521E493AA009C349C /* JWTPayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
+		4855C24621E493AA009C349C /* JWTTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTTools.swift; sourceTree = "<group>"; };
 		4857C721308A5C289178A40DF30EA474 /* threads_pthread.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = threads_pthread.c; path = openssl/src/crypto/threads_pthread.c; sourceTree = "<group>"; };
 		48666A399BBA41B455F6F6204AB2C444 /* Blowfish.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blowfish.swift; path = Sources/CryptoSwift/Blowfish.swift; sourceTree = "<group>"; };
 		4880E8F304BE2998AD0F8087C4F6D43B /* PKCS7Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7Padding.swift; path = Sources/CryptoSwift/PKCS/PKCS7Padding.swift; sourceTree = "<group>"; };
@@ -3979,6 +3985,16 @@
 			path = Valet;
 			sourceTree = "<group>";
 		};
+		4855C24321E493AA009C349C /* JWT */ = {
+			isa = PBXGroup;
+			children = (
+				4855C24421E493AA009C349C /* JWTHeader.swift */,
+				4855C24521E493AA009C349C /* JWTPayload.swift */,
+				4855C24621E493AA009C349C /* JWTTools.swift */,
+			);
+			path = JWT;
+			sourceTree = "<group>";
+		};
 		487DBDE823D93FE50C1F2375772B5851 /* uPortDID */ = {
 			isa = PBXGroup;
 			children = (
@@ -4561,6 +4577,7 @@
 				F3D11A2AE0418C1C8D0EA03A45C471A4 /* EthrDID */,
 				A3793F788179D0EB74575A9674363F8D /* Identity */,
 				F89DE30A4E2C82998FC61404E8089A77 /* JsonRPC */,
+				4855C24321E493AA009C349C /* JWT */,
 				AC5F2A0D28E74E197A0B631C47F3B7C3 /* Pod */,
 				C93EF3A8932ED8B5228BE565E6ABCF4D /* Support Files */,
 				BB4DBF412A2F26E57B0C85B3C847F216 /* Third Party */,
@@ -6082,6 +6099,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4855C24721E493AA009C349C /* JWTHeader.swift in Sources */,
 				208A4D7C1E505AB1C82E77FCC88E9C94 /* Account.swift in Sources */,
 				604B07F0C68106713AE71D85A4FD8D56 /* AccountCreator.swift in Sources */,
 				45076F7D43FFABB8C50CC122B4526B7F /* Address.swift in Sources */,
@@ -6101,6 +6119,7 @@
 				B49453F39C433634A9CE0345F3513EAE /* DataExtension.swift in Sources */,
 				23662C19E9E925938038ABB7C0BBF3E8 /* DIDDocument.swift in Sources */,
 				A849C7F220BC5C654769A9372D39AFEE /* DIDObject.swift in Sources */,
+				4855C24821E493AA009C349C /* JWTPayload.swift in Sources */,
 				51A20AE4B91D4651664270E8AE2E04B5 /* DIDResolver.swift in Sources */,
 				44F1F6B12471FD95C8B74FBDAA5DB03C /* DynamicType.swift in Sources */,
 				B545B536B22E07DB9992487F629ECD3B /* EthAddress.swift in Sources */,
@@ -6139,6 +6158,7 @@
 				7E3D4E0D4513D413229C7F373FC870D8 /* UportRegistry.swift in Sources */,
 				43DA5EE87205130568D0C6F18CD70566 /* uPortSDK-dummy.m in Sources */,
 				8E2F8F609141F81FB3FA1BAD8F19E72F /* VariableArray.swift in Sources */,
+				4855C24921E493AA009C349C /* JWTTools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

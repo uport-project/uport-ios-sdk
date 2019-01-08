@@ -56,12 +56,12 @@ public struct Crypto
     /**
      Calculates the encryption public key corresponding to the secret key.
      
-     - Parameter secretKey: The base64 encoding string secret key
-     - Returns: A base64 encoded public key
+     - Parameter secretKey: The Base64 encoding string secret key
+     - Returns: A Base64 encoded public key
      */
     public static func getEncryptionPublicKey(secretKey: String) throws -> String?
     {
-        let secretKeyDecoded = secretKey.decodeBase64()
+        let secretKeyDecoded = try! secretKey.decodeBase64()
         let skBytes = Bytes(secretKeyDecoded)
         guard skBytes.count == 32 else
         {
@@ -92,7 +92,7 @@ public struct Crypto
         let sodium = Sodium()
         
         //Decode base64 public key
-        let boxPubDecoded = boxPub.decodeBase64()
+        let boxPubDecoded = try! boxPub.decodeBase64()
         
         //create ephemeral keypair
         let ephemKeyPair = sodium.box.keyPair()!
@@ -132,29 +132,29 @@ public struct Crypto
     public static func decrypt(encrypted: EncryptedMessage, secretKey: Array<UInt8>) -> String
     {
         let sodium = Sodium()
-        let decodedCipherText = Bytes(encrypted.ciphertext.decodeBase64())
-        let decodedEphemPublicKey = Bytes(encrypted.ephemPublicKey.decodeBase64())
-        let decodedNonce = Bytes(encrypted.nonce.decodeBase64())
+        let decodedCipherText = try! Bytes(encrypted.ciphertext.decodeBase64())
+        let decodedEphemPublicKey = try! Bytes(encrypted.ephemPublicKey.decodeBase64())
+        let decodedNonce = try! Bytes(encrypted.nonce.decodeBase64())
         
-        let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText, senderPublicKey: decodedEphemPublicKey, recipientSecretKey: secretKey, nonce: decodedNonce)!
+        let decrypted = sodium.box.open(authenticatedCipherText: decodedCipherText,
+                                        senderPublicKey: decodedEphemPublicKey,
+                                        recipientSecretKey: secretKey,
+                                        nonce: decodedNonce)!
         let unpadded = decrypted.unpadFromBlock()
+
         return unpadded
     }
-    
 }
 
 extension String
 {
-    func decodeBase64() -> Data
-    {
-        return Data(base64Encoded: self)!
-    }
-    
     func padToBlock() -> Array<UInt8>
     {
         let bytes: [UInt8] = Array(self.utf8)
-        let paddingSize = Int(ceil(Double(bytes.count) / Crypto.Constants.blockSize ) * Crypto.Constants.blockSize) - bytes.count
-        let padding: Array<UInt8> = Array(repeating: 0, count: paddingSize )
+        let paddingSize = Int(ceil(Double(bytes.count) / Crypto.Constants.blockSize) * Crypto.Constants.blockSize) -
+                          bytes.count
+        let padding: Array<UInt8> = Array(repeating: 0, count: paddingSize)
+
         return bytes + padding
     }
 }
@@ -166,6 +166,7 @@ extension Array where Element == UInt8
         if let firstZero = self.firstIndex(of: 0)
         {
             let unpadded = self[0..<firstZero]
+
             return String(bytes: unpadded, encoding: .utf8)!
         }
         else
@@ -174,4 +175,3 @@ extension Array where Element == UInt8
         }
     }
 }
-

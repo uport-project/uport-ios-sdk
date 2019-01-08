@@ -49,7 +49,13 @@ public struct UPortIdentityDocument: Codable
         case name = "name"
     }
     
-    public init(context: String?, type: String?, publicKey: String?, publicEncKey: String?, description: String?, image: ProfilePicture?, name: String?)
+    public init(context: String?,
+                type: String?,
+                publicKey: String?,
+                publicEncKey: String?,
+                description: String?,
+                image: ProfilePicture?,
+                name: String?)
     {
         self.context = context
         self.type = type
