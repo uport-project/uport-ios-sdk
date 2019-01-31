@@ -171,7 +171,6 @@
 		48F4701521FFCCCF000C803F /* SwiftBaseXTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftBaseXTests.swift; sourceTree = "<group>"; };
 		48F4701621FFCCCF000C803F /* UPortIdentityDocumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortIdentityDocumentTests.swift; sourceTree = "<group>"; };
 		48F4701721FFCCCF000C803F /* valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; };
-		48F4701821FFCCCF000C803F /* SwiftKeccakTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftKeccakTests.swift; sourceTree = "<group>"; };
 		48F4701921FFCCCF000C803F /* UniversalDIDResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalDIDResolverTests.swift; sourceTree = "<group>"; };
 		48F4701A21FFCCCF000C803F /* JWTToolsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTToolsTests.swift; sourceTree = "<group>"; };
 		48F4701B21FFCCCF000C803F /* UPortDIDResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortDIDResolverTests.swift; sourceTree = "<group>"; };
@@ -257,7 +256,6 @@
 				48F4701A21FFCCCF000C803F /* JWTToolsTests.swift */,
 				48F4701121FFCCCE000C803F /* ScalarMultTestValues.json */,
 				48F4701521FFCCCF000C803F /* SwiftBaseXTests.swift */,
-				48F4701821FFCCCF000C803F /* SwiftKeccakTests.swift */,
 				48F4701921FFCCCF000C803F /* UniversalDIDResolverTests.swift */,
 				48F4701B21FFCCCF000C803F /* UPortDIDResolverTests.swift */,
 				48F4701621FFCCCF000C803F /* UPortIdentityDocumentTests.swift */,
