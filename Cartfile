@@ -1,0 +1,4 @@
+github "attaswift/BigInt"
+github "uport-project/UPTEthereumSigner" "feature/162158041-convert-to-carthage-fixes-build-issue"
+github "krzyzanowskim/CryptoSwift"
+github "jedisct1/swift-sodium"

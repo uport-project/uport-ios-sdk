@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Promises
 import BigInt
 
 public enum EthrDIDResolverError: Error
@@ -344,43 +343,44 @@ public struct EthrDIDResolver: DIDResolver
         
         return (section!, algorithm!, rawType, encoding)
     }
-    
-    
-    func lastChanged(identity: String) -> Promise<String>
+
+    func lastChanged(identity: String, completionHandler: @escaping (_ document: String?, _ error: Error?) -> Void)
     {
-        return Promise<String>
-        { fulfill, reject in
-            guard let address = BigUInt(identity.withoutHexPrefix, radix: 16),
-                let solidityAddress = try? Solidity.Address(bigUInt: address) else
+        guard let address = BigUInt(identity.withoutHexPrefix, radix: 16),
+              let solidityAddress = try? Solidity.Address(bigUInt: address) else
+        {
+            completionHandler(nil, EthrDIDResolverError.invalidIdentity)
+
+            return
+        }
+
+        let encodedCall = EthereumDIDRegistry.Changed.encodeCall(arguments: solidityAddress)
+        self.rpc.ethCall(address: self.registryAddress, data: encodedCall)
+        { (response, error) in
+            guard error == nil else
             {
-                reject(EthrDIDResolverError.invalidIdentity)
+                completionHandler(nil, error)
 
                 return
             }
-            
-            let encodedCall = EthereumDIDRegistry.Changed.encodeCall(arguments: solidityAddress)
-            self.rpc.ethCall(address: self.registryAddress, data: encodedCall).then(
-            { response in
-                guard let responseUnwrapped = response else
-                {
-                    reject(EthrDIDResolverError.invalidRPCResponse)
 
-                    return
-                }
-                
-                let parsedResponse = JsonRpcBaseResponse.fromJson(json: responseUnwrapped)
-                guard parsedResponse.error == nil || parsedResponse.result != nil else
-                {
-                    reject(EthrDIDResolverError.invalidRPCResponse)
+            guard let responseUnwrapped = response else
+            {
+                completionHandler(nil, EthrDIDResolverError.invalidRPCResponse)
 
-                    return
-                }
-                
-                fulfill("\(parsedResponse.result!)")
-            }).catch(
-            { error in
-                reject(error)
-            })
+                return
+            }
+
+            let parsedResponse = JsonRpcBaseResponse.fromJson(json: responseUnwrapped)
+            let result = parsedResponse.result as? String
+            guard parsedResponse.error == nil, result != nil else
+            {
+                completionHandler(nil, EthrDIDResolverError.invalidRPCResponse)
+
+                return
+            }
+
+            completionHandler(result, nil)
         }
     }
     

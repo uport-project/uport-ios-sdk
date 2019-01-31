@@ -8,7 +8,6 @@
 import Foundation
 import UPTEthereumSigner
 import BigInt
-import Promises
 
 public enum EthrDIDError: Error
 {
@@ -35,37 +34,19 @@ public struct EthrDID
         self.registry = registry
     }
     
-    public func lookupOwner(cache: Bool = true) -> Promise<String>
-    {
-        return Promise<String>
-        { fulfill, reject in
-            DispatchQueue.global(qos: .userInitiated).async
-            {
-                do
-                {
-                    let response = try self.lookupOwnerSynchronous(cache: cache)
-                    fulfill( response )
-                }
-                catch
-                {
-                    reject(error)
-                }
-            }
-        }
-    }
-    
-    public func lookupOwner(cache: Bool = true, callback: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void)
+    public func lookupOwner(cache: Bool = true,
+                            completionHandler: @escaping (_ ownerAddress: String?, _ error: Error?) -> Void)
     {
         DispatchQueue.global(qos: .userInitiated).async
         {
             do
             {
                 let response = try self.lookupOwnerSynchronous(cache: cache)
-                callback(response, nil)
+                completionHandler(response, nil)
             }
             catch
             {
-                callback(nil, error)
+                completionHandler(nil, error)
             }
         }
     }
@@ -101,7 +82,8 @@ public struct EthrDID
         return address.withHexPrefix
     }
     
-    func changeOwner(newOwner: String, callback: @escaping (_ transactionHash: String?, _ error: Error?) -> Void)
+    func changeOwner(newOwner: String,
+                     completionHandler: @escaping (_ transactionHash: String?, _ error: Error?) -> Void)
     {
         self.lookupOwner(cache: true)
         { ownerAddress, error in
@@ -114,7 +96,7 @@ public struct EthrDID
             guard let ownerAddressBigUInt = BigUInt(ownerAddress.withoutHexPrefix, radix: 16),
                   let newOwnerAddressBigUInt = BigUInt(newOwner.withoutHexPrefix, radix: 16) else
             {
-                callback(nil, EthrDIDError.invalidAddress)
+                completionHandler(nil, EthrDIDError.invalidAddress)
 
                 return
             }
@@ -124,11 +106,12 @@ public struct EthrDID
             guard let ownerAddressSolidity = ownerAddressOptional,
                   let newOwnerAddressSolidity = newOwnerAddressOptional else
             {
-                callback(nil, EthrDIDError.invalidAddress)
+                completionHandler(nil, EthrDIDError.invalidAddress)
 
                 return
             }
-            
+
+            // TODO: Find out why this function has this seemingly dead end.
             let encodedCall = EthereumDIDRegistry.ChangeOwner.encodeCall(arguments: (identity: ownerAddressSolidity,
                                                                                      newOwner: newOwnerAddressSolidity))
          }
@@ -140,20 +123,36 @@ public struct EthrDID
 
     private func signAndSendContractCall(owner: String,
                                          encodedCall: String,
-                                         callback: (_ transactionHash: String?, _ error: Error) -> Void)
+                                         completionHandler: @escaping (_ transactionHash: String?, _ error: Error?) -> Void)
     {
-        let noncePromise = self.rpc.transactionCount(address: owner)
-        let gasPricePromise = self.rpc.gasPrice()
-        all(noncePromise, gasPricePromise ).then
-        { nonce, networkGasPrice in
-            let unsignedTx = Transaction.defaultTransaction(from: EthAddress(input: owner),
-                                                            gasLimit: BigInt( integerLiteral: 70000),
-                                                            gasPrice: networkGasPrice,
-                                                            input: Array(hex: encodedCall),
-                                                            nonce: nonce,
-                                                            to: EthAddress(input: self.registry),
-                                                            value: BigInt(integerLiteral: 0))
-//            let signedEncodedTx =
+        self.rpc.transactionCount(address: owner)
+        { (nonce, error) in
+            guard let nonce = nonce, error == nil else
+            {
+                completionHandler(nil, error)
+
+                return
+            }
+
+            self.rpc.gasPrice()
+            { (gasPrice, error) in
+                guard let gasPrice = gasPrice, error == nil else
+                {
+                    completionHandler(nil, error)
+
+                    return
+                }
+
+                // TODO: Finish this function.
+                let unsignedTx = Transaction.defaultTransaction(from: EthAddress(input: owner),
+                                                                gasLimit: BigInt( integerLiteral: 70000),
+                                                                gasPrice: gasPrice,
+                                                                input: Array(hex: encodedCall),
+                                                                nonce: nonce,
+                                                                to: EthAddress(input: self.registry),
+                                                                value: BigInt(integerLiteral: 0))
+                // let signedEncodedTx =
+            }
         }
     }
 }

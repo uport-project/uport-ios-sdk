@@ -7,7 +7,7 @@
 
 import Foundation
 import BigInt
-import CoreEthereum
+import CoreEth
 import Security
 
 public enum JWTToolsError: Error

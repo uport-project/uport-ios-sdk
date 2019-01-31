@@ -165,7 +165,7 @@ public extension Data
 {
     public func hexEncodedString(_ prefixed: Bool = false) -> String
     {
-        let encoded = uPortSDK.encode(alpha:HEX, data: self)
+        let encoded = UPort.encode(alpha:HEX, data: self)
         if prefixed
         {
             return "0x".appending(encoded)
@@ -188,7 +188,7 @@ public extension Data
 
     public func base58EncodedString() -> String
     {
-        return uPortSDK.encode(alpha:BASE58, data: self)
+        return UPort.encode(alpha:BASE58, data: self)
     }
 }
 

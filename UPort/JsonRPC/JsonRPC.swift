@@ -7,7 +7,6 @@
 
 import Foundation
 import BigInt
-import Promises
 
 public enum JsonRpcError: Error
 {
@@ -67,22 +66,6 @@ public struct JsonRPC
             }
         }
     }
-    
-    public func ethCall(address: String, data: String) -> Promise<String?>
-    {
-        return Promise<String?>
-        { fulfill, reject in
-            do
-            {
-                let response = try self.ethCallSynchronous(address: address, data: data)
-                fulfill(response)
-            }
-            catch
-            {
-                reject(error)
-            }
-        }
-    }
 
     public func ethCallSynchronous(address: String, data: String) throws -> String
     {
@@ -110,8 +93,7 @@ public struct JsonRPC
         
         return response
     }
-    
-    
+
     public func transactionCount(address: String,
                                  completionHandler: @escaping (_ transactionCount: BigInt?, _ error: Error?) -> Void)
     {
@@ -198,31 +180,6 @@ public struct JsonRPC
 
     }
 
-    public func transactionCount(address: String) -> Promise<BigInt>
-    {
-        return Promise<BigInt>
-        { fulfill, reject in
-            self.transactionCount(address: address, completionHandler:
-            { (transactionCountBigInt, error ) in
-                guard error == nil else
-                {
-                    reject(error!)
-
-                    return
-                }
-
-                guard let transactionCountBigIntUnwrapped = transactionCountBigInt else
-                {
-                    reject(JsonRpcError.missingPayload)
-
-                    return
-                }
-
-                fulfill(transactionCountBigIntUnwrapped)
-            })
-        }
-    }
-
     public func gasPrice(completionHandler: @escaping (_ gasPrice: BigInt?, _ error: Error?) -> Void)
     {
         guard let rpcURL = self.rpcURL else
@@ -305,29 +262,6 @@ public struct JsonRPC
             }
         }
     }
-
-    public func gasPrice() -> Promise<BigInt>
-    {
-        return Promise<BigInt>
-        { fulfill, reject in
-            self.gasPrice
-            { (transactionCountBigInt: BigInt?, error: Error?) in
-                guard error == nil else
-                {
-                    reject(error!)
-                    return
-                }
-
-                guard let transactionCountBigIntUnwrapped = transactionCountBigInt else
-                {
-                    reject(JsonRpcError.missingPayload)
-                    return
-                }
-
-                fulfill(transactionCountBigIntUnwrapped)
-            }
-        }
-    }
     
     public func getLogsSynchronous(address: String,
                                    topics: [Any?] = [Any?](),
@@ -385,29 +319,5 @@ public struct JsonRPC
         }
                 
         return logItems
-    }
-    
-    public func getLogs(address: String,
-                        topics: [Any?] = [Any?](),
-                        fromBlock: BigUInt,
-                        toBlock: BigUInt ) -> Promise<[JsonRpcLogItem]>
-    {
-        return Promise<[JsonRpcLogItem]>
-        { fulfill, reject in
-            DispatchQueue.global(qos: .userInitiated).async
-            {
-                var logItems: [JsonRpcLogItem]?
-                do
-                {
-                    logItems = try self.getLogsSynchronous(address: address, topics: topics, fromBlock: fromBlock, toBlock: toBlock)
-                }
-                catch
-                {
-                    reject(error)
-                }
-                
-                fulfill(logItems!)
-            }
-        }
     }
 }
