@@ -178,7 +178,6 @@
 		48F4702921FFCF49000C803F /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = Carthage/Build/iOS/openssl.framework; sourceTree = "<group>"; };
 		48F47C5621FFCFA8000C803F /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		48F47C5821FFCFBC000C803F /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
-		48F47C5A21FFCFE1000C803F /* UPTEthSigner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UPTEthSigner.framework; path = Carthage/Build/iOS/UPTEthSigner.framework; sourceTree = "<group>"; };
 		48F47C5C21FFCFF7000C803F /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		48F72FCD21FA0AC80089FBBB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -479,7 +478,6 @@
 			children = (
 				48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */,
 				48F47C5C21FFCFF7000C803F /* Sodium.framework */,
-				48F47C5A21FFCFE1000C803F /* UPTEthSigner.framework */,
 				48F47C5821FFCFBC000C803F /* BigInt.framework */,
 				48F47C5621FFCFA8000C803F /* CryptoSwift.framework */,
 				48F4702921FFCF49000C803F /* openssl.framework */,
