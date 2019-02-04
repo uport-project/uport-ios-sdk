@@ -26,7 +26,7 @@ public struct JsonRPC
 
     public private(set) var completionQueue: DispatchQueue
 
-    init(rpcURL: String, completionQueue: DispatchQueue = DispatchQueue.main)
+    public init(rpcURL: String, completionQueue: DispatchQueue = DispatchQueue.main)
     {
         self.completionQueue = completionQueue
         self.rpcURL = rpcURL

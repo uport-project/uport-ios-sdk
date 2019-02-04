@@ -14,7 +14,7 @@ public enum NetworksError: Error
 
 public struct Networks
 {
-    static let shared = Networks()
+    public static let shared = Networks()
     
     public let mainnet = EthereumNetwork(ethNetworkId: .mainnet)!
     public let ropsten = EthereumNetwork(ethNetworkId: .ropsten)!
