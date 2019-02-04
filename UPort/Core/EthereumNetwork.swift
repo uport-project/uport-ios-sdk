@@ -17,14 +17,14 @@ public enum EthereumNetworkId: String
 
 public struct EthereumNetwork
 {
-    var name: String = ""            //  ex: "kovan"
-    var networkId: String = ""       //  ex: "0x2a"
-    var registry: String = ""        //  ex: MNID.encode({address: '0x5f8e9351dc2d238fb878b6ae43aa740d62fc9758', network: '0x2a'})
-    var rpcUrl: String = ""          //  ex: "https://kovan.infura.io/uport"
-    var explorerUrl: String = ""     //  ex: "https://kovan.etherscan.io"
-    var faucetUrl: String = ""       //  ex: "https://sensui.uport.me/api/v1/fund/"
-    var relayUrl: String = ""        //  ex: "https://sensui.uport.me/api/v2/relay/"
-    var txRelayAddress = ""
+    public var name: String = ""        //  ex: "kovan"
+    public var networkId: String = ""   //  ex: "0x2a"
+    public var registry: String = ""    //  ex: MNID.encode({address: '0x5f8e9351dc2d238fb878b6ae43aa740d62fc9758', network: '0x2a'})
+    public var rpcUrl: String = ""      //  ex: "https://kovan.infura.io/uport"
+    public var explorerUrl: String = "" //  ex: "https://kovan.etherscan.io"
+    public var faucetUrl: String = ""   //  ex: "https://sensui.uport.me/api/v1/fund/"
+    public var relayUrl: String = ""    //  ex: "https://sensui.uport.me/api/v2/relay/"
+    public var txRelayAddress = ""
     
     public init?(network: String)
     {

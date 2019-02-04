@@ -16,10 +16,10 @@ public struct Networks
 {
     static let shared = Networks()
     
-    let mainnet = EthereumNetwork(ethNetworkId: .mainnet)!
-    let ropsten = EthereumNetwork(ethNetworkId: .ropsten)!
-    let kovan = EthereumNetwork(ethNetworkId: .kovan)!
-    let rinkeby = EthereumNetwork(ethNetworkId: .rinkeby)!
+    public let mainnet = EthereumNetwork(ethNetworkId: .mainnet)!
+    public let ropsten = EthereumNetwork(ethNetworkId: .ropsten)!
+    public let kovan = EthereumNetwork(ethNetworkId: .kovan)!
+    public let rinkeby = EthereumNetwork(ethNetworkId: .rinkeby)!
     
     private var customNetworks = [String: EthereumNetwork]()
     
