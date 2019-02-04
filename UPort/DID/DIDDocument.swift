@@ -65,14 +65,14 @@ public class DIDDocument: Equatable
 
 public struct PublicKeyEntry: Equatable
 {
-    var id: String
-    var type: DelegateType
-    var owner: String
-    var ethereumAddress: String?
-    var publicKeyHex: String?
-    var publicKeyBase64: String?
-    var publicKeyBase58: String?
-    var value: String?
+    public var id: String
+    public var type: DelegateType
+    public var owner: String
+    public var ethereumAddress: String?
+    public var publicKeyHex: String?
+    public var publicKeyBase64: String?
+    public var publicKeyBase58: String?
+    public var value: String?
 
     public init(id: String,
                 type: DelegateType,
@@ -101,8 +101,8 @@ public struct PublicKeyEntry: Equatable
 
 public struct AuthenticationEntry
 {
-    var type: DelegateType
-    var publicKey: String
+    public var type: DelegateType
+    public var publicKey: String
 
     public init(type: DelegateType, publicKey: String)
     {
@@ -118,8 +118,8 @@ public struct AuthenticationEntry
 
 public struct ServiceEntry
 {
-    var type: String
-    var serviceEndpoint: String
+    public var type: String
+    public var serviceEndpoint: String
 
     public init(type: String, serviceEndpoint: String)
     {
