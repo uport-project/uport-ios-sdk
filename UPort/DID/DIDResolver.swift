@@ -7,9 +7,7 @@
 
 import Foundation
 
-/**
-    DID resolver protocol.  This is the interface expected by the `UniversalDIDResolver`.
- */
+/// DID resolver protocol.  This is the interface expected by the `UniversalDIDResolver`.
 public protocol DIDResolver
 {
     /// DID method, for example `"uport"` or `"ethr"`.

@@ -20,7 +20,6 @@
 		48735C8C21ECD21200904ED5 /* NormalizedEthrDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4421ECD21200904ED5 /* NormalizedEthrDID.swift */; };
 		48735C8D21ECD21200904ED5 /* EthereumDIDRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4621ECD21200904ED5 /* EthereumDIDRegistry.swift */; };
 		48735C8E21ECD21200904ED5 /* UportRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4721ECD21200904ED5 /* UportRegistry.swift */; };
-		48735C8F21ECD21200904ED5 /* EthereumDIDRegistry.json in Resources */ = {isa = PBXBuildFile; fileRef = 48735C4921ECD21200904ED5 /* EthereumDIDRegistry.json */; };
 		48735C9021ECD21200904ED5 /* ProgressPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4B21ECD21200904ED5 /* ProgressPersistence.swift */; };
 		48735C9121ECD21200904ED5 /* AccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4C21ECD21200904ED5 /* AccountCreator.swift */; };
 		48735C9221ECD21200904ED5 /* MNID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4D21ECD21200904ED5 /* MNID.swift */; };
@@ -66,6 +65,7 @@
 		48735CBA21ECD21200904ED5 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8221ECD21200904ED5 /* HTTPClient.swift */; };
 		48735CBB21ECD21200904ED5 /* BaseX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8321ECD21200904ED5 /* BaseX.swift */; };
 		48735CFE21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735CFD21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift */; };
+		488280FA220478D00023AD23 /* EthereumDIDRegistry.json in Resources */ = {isa = PBXBuildFile; fileRef = 48735C4921ECD21200904ED5 /* EthereumDIDRegistry.json */; };
 		48DB0387220343CF003539A6 /* UPTEthereumSigner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */; };
 		48F4700921FFAA59000C803F /* JWTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700621FFAA59000C803F /* JWTHeader.swift */; };
 		48F4700A21FFAA59000C803F /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700721FFAA59000C803F /* JWTPayload.swift */; };
@@ -580,7 +580,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48735C8F21ECD21200904ED5 /* EthereumDIDRegistry.json in Resources */,
+				488280FA220478D00023AD23 /* EthereumDIDRegistry.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

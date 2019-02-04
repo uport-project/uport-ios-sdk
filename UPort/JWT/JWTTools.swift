@@ -28,7 +28,7 @@ public enum JWTToolsError: Error
     case missingDidDocument
 }
 
-/// Protocol to support testing.
+/// Protocol to support testing and demo code only; do not use in production code.
 public protocol JWTToolsDateProvider
 {
     func now() -> Date
@@ -59,6 +59,9 @@ public struct JWTTools
         return resolver
     }
 
+    /// Optional source of current date.
+    ///
+    /// Allows verification of expired JWT (in tests and demo code). Do not set `dataProvider` in production code!
     public static var dateProvider: JWTToolsDateProvider?
 
     private static func now() -> Date

@@ -25,9 +25,11 @@ public enum UPortDIDResolverError: Error
 
 public struct UPortDIDResolver: DIDResolver
 {
-    /**
-     * Given an MNID, calls the uPort registry and returns the raw json
-     */
+    public init()
+    {
+    }
+
+    /// Given an MNID, calls the uPort registry and returns the raw JSON.
     public static func synchronousCallRegistry(subjectId: String?,
                                                issuerId: String? = nil,
                                                registrationIdentifier: String = "uPortProfileIPFS1220") throws -> String?
@@ -92,9 +94,7 @@ public struct UPortDIDResolver: DIDResolver
         return UportRegistry.Get.encodeCall(arguments: arguments)
     }
     
-    ///
-    /// Get iPFS hash from uPort Registry given an MNID
-    ///
+    /// Gets iPFS hash from uPort Registry given an MNID.
     public static func synchronousIpfsHash(mnid: String) throws -> String
     {
         guard let docAddressHex: String = try UPortDIDResolver.synchronousCallRegistry(subjectId: mnid) else
@@ -111,7 +111,7 @@ public struct UPortDIDResolver: DIDResolver
         return ipfsHashData.base58EncodedString()
     }
     
-    /// returns Did Document in JSON format from infura
+    /// Returns Did Document in JSON format from infura.
     private static func synchronousJSONProfile(mnid: String) throws -> String
     {
         let ipfsHash = try UPortDIDResolver.synchronousIpfsHash(mnid: mnid)
@@ -126,7 +126,7 @@ public struct UPortDIDResolver: DIDResolver
         return jsonProfile ?? ""
     }
     
-    /// returns DIDDocument parsed from fetched JSON
+    /// Returns DIDDocument parsed from fetched JSON.
     static func synchronousProfileDocument(mnid: String) throws -> UPortIdentityDocument
     {
         let profileDocumentJSON = try UPortDIDResolver.synchronousJSONProfile(mnid: mnid)
@@ -147,7 +147,7 @@ public struct UPortDIDResolver: DIDResolver
         }
     }
 
-    /// Public endpoint for retrieving a DID Document from an mnid
+    /// Public endpoint for retrieving a DID Document from an MNID.
     public func profileDocument(mnid: String, callback: @escaping ((UPortIdentityDocument?, Error?) -> Void))
     {
         DispatchQueue.global(qos: .userInitiated).async
