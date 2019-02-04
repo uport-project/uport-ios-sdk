@@ -476,12 +476,12 @@
 		48F72FAB21FA06E20089FBBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				48F4702921FFCF49000C803F /* openssl.framework */,
+				48F47C5821FFCFBC000C803F /* BigInt.framework */,
+				48F4702721FFCF2D000C803F /* CoreEth.framework */,
 				48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */,
 				48F47C5C21FFCFF7000C803F /* Sodium.framework */,
-				48F47C5821FFCFBC000C803F /* BigInt.framework */,
 				48F47C5621FFCFA8000C803F /* CryptoSwift.framework */,
-				48F4702921FFCF49000C803F /* openssl.framework */,
-				48F4702721FFCF2D000C803F /* CoreEth.framework */,
 				48F72FCD21FA0AC80089FBBB /* XCTest.framework */,
 			);
 			name = Frameworks;
