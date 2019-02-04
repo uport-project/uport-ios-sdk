@@ -28,7 +28,7 @@ public struct UniversalDIDResolver: DIDResolver
     /// - Parameters:
     ///     - completionQueue: The queue on which all `completionHandler`s are invoked.  The main queue is the default.
     ///
-    init(completionQueue: DispatchQueue = DispatchQueue.main)
+    public init(completionQueue: DispatchQueue = DispatchQueue.main)
     {
         self.completionQueue = completionQueue
     }
