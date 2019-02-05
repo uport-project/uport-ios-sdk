@@ -1,6 +1,6 @@
 //
 //  DIDResolver.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by Cornelis van der Bent on 06/12/2018.
 //

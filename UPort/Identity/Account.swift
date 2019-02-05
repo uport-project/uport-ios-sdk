@@ -1,6 +1,6 @@
 //
 //  Account.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by josh on 3/12/18.
 //

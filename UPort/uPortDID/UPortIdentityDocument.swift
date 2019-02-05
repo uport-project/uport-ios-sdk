@@ -1,6 +1,6 @@
 //
 //  UPortIdentityDocument.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by josh on 3/6/18.
 //

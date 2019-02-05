@@ -1,6 +1,6 @@
 //
 //  EthCall.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 4/5/18.
 //

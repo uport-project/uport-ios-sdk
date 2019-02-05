@@ -1,6 +1,6 @@
 //
 //  JWTToolsTests.swift
-//  uPortSDK_Tests
+//  UPortTests
 //
 //  Created by Cornelis van der Bent on 20/12/2018.
 //  Copyright © 2018 ConsenSys. All rights reserved.

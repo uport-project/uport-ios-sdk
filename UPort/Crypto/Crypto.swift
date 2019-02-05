@@ -1,6 +1,6 @@
 //
 //  Crypto.swift
-//  uPortSDK
+//  UPort
 //
 
 import Foundation
@@ -12,10 +12,8 @@ public enum CryptoError: Error
     case secretKeyNot32Bytes
 }
 
-/**
- * This struct exposes methods to encrypt and decrypt messages according to the uPort spec at
- * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
- */
+/// [uPort spec]: https://github.com/uport-project/specs/blob/develop/messages/encryption.md ""
+/// Struct exposing methods to encrypt and decrypt messages according to the [uPort spec].
 public struct Crypto
 {
     public struct Constants
@@ -23,11 +21,9 @@ public struct Crypto
         static let asyncEncryptionAlgorithm = "x25519-xsalsa20-poly1305"
         static let blockSize = 64.0
     }
-    
-    /**
-     * This class encapsulates an encrypted message that was produced using
-     * https://github.com/uport-project/specs/blob/develop/messages/encryption.md
-     */
+
+    /// [uPort spec]: https://github.com/uport-project/specs/blob/develop/messages/encryption.md ""
+    /// Struct encapsulating an encrypted message that was produced using [uPort spec].
     public struct EncryptedMessage: Codable
     {
         var version: String = Constants.asyncEncryptionAlgorithm
@@ -52,13 +48,12 @@ public struct Crypto
             return try JSONDecoder().decode(EncryptedMessage.self, from: jsonData)
         }
     }
-    
-    /**
-     Calculates the encryption public key corresponding to the secret key.
-     
-     - Parameter secretKey: The Base64 encoding string secret key
-     - Returns: A Base64 encoded public key
-     */
+
+    /// Calculates the encryption public key corresponding to the secret key.
+    ///
+    /// - Parameter secretKey: The Base64 encoded secret key.
+    ///
+    /// - Returns: Base64 encoded public key.
     public static func getEncryptionPublicKey(secretKey: String) throws -> String?
     {
         let secretKeyDecoded = try! secretKey.decodeBase64()
@@ -73,39 +68,38 @@ public struct Crypto
         guard 0 == crypto_scalarmult_base(&pk, skBytes) else
         {
             print("Calculation failed")
+
             return nil
         }
         
         return Data(pk).base64EncodedString()
     }
-    
-    /**
-     Encrypts a message with a sender's secret key, recipient's public key, and encryption nonce.
-     
-     - Parameter message: The plaintext message to be encrypted.
-     - Parameter boxPub: The public encryption key of the receiver, encoded as a base64 [String].
-     
-     - Returns: An `EncryptedMessage` instance containing a `version`, `nonce`, `ephemPublicKey` and `ciphertext`
-     */
+
+    /// Encrypts a message with a sender's secret key, recipient's public key, and encryption nonce.
+    ///
+    /// - Parameter message: The plaintext message to be encrypted.
+    /// - Parameter boxPub: The public encryption key of the receiver, encoded as a base64 [String].
+    ///
+    /// - Returns: An `EncryptedMessage` instance containing a `version`, `nonce`, `ephemPublicKey` and `ciphertext`
     public static func encrypt(message: String, boxPub: String) -> EncryptedMessage
     {
         let sodium = Sodium()
         
-        //Decode base64 public key
+        // Decode base64 public key
         let boxPubDecoded = try! boxPub.decodeBase64()
         
-        //create ephemeral keypair
+        // Create ephemeral keypair
         let ephemKeyPair = sodium.box.keyPair()!
         let ephemPublicKeyString = Data(ephemKeyPair.publicKey).base64EncodedString()
         
-        //generate random nonce, should be 24 bytes
+        // Generate random nonce, should be 24 bytes
         let nonce = sodium.randomBytes.buf(length: sodium.box.NonceBytes)!
         let nonceString = Data(nonce).base64EncodedString()
         
-        //pad message
+        // Pad message
         let msg = message.padToBlock()
         
-        //seal box
+        // Seal box
         let cipherText = sodium.box.seal(message: msg,
                                          recipientPublicKey: Bytes(boxPubDecoded),
                                          senderSecretKey: ephemKeyPair.secretKey,
@@ -113,22 +107,20 @@ public struct Crypto
         
         let cipherString = Data(cipherText!).base64EncodedString()
         
-        //Create encrypted payload object
+        // Create encrypted payload object
         let encPayload = EncryptedMessage(nonce: nonceString,
                                           ephemPublicKey: ephemPublicKeyString,
                                           ciphertext: cipherString)
         
         return encPayload
     }
-    
-    /**
-     Decrypts a message with a recipient's secret key.
-     
-     - Parameter encrypted: EncryptedMessage object.
-     - Parameter secretKey: The recipients Secret key as a string
-     
-     - Returns: The decrypted message as a String.
-     */
+
+    /// Decrypts a message with a recipient's secret key.
+    ///
+    /// - Parameter encrypted: EncryptedMessage object.
+    /// - Parameter secretKey: The recipients Secret key as a string.
+    ///
+    /// - Returns: The decrypted message as a String.
     public static func decrypt(encrypted: EncryptedMessage, secretKey: Array<UInt8>) -> String
     {
         let sodium = Sodium()

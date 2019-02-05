@@ -1,6 +1,6 @@
 //
 //  HTTPClient.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 3/30/18.
 //

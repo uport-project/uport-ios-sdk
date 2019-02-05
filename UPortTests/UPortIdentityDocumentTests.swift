@@ -1,6 +1,6 @@
 //
 //  UPortIdentityDocumentTests.swift
-//  uPortSDK_Example
+//  UPortTests
 //
 //  Created by Cornelis van der Bent on 17/12/2018.
 //  Copyright © 2018 ConsenSys. All rights reserved.

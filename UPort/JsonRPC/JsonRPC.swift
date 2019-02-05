@@ -1,6 +1,6 @@
 //
 //  JsonRPC.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by josh on 8/13/18.
 //

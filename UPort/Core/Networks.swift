@@ -1,6 +1,6 @@
 //
 //  Networks.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 9/26/18.
 //

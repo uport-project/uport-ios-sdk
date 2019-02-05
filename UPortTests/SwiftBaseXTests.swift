@@ -1,6 +1,6 @@
 //
 //  SwiftBaseXTests.swift
-//  SwiftBaseXTests
+//  UPortTests
 //
 //  Created by Pelle Steffen Braendgaard on 7/22/17.
 //  Copyright © 2017 Consensys AG. All rights reserved.

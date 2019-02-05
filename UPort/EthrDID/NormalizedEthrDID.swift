@@ -1,6 +1,6 @@
 //
 //  NormalizedEthrDID.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 8/29/18.
 //

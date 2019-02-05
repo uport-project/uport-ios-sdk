@@ -1,6 +1,6 @@
 //
 //  DIDDocument.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by Cornelis van der Bent on 11/12/2018.
 //

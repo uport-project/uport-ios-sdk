@@ -1,6 +1,6 @@
 //
 //  HexExtensions.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 9/21/18.
 //

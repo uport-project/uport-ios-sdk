@@ -1,6 +1,6 @@
 //
 //  EthrDIDDocument.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 8/23/18.
 //

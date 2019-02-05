@@ -1,6 +1,6 @@
 //
 //  CryptoTests.swift
-//  uPortSDK_Tests
+//  UPortTests
 //
 //  Created by Aldi Gjoka on 12/5/18.
 //  Copyright © 2018 ConsenSys. All rights reserved.

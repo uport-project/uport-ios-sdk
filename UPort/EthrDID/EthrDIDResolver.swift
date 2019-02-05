@@ -1,6 +1,6 @@
 //
 //  EthrDIDResolver.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by josh on 8/7/18.
 //

@@ -1,6 +1,6 @@
 //
 //  EthrDIDResolverTests.swift
-//  uPortSDK_Tests
+//  UPortTests
 //
 //  Created by Cornelis van der Bent on 09/01/2019.
 //  Copyright © 2019 ConsenSys. All rights reserved.

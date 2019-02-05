@@ -1,6 +1,6 @@
 //
 //  JWTTools.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by Cornelis van der Bent on 20/12/2018.
 //

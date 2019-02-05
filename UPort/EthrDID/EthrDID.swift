@@ -1,6 +1,6 @@
 //
 //  EthrDID.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by josh on 8/9/18.
 //

@@ -1,6 +1,6 @@
 //
 //  JWTHeader.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by Cornelis van der Bent on 24/12/2018.
 //

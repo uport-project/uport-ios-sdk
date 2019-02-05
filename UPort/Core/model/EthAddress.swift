@@ -1,6 +1,6 @@
 //
 //  EthAddress.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by mac on 8/21/18.
 //

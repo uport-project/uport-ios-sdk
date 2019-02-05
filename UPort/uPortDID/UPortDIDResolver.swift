@@ -1,6 +1,6 @@
 //
 //  UPortDIDResolver.swift
-//  uPortSDK
+//  UPort
 //
 //  Created by ConsenSys on 3/6/18.
 //
