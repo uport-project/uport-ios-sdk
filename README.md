@@ -1,6 +1,6 @@
 # uPort iOS SDK
 
-This is the uPort SDK for iOS.
+This is the **uPort** SDK for iOS.
 
 ## Using the SDK
 
@@ -44,4 +44,4 @@ Some legacy and generated source files are not fully formatted according to thes
 
 ## License
 
-The *uPort* iOS SDK is released under the [Apache-2.0](LICENSE.txt).
+The **uPort** iOS SDK is released under the [Apache-2.0](LICENSE.txt).
