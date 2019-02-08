@@ -20,7 +20,7 @@ Let's have a look at the SDK frameworks:
 
 ## Contributing
 
-If you wish to contribute, please first discuss your ideas by opening an issue or sending an email, before you start.
+If you wish to contribute, please first discuss your ideas by opening an issue or sending an email.
 
 ### Code formatting
 
