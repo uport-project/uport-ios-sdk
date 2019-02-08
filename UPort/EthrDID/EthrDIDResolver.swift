@@ -280,6 +280,7 @@ public struct EthrDIDResolver: DIDResolver
                         }
                         
                         serviceEntries[key] = ServiceEntry(type: algorithm, serviceEndpoint: serviceEndpoint)
+                        
                     default:
                         break
                     }
