@@ -1,6 +1,6 @@
 # uPort iOS SDK
 
-This is the **uPort** SDK for iOS.
+Welcome to the **uPort** SDK for iOS. This is the toolkit we built for you to create uPort distributed identity apps on iOS.
 
 ## Using the SDK
 
