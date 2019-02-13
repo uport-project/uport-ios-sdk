@@ -26,7 +26,7 @@ extension String {
     }
 
     func pad(toMultipleOf multiple: Int, character: Character, location: PadLocation) -> String {
-        let originalLength = self.characters.count
+        let originalLength = self.count
         let desiredLength = ((originalLength - 1) | (multiple - 1)) + 1
         let paddingLength = desiredLength - originalLength
         let padding = String(repeating: character, count: paddingLength)
@@ -77,7 +77,7 @@ extension String {
 // MARK: - Hex String Calculations
 extension String {
     var hexStringByteSize: Int {
-        return characters.count / 2
+        return self.count / 2
     }
 
     static func hexStringSize(forBytes: UInt) -> UInt {

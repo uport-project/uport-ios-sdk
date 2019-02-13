@@ -21,7 +21,7 @@ extension Solidity {
         ///     4 Bytes/8 Characters. Example: 095ea7b3
         ///   - address: The address of the contract to be called.
         init(_ functionSelector: Swift.String, at address: Address) throws {
-            guard functionSelector.characters.count == 8 else {
+            guard functionSelector.count == 8 else {
                 throw BivrostError.Function.invalidFunctionSelector(functionSelector)
             }
             self.address = address
@@ -43,10 +43,10 @@ extension Solidity.Function: StaticType {
     static func decode(source: BaseDecoder.PartitionData) throws -> Solidity.Function {
         let line = try source.consume()
         // 20 bytes / 40 chars for Address as UInt160
-        let addressHex = String(line[line.startIndex ..< line.index(startDistance: 40)]) as! String
+        let addressHex = String(line[line.startIndex ..< line.index(startDistance: 40)])
         let uint = try BaseDecoder.decodeUInt(data: addressHex)
         let address = try Solidity.Address(bigUInt: uint)
-        let functionSelector = String(line[line.index(startDistance: 40) ..< line.index(startDistance: 48)]) as! String
+        let functionSelector = String(line[line.index(startDistance: 40) ..< line.index(startDistance: 48)])
         return try Solidity.Function(functionSelector, at: address)
     }
 }

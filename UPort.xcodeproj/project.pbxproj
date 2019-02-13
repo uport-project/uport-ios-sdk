@@ -66,6 +66,11 @@
 		48735CBB21ECD21200904ED5 /* BaseX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8321ECD21200904ED5 /* BaseX.swift */; };
 		48735CFE21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735CFD21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift */; };
 		488280FA220478D00023AD23 /* EthereumDIDRegistry.json in Resources */ = {isa = PBXBuildFile; fileRef = 48735C4921ECD21200904ED5 /* EthereumDIDRegistry.json */; };
+		48C158162214378F009A909D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C158152214378F009A909D /* AppDelegate.swift */; };
+		48C158182214378F009A909D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C158172214378F009A909D /* ViewController.swift */; };
+		48C1581B2214378F009A909D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48C158192214378F009A909D /* Main.storyboard */; };
+		48C1581D22143793009A909D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C1581C22143793009A909D /* Assets.xcassets */; };
+		48C1582022143793009A909D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48C1581E22143793009A909D /* LaunchScreen.storyboard */; };
 		48DB0387220343CF003539A6 /* UPTEthereumSigner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */; };
 		48F4700921FFAA59000C803F /* JWTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700621FFAA59000C803F /* JWTHeader.swift */; };
 		48F4700A21FFAA59000C803F /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700721FFAA59000C803F /* JWTPayload.swift */; };
@@ -94,6 +99,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 48735C1E21ECCEFB00904ED5;
 			remoteInfo = UPort;
+		};
+		48C15825221437A2009A909D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48735C1621ECCEFA00904ED5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 48C158122214378E009A909D;
+			remoteInfo = TestingHostApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -160,6 +172,13 @@
 		48735C8221ECD21200904ED5 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		48735C8321ECD21200904ED5 /* BaseX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseX.swift; sourceTree = "<group>"; };
 		48735CFD21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumDIDRegistryEvents.swift; sourceTree = "<group>"; };
+		48C158132214378E009A909D /* TestingHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		48C158152214378F009A909D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		48C158172214378F009A909D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		48C1581A2214378F009A909D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		48C1581C22143793009A909D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		48C1581F22143793009A909D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		48C1582122143793009A909D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UPTEthereumSigner.framework; path = Carthage/Build/iOS/UPTEthereumSigner.framework; sourceTree = "<group>"; };
 		48F4700621FFAA59000C803F /* JWTHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTHeader.swift; sourceTree = "<group>"; };
 		48F4700721FFAA59000C803F /* JWTPayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
@@ -204,6 +223,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		48C158102214378E009A909D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -212,6 +238,7 @@
 			children = (
 				48735C2121ECCEFB00904ED5 /* UPort */,
 				48735C2C21ECCEFB00904ED5 /* UPortTests */,
+				48C158142214378F009A909D /* TestingHostApp */,
 				48735C2021ECCEFB00904ED5 /* Products */,
 				48F72FAB21FA06E20089FBBB /* Frameworks */,
 			);
@@ -222,6 +249,7 @@
 			children = (
 				48735C1F21ECCEFB00904ED5 /* UPort.framework */,
 				48735C2821ECCEFB00904ED5 /* UPortTests.xctest */,
+				48C158132214378E009A909D /* TestingHostApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,6 +491,19 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		48C158142214378F009A909D /* TestingHostApp */ = {
+			isa = PBXGroup;
+			children = (
+				48C158152214378F009A909D /* AppDelegate.swift */,
+				48C158172214378F009A909D /* ViewController.swift */,
+				48C158192214378F009A909D /* Main.storyboard */,
+				48C1581C22143793009A909D /* Assets.xcassets */,
+				48C1581E22143793009A909D /* LaunchScreen.storyboard */,
+				48C1582122143793009A909D /* Info.plist */,
+			);
+			path = TestingHostApp;
+			sourceTree = "<group>";
+		};
 		48F4700521FFA9DB000C803F /* JWT */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,11 +572,29 @@
 			);
 			dependencies = (
 				48735C2B21ECCEFB00904ED5 /* PBXTargetDependency */,
+				48C15826221437A2009A909D /* PBXTargetDependency */,
 			);
 			name = UPortTests;
 			productName = UPortTests;
 			productReference = 48735C2821ECCEFB00904ED5 /* UPortTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		48C158122214378E009A909D /* TestingHostApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48C1582422143793009A909D /* Build configuration list for PBXNativeTarget "TestingHostApp" */;
+			buildPhases = (
+				48C1580F2214378E009A909D /* Sources */,
+				48C158102214378E009A909D /* Frameworks */,
+				48C158112214378E009A909D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestingHostApp;
+			productName = TestingHostApp;
+			productReference = 48C158132214378E009A909D /* TestingHostApp.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -553,6 +612,10 @@
 					48735C2721ECCEFB00904ED5 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						TestTargetID = 48C158122214378E009A909D;
+					};
+					48C158122214378E009A909D = {
+						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
@@ -571,6 +634,7 @@
 			targets = (
 				48735C1E21ECCEFB00904ED5 /* UPort */,
 				48735C2721ECCEFB00904ED5 /* UPortTests */,
+				48C158122214378E009A909D /* TestingHostApp */,
 			);
 		};
 /* End PBXProject section */
@@ -590,6 +654,16 @@
 			files = (
 				48F4702221FFCCCF000C803F /* valid.json in Resources */,
 				48F4701C21FFCCCF000C803F /* ScalarMultTestValues.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48C158112214378E009A909D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48C1582022143793009A909D /* LaunchScreen.storyboard in Resources */,
+				48C1581D22143793009A909D /* Assets.xcassets in Resources */,
+				48C1581B2214378F009A909D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +751,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		48C1580F2214378E009A909D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48C158182214378F009A909D /* ViewController.swift in Sources */,
+				48C158162214378F009A909D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -685,7 +768,31 @@
 			target = 48735C1E21ECCEFB00904ED5 /* UPort */;
 			targetProxy = 48735C2A21ECCEFB00904ED5 /* PBXContainerItemProxy */;
 		};
+		48C15826221437A2009A909D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 48C158122214378E009A909D /* TestingHostApp */;
+			targetProxy = 48C15825221437A2009A909D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		48C158192214378F009A909D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48C1581A2214378F009A909D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		48C1581E22143793009A909D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48C1581F22143793009A909D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		48735C3121ECCEFB00904ED5 /* Debug */ = {
@@ -893,6 +1000,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestingHostApp.app/TestingHostApp";
 			};
 			name = Debug;
 		};
@@ -909,6 +1017,43 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = consensys.net.UPortTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestingHostApp.app/TestingHostApp";
+			};
+			name = Release;
+		};
+		48C1582222143793009A909D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TestingHostApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.consensys.TestingHostApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48C1582322143793009A909D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TestingHostApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.consensys.TestingHostApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -941,6 +1086,15 @@
 			buildConfigurations = (
 				48735C3721ECCEFB00904ED5 /* Debug */,
 				48735C3821ECCEFB00904ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48C1582422143793009A909D /* Build configuration list for PBXNativeTarget "TestingHostApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48C1582222143793009A909D /* Debug */,
+				48C1582322143793009A909D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
