@@ -14,5 +14,4 @@ FOUNDATION_EXPORT double UPortVersionNumber;
 //! Project version string for UPort.
 FOUNDATION_EXPORT const unsigned char UPortVersionString[];
 
-@import CoreEth;
 @import UPTEthereumSigner;
