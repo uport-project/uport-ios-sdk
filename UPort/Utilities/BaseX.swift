@@ -196,7 +196,7 @@ public extension String
 {
     public func decodeHex() throws -> Data
     {
-        return try decodeFullHex()
+        return try decode(alpha:HEX, data: strip0x(self))
     }
     
     public func decodeFullHex() throws -> Data

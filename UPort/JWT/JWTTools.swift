@@ -211,7 +211,7 @@ public struct JWTTools
 
         try publicKeys.forEach
         { publicKey in
-            if let keyData = try (publicKey.publicKeyHex?.decodeHex() ??
+            if let keyData = try (publicKey.publicKeyHex?.decodeFullHex() ??
                 publicKey.publicKeyBase64?.decodeBase64() ??
                 publicKey.publicKeyBase58?.decodeBase58())
             {

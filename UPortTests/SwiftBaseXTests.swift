@@ -66,11 +66,6 @@ class SwiftBaseXTests: XCTestCase
         XCTAssertEqual(try! "0x68656c6c6f".decodeFullHex(), "hello".data(using: String.Encoding.utf8)!)
     }
 
-    func testHexDecodeLeading0()
-    {
-        XCTAssertEqual(try! "000004".decodeHex().count, "000004".count / 2)
-    }
-
     func testBase58DecodeExtension()
     {
         XCTAssertEqual(try! "Cn8eVZg".decodeBase58(), "hello".data(using: String.Encoding.utf8)!)
@@ -81,7 +76,17 @@ class SwiftBaseXTests: XCTestCase
         let fixtures = parseTestCases("valid")
         for pair in fixtures
         {
-            XCTAssertEqual(try pair["base64"]?.decodeBase64().hexEncodedString(), pair["hex"])
+            // TODO: There are two implementations of `hexEncodedString()`, one in `BaseX.swift` and one in
+            //       a Bivrost helper module `DataExtension.swift`. The Bivrost version performs what's called here a
+            //       'full hex' encoding, while the BaseX collapses leading `0`s (i.e. leading 0 bytes are represented
+            //       as a single `0`).
+            //
+            //       The BaseX version has a parameter which by default is `false`, so to make sure this is called (and
+            //       not the `DataExtension.swift` one), we do `hexEncodedString(false)`.
+            //
+            //       This duplicate use of the same function name for different logic is very confusing and can result
+            //       errors (because you may thing to use one, while the other is called) and should be sorted out.
+            XCTAssertEqual(try pair["base64"]?.decodeBase64().hexEncodedString(false), pair["hex"])
             let fullHex = pair["fullhex"] != nil ? pair["fullhex"] : pair["hex"]
             XCTAssertEqual(try pair["base64"]?.decodeBase64().fullHexEncodedString(), fullHex)
         }
