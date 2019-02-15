@@ -37,6 +37,22 @@ We believe in strict code formatting that aids readability and creates a consist
 * Complex literals are formatted like code with `[`, `]`, `{`, and `}` on separate lines and indented with 4 spaces for each level.
 * Lines are no longer than 120 characters. If needed (parts of) long expressions/statements are replaced by helper variables defined in the line above. In rare cases a line may be a little longer if there's no other easy way.
 * Place statements/lines together in small logical groups and add an empty line between these groups.
+* Start each documentation comment line with `///`. Don't use `/**` and `/*`.
+
+Optional exceptions:
+* If a `guard` code block is just a simple `return`, it could also be written on one line (e.g., `guard value == good else { return }`). In case there are several `guard` statements, only do this if they are all of similar in nature and all have the same code block; otherwise it's going to look messy. Of course the whole `guard`-statement must fit on one line of < 120 characters.
+* Short functional Swift statements may be placed on one line (e.g., `let evenNumbers = [ 1, 2, 3, 4, 5 ].filter { $0 % 2 == 0 }`).
+* If all `case`-statements of a `switch` are similar in nature and are just one expressions, they may be written on one line. Typical case for this is some conversion:
+
+
+    switch partyType:
+    {
+    case .person: return "person"
+    case .company: return "company"
+    case .government: return "government"
+    case .foundation: return "foundation"
+    ...
+    }
 
 [Here's an example of how that looks](https://github.com/uport-project/uport-ios-sdk/blob/master/UPort/EthrDID/EthrDIDResolver.swift).
 
