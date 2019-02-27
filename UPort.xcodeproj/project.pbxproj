@@ -1,0 +1,1105 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		48735C2921ECCEFB00904ED5 /* UPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48735C1F21ECCEFB00904ED5 /* UPort.framework */; };
+		48735C3021ECCEFB00904ED5 /* UPort.h in Headers */ = {isa = PBXBuildFile; fileRef = 48735C2221ECCEFB00904ED5 /* UPort.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		48735C8421ECD21200904ED5 /* ChainDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C3B21ECD21200904ED5 /* ChainDefinition.swift */; };
+		48735C8521ECD21200904ED5 /* EthAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C3C21ECD21200904ED5 /* EthAddress.swift */; };
+		48735C8621ECD21200904ED5 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C3D21ECD21200904ED5 /* Transaction.swift */; };
+		48735C8721ECD21200904ED5 /* EthereumNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C3E21ECD21200904ED5 /* EthereumNetwork.swift */; };
+		48735C8821ECD21200904ED5 /* Networks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C3F21ECD21200904ED5 /* Networks.swift */; };
+		48735C8921ECD21200904ED5 /* EthrDIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4121ECD21200904ED5 /* EthrDIDResolver.swift */; };
+		48735C8A21ECD21200904ED5 /* EthrDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4221ECD21200904ED5 /* EthrDIDDocument.swift */; };
+		48735C8B21ECD21200904ED5 /* EthrDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4321ECD21200904ED5 /* EthrDID.swift */; };
+		48735C8C21ECD21200904ED5 /* NormalizedEthrDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4421ECD21200904ED5 /* NormalizedEthrDID.swift */; };
+		48735C8D21ECD21200904ED5 /* EthereumDIDRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4621ECD21200904ED5 /* EthereumDIDRegistry.swift */; };
+		48735C8E21ECD21200904ED5 /* UportRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4721ECD21200904ED5 /* UportRegistry.swift */; };
+		48735C9021ECD21200904ED5 /* ProgressPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4B21ECD21200904ED5 /* ProgressPersistence.swift */; };
+		48735C9121ECD21200904ED5 /* AccountCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4C21ECD21200904ED5 /* AccountCreator.swift */; };
+		48735C9221ECD21200904ED5 /* MNID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4D21ECD21200904ED5 /* MNID.swift */; };
+		48735C9321ECD21200904ED5 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C4E21ECD21200904ED5 /* Account.swift */; };
+		48735C9421ECD21200904ED5 /* JsonRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5021ECD21200904ED5 /* JsonRPC.swift */; };
+		48735C9521ECD21200904ED5 /* JsonRpcBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5121ECD21200904ED5 /* JsonRpcBase.swift */; };
+		48735C9621ECD21200904ED5 /* EthCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5221ECD21200904ED5 /* EthCall.swift */; };
+		48735C9721ECD21200904ED5 /* Solidity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5621ECD21200904ED5 /* Solidity.swift */; };
+		48735C9821ECD21200904ED5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5721ECD21200904ED5 /* Address.swift */; };
+		48735C9921ECD21200904ED5 /* UIntX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5821ECD21200904ED5 /* UIntX.swift */; };
+		48735C9A21ECD21200904ED5 /* ArrayX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5921ECD21200904ED5 /* ArrayX.swift */; };
+		48735C9B21ECD21200904ED5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5A21ECD21200904ED5 /* String.swift */; };
+		48735C9C21ECD21200904ED5 /* BytesX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5B21ECD21200904ED5 /* BytesX.swift */; };
+		48735C9D21ECD21200904ED5 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5C21ECD21200904ED5 /* Bool.swift */; };
+		48735C9E21ECD21200904ED5 /* VariableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5D21ECD21200904ED5 /* VariableArray.swift */; };
+		48735C9F21ECD21200904ED5 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5E21ECD21200904ED5 /* Function.swift */; };
+		48735CA021ECD21200904ED5 /* IntX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C5F21ECD21200904ED5 /* IntX.swift */; };
+		48735CA121ECD21200904ED5 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6021ECD21200904ED5 /* Bytes.swift */; };
+		48735CA221ECD21200904ED5 /* BivrostError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6121ECD21200904ED5 /* BivrostError.swift */; };
+		48735CA321ECD21200904ED5 /* BigIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6321ECD21200904ED5 /* BigIntExtension.swift */; };
+		48735CA421ECD21200904ED5 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6421ECD21200904ED5 /* DataExtension.swift */; };
+		48735CA521ECD21200904ED5 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6521ECD21200904ED5 /* StringExtension.swift */; };
+		48735CA621ECD21200904ED5 /* UIntX-Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6721ECD21200904ED5 /* UIntX-Generated.swift */; };
+		48735CA721ECD21200904ED5 /* BytesX-Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6821ECD21200904ED5 /* BytesX-Generated.swift */; };
+		48735CA821ECD21200904ED5 /* IntX-Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6921ECD21200904ED5 /* IntX-Generated.swift */; };
+		48735CA921ECD21200904ED5 /* ArrayX-Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6A21ECD21200904ED5 /* ArrayX-Generated.swift */; };
+		48735CAA21ECD21200904ED5 /* BaseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6C21ECD21200904ED5 /* BaseDecoder.swift */; };
+		48735CAB21ECD21200904ED5 /* BaseEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6D21ECD21200904ED5 /* BaseEncoder.swift */; };
+		48735CAC21ECD21200904ED5 /* DynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C6F21ECD21200904ED5 /* DynamicType.swift */; };
+		48735CAD21ECD21200904ED5 /* StaticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7021ECD21200904ED5 /* StaticType.swift */; };
+		48735CAE21ECD21200904ED5 /* SolidityCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7121ECD21200904ED5 /* SolidityCodable.swift */; };
+		48735CAF21ECD21200904ED5 /* SolidityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7221ECD21200904ED5 /* SolidityFunction.swift */; };
+		48735CB021ECD21200904ED5 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7421ECD21200904ED5 /* Crypto.swift */; };
+		48735CB121ECD21200904ED5 /* DIDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7621ECD21200904ED5 /* DIDObject.swift */; };
+		48735CB221ECD21200904ED5 /* DIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7721ECD21200904ED5 /* DIDResolver.swift */; };
+		48735CB321ECD21200904ED5 /* DIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7821ECD21200904ED5 /* DIDDocument.swift */; };
+		48735CB421ECD21200904ED5 /* UniversalDIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7921ECD21200904ED5 /* UniversalDIDResolver.swift */; };
+		48735CB521ECD21200904ED5 /* UPortDIDResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7B21ECD21200904ED5 /* UPortDIDResolver.swift */; };
+		48735CB621ECD21200904ED5 /* UPortIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7C21ECD21200904ED5 /* UPortIdentityDocument.swift */; };
+		48735CB721ECD21200904ED5 /* UPortDIDDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C7D21ECD21200904ED5 /* UPortDIDDocument.swift */; };
+		48735CB821ECD21200904ED5 /* HexExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8021ECD21200904ED5 /* HexExtensions.swift */; };
+		48735CB921ECD21200904ED5 /* BigIntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8121ECD21200904ED5 /* BigIntExtensions.swift */; };
+		48735CBA21ECD21200904ED5 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8221ECD21200904ED5 /* HTTPClient.swift */; };
+		48735CBB21ECD21200904ED5 /* BaseX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735C8321ECD21200904ED5 /* BaseX.swift */; };
+		48735CFE21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48735CFD21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift */; };
+		488280FA220478D00023AD23 /* EthereumDIDRegistry.json in Resources */ = {isa = PBXBuildFile; fileRef = 48735C4921ECD21200904ED5 /* EthereumDIDRegistry.json */; };
+		48C158162214378F009A909D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C158152214378F009A909D /* AppDelegate.swift */; };
+		48C158182214378F009A909D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C158172214378F009A909D /* ViewController.swift */; };
+		48C1581B2214378F009A909D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48C158192214378F009A909D /* Main.storyboard */; };
+		48C1581D22143793009A909D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C1581C22143793009A909D /* Assets.xcassets */; };
+		48C1582022143793009A909D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48C1581E22143793009A909D /* LaunchScreen.storyboard */; };
+		48DB0387220343CF003539A6 /* UPTEthereumSigner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */; };
+		48F4700921FFAA59000C803F /* JWTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700621FFAA59000C803F /* JWTHeader.swift */; };
+		48F4700A21FFAA59000C803F /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700721FFAA59000C803F /* JWTPayload.swift */; };
+		48F4700B21FFAA59000C803F /* JWTTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4700821FFAA59000C803F /* JWTTools.swift */; };
+		48F4701C21FFCCCF000C803F /* ScalarMultTestValues.json in Resources */ = {isa = PBXBuildFile; fileRef = 48F4701121FFCCCE000C803F /* ScalarMultTestValues.json */; };
+		48F4701D21FFCCCF000C803F /* DIDObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701221FFCCCF000C803F /* DIDObjectTests.swift */; };
+		48F4701E21FFCCCF000C803F /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701321FFCCCF000C803F /* CryptoTests.swift */; };
+		48F4701F21FFCCCF000C803F /* EthrDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701421FFCCCF000C803F /* EthrDIDResolverTests.swift */; };
+		48F4702021FFCCCF000C803F /* SwiftBaseXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701521FFCCCF000C803F /* SwiftBaseXTests.swift */; };
+		48F4702121FFCCCF000C803F /* UPortIdentityDocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701621FFCCCF000C803F /* UPortIdentityDocumentTests.swift */; };
+		48F4702221FFCCCF000C803F /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 48F4701721FFCCCF000C803F /* valid.json */; };
+		48F4702421FFCCCF000C803F /* UniversalDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701921FFCCCF000C803F /* UniversalDIDResolverTests.swift */; };
+		48F4702521FFCCCF000C803F /* JWTToolsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701A21FFCCCF000C803F /* JWTToolsTests.swift */; };
+		48F4702621FFCCCF000C803F /* UPortDIDResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4701B21FFCCCF000C803F /* UPortDIDResolverTests.swift */; };
+		48F4702821FFCF2D000C803F /* CoreEth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F4702721FFCF2D000C803F /* CoreEth.framework */; };
+		48F4702A21FFCF4A000C803F /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F4702921FFCF49000C803F /* openssl.framework */; };
+		48F47C5721FFCFA8000C803F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5621FFCFA8000C803F /* CryptoSwift.framework */; };
+		48F47C5921FFCFBC000C803F /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5821FFCFBC000C803F /* BigInt.framework */; };
+		48F47C5D21FFCFF7000C803F /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5C21FFCFF7000C803F /* Sodium.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		48735C2A21ECCEFB00904ED5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48735C1621ECCEFA00904ED5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 48735C1E21ECCEFB00904ED5;
+			remoteInfo = UPort;
+		};
+		48C15825221437A2009A909D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48735C1621ECCEFA00904ED5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 48C158122214378E009A909D;
+			remoteInfo = TestingHostApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		48735C1F21ECCEFB00904ED5 /* UPort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UPort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48735C2221ECCEFB00904ED5 /* UPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UPort.h; sourceTree = "<group>"; };
+		48735C2321ECCEFB00904ED5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48735C2821ECCEFB00904ED5 /* UPortTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UPortTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		48735C2F21ECCEFB00904ED5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48735C3B21ECD21200904ED5 /* ChainDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainDefinition.swift; sourceTree = "<group>"; };
+		48735C3C21ECD21200904ED5 /* EthAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthAddress.swift; sourceTree = "<group>"; };
+		48735C3D21ECD21200904ED5 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		48735C3E21ECD21200904ED5 /* EthereumNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumNetwork.swift; sourceTree = "<group>"; };
+		48735C3F21ECD21200904ED5 /* Networks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networks.swift; sourceTree = "<group>"; };
+		48735C4121ECD21200904ED5 /* EthrDIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthrDIDResolver.swift; sourceTree = "<group>"; };
+		48735C4221ECD21200904ED5 /* EthrDIDDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthrDIDDocument.swift; sourceTree = "<group>"; };
+		48735C4321ECD21200904ED5 /* EthrDID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthrDID.swift; sourceTree = "<group>"; };
+		48735C4421ECD21200904ED5 /* NormalizedEthrDID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedEthrDID.swift; sourceTree = "<group>"; };
+		48735C4621ECD21200904ED5 /* EthereumDIDRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumDIDRegistry.swift; sourceTree = "<group>"; };
+		48735C4721ECD21200904ED5 /* UportRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UportRegistry.swift; sourceTree = "<group>"; };
+		48735C4921ECD21200904ED5 /* EthereumDIDRegistry.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EthereumDIDRegistry.json; sourceTree = "<group>"; };
+		48735C4B21ECD21200904ED5 /* ProgressPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressPersistence.swift; sourceTree = "<group>"; };
+		48735C4C21ECD21200904ED5 /* AccountCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCreator.swift; sourceTree = "<group>"; };
+		48735C4D21ECD21200904ED5 /* MNID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNID.swift; sourceTree = "<group>"; };
+		48735C4E21ECD21200904ED5 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		48735C5021ECD21200904ED5 /* JsonRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonRPC.swift; sourceTree = "<group>"; };
+		48735C5121ECD21200904ED5 /* JsonRpcBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonRpcBase.swift; sourceTree = "<group>"; };
+		48735C5221ECD21200904ED5 /* EthCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthCall.swift; sourceTree = "<group>"; };
+		48735C5621ECD21200904ED5 /* Solidity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solidity.swift; sourceTree = "<group>"; };
+		48735C5721ECD21200904ED5 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		48735C5821ECD21200904ED5 /* UIntX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntX.swift; sourceTree = "<group>"; };
+		48735C5921ECD21200904ED5 /* ArrayX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayX.swift; sourceTree = "<group>"; };
+		48735C5A21ECD21200904ED5 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		48735C5B21ECD21200904ED5 /* BytesX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BytesX.swift; sourceTree = "<group>"; };
+		48735C5C21ECD21200904ED5 /* Bool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		48735C5D21ECD21200904ED5 /* VariableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableArray.swift; sourceTree = "<group>"; };
+		48735C5E21ECD21200904ED5 /* Function.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		48735C5F21ECD21200904ED5 /* IntX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntX.swift; sourceTree = "<group>"; };
+		48735C6021ECD21200904ED5 /* Bytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bytes.swift; sourceTree = "<group>"; };
+		48735C6121ECD21200904ED5 /* BivrostError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BivrostError.swift; sourceTree = "<group>"; };
+		48735C6321ECD21200904ED5 /* BigIntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigIntExtension.swift; sourceTree = "<group>"; };
+		48735C6421ECD21200904ED5 /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		48735C6521ECD21200904ED5 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		48735C6721ECD21200904ED5 /* UIntX-Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIntX-Generated.swift"; sourceTree = "<group>"; };
+		48735C6821ECD21200904ED5 /* BytesX-Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BytesX-Generated.swift"; sourceTree = "<group>"; };
+		48735C6921ECD21200904ED5 /* IntX-Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IntX-Generated.swift"; sourceTree = "<group>"; };
+		48735C6A21ECD21200904ED5 /* ArrayX-Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArrayX-Generated.swift"; sourceTree = "<group>"; };
+		48735C6C21ECD21200904ED5 /* BaseDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDecoder.swift; sourceTree = "<group>"; };
+		48735C6D21ECD21200904ED5 /* BaseEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEncoder.swift; sourceTree = "<group>"; };
+		48735C6F21ECD21200904ED5 /* DynamicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicType.swift; sourceTree = "<group>"; };
+		48735C7021ECD21200904ED5 /* StaticType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticType.swift; sourceTree = "<group>"; };
+		48735C7121ECD21200904ED5 /* SolidityCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidityCodable.swift; sourceTree = "<group>"; };
+		48735C7221ECD21200904ED5 /* SolidityFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidityFunction.swift; sourceTree = "<group>"; };
+		48735C7421ECD21200904ED5 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		48735C7621ECD21200904ED5 /* DIDObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDObject.swift; sourceTree = "<group>"; };
+		48735C7721ECD21200904ED5 /* DIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDResolver.swift; sourceTree = "<group>"; };
+		48735C7821ECD21200904ED5 /* DIDDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDDocument.swift; sourceTree = "<group>"; };
+		48735C7921ECD21200904ED5 /* UniversalDIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalDIDResolver.swift; sourceTree = "<group>"; };
+		48735C7B21ECD21200904ED5 /* UPortDIDResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortDIDResolver.swift; sourceTree = "<group>"; };
+		48735C7C21ECD21200904ED5 /* UPortIdentityDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortIdentityDocument.swift; sourceTree = "<group>"; };
+		48735C7D21ECD21200904ED5 /* UPortDIDDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortDIDDocument.swift; sourceTree = "<group>"; };
+		48735C8021ECD21200904ED5 /* HexExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexExtensions.swift; sourceTree = "<group>"; };
+		48735C8121ECD21200904ED5 /* BigIntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigIntExtensions.swift; sourceTree = "<group>"; };
+		48735C8221ECD21200904ED5 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		48735C8321ECD21200904ED5 /* BaseX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseX.swift; sourceTree = "<group>"; };
+		48735CFD21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumDIDRegistryEvents.swift; sourceTree = "<group>"; };
+		48C158132214378E009A909D /* TestingHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		48C158152214378F009A909D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		48C158172214378F009A909D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		48C1581A2214378F009A909D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		48C1581C22143793009A909D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		48C1581F22143793009A909D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		48C1582122143793009A909D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UPTEthereumSigner.framework; path = Carthage/Build/iOS/UPTEthereumSigner.framework; sourceTree = "<group>"; };
+		48F4700621FFAA59000C803F /* JWTHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTHeader.swift; sourceTree = "<group>"; };
+		48F4700721FFAA59000C803F /* JWTPayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
+		48F4700821FFAA59000C803F /* JWTTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTTools.swift; sourceTree = "<group>"; };
+		48F4701121FFCCCE000C803F /* ScalarMultTestValues.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScalarMultTestValues.json; sourceTree = "<group>"; };
+		48F4701221FFCCCF000C803F /* DIDObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDObjectTests.swift; sourceTree = "<group>"; };
+		48F4701321FFCCCF000C803F /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
+		48F4701421FFCCCF000C803F /* EthrDIDResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthrDIDResolverTests.swift; sourceTree = "<group>"; };
+		48F4701521FFCCCF000C803F /* SwiftBaseXTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftBaseXTests.swift; sourceTree = "<group>"; };
+		48F4701621FFCCCF000C803F /* UPortIdentityDocumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortIdentityDocumentTests.swift; sourceTree = "<group>"; };
+		48F4701721FFCCCF000C803F /* valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; };
+		48F4701921FFCCCF000C803F /* UniversalDIDResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalDIDResolverTests.swift; sourceTree = "<group>"; };
+		48F4701A21FFCCCF000C803F /* JWTToolsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTToolsTests.swift; sourceTree = "<group>"; };
+		48F4701B21FFCCCF000C803F /* UPortDIDResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPortDIDResolverTests.swift; sourceTree = "<group>"; };
+		48F4702721FFCF2D000C803F /* CoreEth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreEth.framework; path = Carthage/Build/iOS/CoreEth.framework; sourceTree = "<group>"; };
+		48F4702921FFCF49000C803F /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = Carthage/Build/iOS/openssl.framework; sourceTree = "<group>"; };
+		48F47C5621FFCFA8000C803F /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
+		48F47C5821FFCFBC000C803F /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
+		48F47C5C21FFCFF7000C803F /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
+		48F72FCD21FA0AC80089FBBB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		48735C1C21ECCEFB00904ED5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48DB0387220343CF003539A6 /* UPTEthereumSigner.framework in Frameworks */,
+				48F47C5D21FFCFF7000C803F /* Sodium.framework in Frameworks */,
+				48F47C5921FFCFBC000C803F /* BigInt.framework in Frameworks */,
+				48F47C5721FFCFA8000C803F /* CryptoSwift.framework in Frameworks */,
+				48F4702A21FFCF4A000C803F /* openssl.framework in Frameworks */,
+				48F4702821FFCF2D000C803F /* CoreEth.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48735C2521ECCEFB00904ED5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48735C2921ECCEFB00904ED5 /* UPort.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48C158102214378E009A909D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		48735C1521ECCEFA00904ED5 = {
+			isa = PBXGroup;
+			children = (
+				48735C2121ECCEFB00904ED5 /* UPort */,
+				48735C2C21ECCEFB00904ED5 /* UPortTests */,
+				48C158142214378F009A909D /* TestingHostApp */,
+				48735C2021ECCEFB00904ED5 /* Products */,
+				48F72FAB21FA06E20089FBBB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		48735C2021ECCEFB00904ED5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				48735C1F21ECCEFB00904ED5 /* UPort.framework */,
+				48735C2821ECCEFB00904ED5 /* UPortTests.xctest */,
+				48C158132214378E009A909D /* TestingHostApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		48735C2121ECCEFB00904ED5 /* UPort */ = {
+			isa = PBXGroup;
+			children = (
+				48735C2221ECCEFB00904ED5 /* UPort.h */,
+				48735C2321ECCEFB00904ED5 /* Info.plist */,
+				48735C4521ECD21200904ED5 /* Contracts */,
+				48735C3921ECD21200904ED5 /* Core */,
+				48735C7321ECD21200904ED5 /* Crypto */,
+				48735C7521ECD21200904ED5 /* DID */,
+				48735C4021ECD21200904ED5 /* EthrDID */,
+				48735C4A21ECD21200904ED5 /* Identity */,
+				48735C4F21ECD21200904ED5 /* JsonRPC */,
+				48F4700521FFA9DB000C803F /* JWT */,
+				48735C7A21ECD21200904ED5 /* uPortDID */,
+				48735C5321ECD21200904ED5 /* Third Party */,
+				48735C7E21ECD21200904ED5 /* Utilities */,
+			);
+			path = UPort;
+			sourceTree = "<group>";
+		};
+		48735C2C21ECCEFB00904ED5 /* UPortTests */ = {
+			isa = PBXGroup;
+			children = (
+				48F4701321FFCCCF000C803F /* CryptoTests.swift */,
+				48F4701221FFCCCF000C803F /* DIDObjectTests.swift */,
+				48F4701421FFCCCF000C803F /* EthrDIDResolverTests.swift */,
+				48F4701A21FFCCCF000C803F /* JWTToolsTests.swift */,
+				48F4701121FFCCCE000C803F /* ScalarMultTestValues.json */,
+				48F4701521FFCCCF000C803F /* SwiftBaseXTests.swift */,
+				48F4701921FFCCCF000C803F /* UniversalDIDResolverTests.swift */,
+				48F4701B21FFCCCF000C803F /* UPortDIDResolverTests.swift */,
+				48F4701621FFCCCF000C803F /* UPortIdentityDocumentTests.swift */,
+				48F4701721FFCCCF000C803F /* valid.json */,
+				48735C2F21ECCEFB00904ED5 /* Info.plist */,
+			);
+			path = UPortTests;
+			sourceTree = "<group>";
+		};
+		48735C3921ECD21200904ED5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				48735C3A21ECD21200904ED5 /* model */,
+				48735C3E21ECD21200904ED5 /* EthereumNetwork.swift */,
+				48735C3F21ECD21200904ED5 /* Networks.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		48735C3A21ECD21200904ED5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				48735C3B21ECD21200904ED5 /* ChainDefinition.swift */,
+				48735C3C21ECD21200904ED5 /* EthAddress.swift */,
+				48735C3D21ECD21200904ED5 /* Transaction.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		48735C4021ECD21200904ED5 /* EthrDID */ = {
+			isa = PBXGroup;
+			children = (
+				48735C4121ECD21200904ED5 /* EthrDIDResolver.swift */,
+				48735C4221ECD21200904ED5 /* EthrDIDDocument.swift */,
+				48735C4321ECD21200904ED5 /* EthrDID.swift */,
+				48735C4421ECD21200904ED5 /* NormalizedEthrDID.swift */,
+			);
+			path = EthrDID;
+			sourceTree = "<group>";
+		};
+		48735C4521ECD21200904ED5 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				48735C4821ECD21200904ED5 /* ABI */,
+				48735C4621ECD21200904ED5 /* EthereumDIDRegistry.swift */,
+				48735CFD21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift */,
+				48735C4721ECD21200904ED5 /* UportRegistry.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		48735C4821ECD21200904ED5 /* ABI */ = {
+			isa = PBXGroup;
+			children = (
+				48735C4921ECD21200904ED5 /* EthereumDIDRegistry.json */,
+			);
+			path = ABI;
+			sourceTree = "<group>";
+		};
+		48735C4A21ECD21200904ED5 /* Identity */ = {
+			isa = PBXGroup;
+			children = (
+				48735C4B21ECD21200904ED5 /* ProgressPersistence.swift */,
+				48735C4C21ECD21200904ED5 /* AccountCreator.swift */,
+				48735C4D21ECD21200904ED5 /* MNID.swift */,
+				48735C4E21ECD21200904ED5 /* Account.swift */,
+			);
+			path = Identity;
+			sourceTree = "<group>";
+		};
+		48735C4F21ECD21200904ED5 /* JsonRPC */ = {
+			isa = PBXGroup;
+			children = (
+				48735C5021ECD21200904ED5 /* JsonRPC.swift */,
+				48735C5121ECD21200904ED5 /* JsonRpcBase.swift */,
+				48735C5221ECD21200904ED5 /* EthCall.swift */,
+			);
+			path = JsonRPC;
+			sourceTree = "<group>";
+		};
+		48735C5321ECD21200904ED5 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				48735C5421ECD21200904ED5 /* Bivrost */,
+			);
+			path = "Third Party";
+			sourceTree = "<group>";
+		};
+		48735C5421ECD21200904ED5 /* Bivrost */ = {
+			isa = PBXGroup;
+			children = (
+				48735C5521ECD21200904ED5 /* Types */,
+				48735C6121ECD21200904ED5 /* BivrostError.swift */,
+				48735C6221ECD21200904ED5 /* Extensions */,
+				48735C6621ECD21200904ED5 /* Generated Types */,
+				48735C6B21ECD21200904ED5 /* Coding */,
+				48735C6E21ECD21200904ED5 /* Protocols */,
+			);
+			path = Bivrost;
+			sourceTree = "<group>";
+		};
+		48735C5521ECD21200904ED5 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				48735C5621ECD21200904ED5 /* Solidity.swift */,
+				48735C5721ECD21200904ED5 /* Address.swift */,
+				48735C5821ECD21200904ED5 /* UIntX.swift */,
+				48735C5921ECD21200904ED5 /* ArrayX.swift */,
+				48735C5A21ECD21200904ED5 /* String.swift */,
+				48735C5B21ECD21200904ED5 /* BytesX.swift */,
+				48735C5C21ECD21200904ED5 /* Bool.swift */,
+				48735C5D21ECD21200904ED5 /* VariableArray.swift */,
+				48735C5E21ECD21200904ED5 /* Function.swift */,
+				48735C5F21ECD21200904ED5 /* IntX.swift */,
+				48735C6021ECD21200904ED5 /* Bytes.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		48735C6221ECD21200904ED5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				48735C6321ECD21200904ED5 /* BigIntExtension.swift */,
+				48735C6421ECD21200904ED5 /* DataExtension.swift */,
+				48735C6521ECD21200904ED5 /* StringExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		48735C6621ECD21200904ED5 /* Generated Types */ = {
+			isa = PBXGroup;
+			children = (
+				48735C6721ECD21200904ED5 /* UIntX-Generated.swift */,
+				48735C6821ECD21200904ED5 /* BytesX-Generated.swift */,
+				48735C6921ECD21200904ED5 /* IntX-Generated.swift */,
+				48735C6A21ECD21200904ED5 /* ArrayX-Generated.swift */,
+			);
+			path = "Generated Types";
+			sourceTree = "<group>";
+		};
+		48735C6B21ECD21200904ED5 /* Coding */ = {
+			isa = PBXGroup;
+			children = (
+				48735C6C21ECD21200904ED5 /* BaseDecoder.swift */,
+				48735C6D21ECD21200904ED5 /* BaseEncoder.swift */,
+			);
+			path = Coding;
+			sourceTree = "<group>";
+		};
+		48735C6E21ECD21200904ED5 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				48735C6F21ECD21200904ED5 /* DynamicType.swift */,
+				48735C7021ECD21200904ED5 /* StaticType.swift */,
+				48735C7121ECD21200904ED5 /* SolidityCodable.swift */,
+				48735C7221ECD21200904ED5 /* SolidityFunction.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		48735C7321ECD21200904ED5 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				48735C7421ECD21200904ED5 /* Crypto.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		48735C7521ECD21200904ED5 /* DID */ = {
+			isa = PBXGroup;
+			children = (
+				48735C7621ECD21200904ED5 /* DIDObject.swift */,
+				48735C7721ECD21200904ED5 /* DIDResolver.swift */,
+				48735C7821ECD21200904ED5 /* DIDDocument.swift */,
+				48735C7921ECD21200904ED5 /* UniversalDIDResolver.swift */,
+			);
+			path = DID;
+			sourceTree = "<group>";
+		};
+		48735C7A21ECD21200904ED5 /* uPortDID */ = {
+			isa = PBXGroup;
+			children = (
+				48735C7B21ECD21200904ED5 /* UPortDIDResolver.swift */,
+				48735C7C21ECD21200904ED5 /* UPortIdentityDocument.swift */,
+				48735C7D21ECD21200904ED5 /* UPortDIDDocument.swift */,
+			);
+			path = uPortDID;
+			sourceTree = "<group>";
+		};
+		48735C7E21ECD21200904ED5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				48735C7F21ECD21200904ED5 /* Extensions */,
+				48735C8221ECD21200904ED5 /* HTTPClient.swift */,
+				48735C8321ECD21200904ED5 /* BaseX.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		48735C7F21ECD21200904ED5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				48735C8021ECD21200904ED5 /* HexExtensions.swift */,
+				48735C8121ECD21200904ED5 /* BigIntExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		48C158142214378F009A909D /* TestingHostApp */ = {
+			isa = PBXGroup;
+			children = (
+				48C158152214378F009A909D /* AppDelegate.swift */,
+				48C158172214378F009A909D /* ViewController.swift */,
+				48C158192214378F009A909D /* Main.storyboard */,
+				48C1581C22143793009A909D /* Assets.xcassets */,
+				48C1581E22143793009A909D /* LaunchScreen.storyboard */,
+				48C1582122143793009A909D /* Info.plist */,
+			);
+			path = TestingHostApp;
+			sourceTree = "<group>";
+		};
+		48F4700521FFA9DB000C803F /* JWT */ = {
+			isa = PBXGroup;
+			children = (
+				48F4700621FFAA59000C803F /* JWTHeader.swift */,
+				48F4700721FFAA59000C803F /* JWTPayload.swift */,
+				48F4700821FFAA59000C803F /* JWTTools.swift */,
+			);
+			path = JWT;
+			sourceTree = "<group>";
+		};
+		48F72FAB21FA06E20089FBBB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48F4702921FFCF49000C803F /* openssl.framework */,
+				48F47C5821FFCFBC000C803F /* BigInt.framework */,
+				48F4702721FFCF2D000C803F /* CoreEth.framework */,
+				48DB0386220343CE003539A6 /* UPTEthereumSigner.framework */,
+				48F47C5C21FFCFF7000C803F /* Sodium.framework */,
+				48F47C5621FFCFA8000C803F /* CryptoSwift.framework */,
+				48F72FCD21FA0AC80089FBBB /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		48735C1A21ECCEFB00904ED5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48735C3021ECCEFB00904ED5 /* UPort.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		48735C1E21ECCEFB00904ED5 /* UPort */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48735C3321ECCEFB00904ED5 /* Build configuration list for PBXNativeTarget "UPort" */;
+			buildPhases = (
+				48735C1A21ECCEFB00904ED5 /* Headers */,
+				48735C1B21ECCEFB00904ED5 /* Sources */,
+				48735C1C21ECCEFB00904ED5 /* Frameworks */,
+				48735C1D21ECCEFB00904ED5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UPort;
+			productName = UPort;
+			productReference = 48735C1F21ECCEFB00904ED5 /* UPort.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		48735C2721ECCEFB00904ED5 /* UPortTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48735C3621ECCEFB00904ED5 /* Build configuration list for PBXNativeTarget "UPortTests" */;
+			buildPhases = (
+				48735C2421ECCEFB00904ED5 /* Sources */,
+				48735C2521ECCEFB00904ED5 /* Frameworks */,
+				48735C2621ECCEFB00904ED5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				48735C2B21ECCEFB00904ED5 /* PBXTargetDependency */,
+				48C15826221437A2009A909D /* PBXTargetDependency */,
+			);
+			name = UPortTests;
+			productName = UPortTests;
+			productReference = 48735C2821ECCEFB00904ED5 /* UPortTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		48C158122214378E009A909D /* TestingHostApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48C1582422143793009A909D /* Build configuration list for PBXNativeTarget "TestingHostApp" */;
+			buildPhases = (
+				48C1580F2214378E009A909D /* Sources */,
+				48C158102214378E009A909D /* Frameworks */,
+				48C158112214378E009A909D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestingHostApp;
+			productName = TestingHostApp;
+			productReference = 48C158132214378E009A909D /* TestingHostApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		48735C1621ECCEFA00904ED5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = ConsenSys;
+				TargetAttributes = {
+					48735C1E21ECCEFB00904ED5 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					48735C2721ECCEFB00904ED5 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+						TestTargetID = 48C158122214378E009A909D;
+					};
+					48C158122214378E009A909D = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 48735C1921ECCEFA00904ED5 /* Build configuration list for PBXProject "UPort" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 48735C1521ECCEFA00904ED5;
+			productRefGroup = 48735C2021ECCEFB00904ED5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				48735C1E21ECCEFB00904ED5 /* UPort */,
+				48735C2721ECCEFB00904ED5 /* UPortTests */,
+				48C158122214378E009A909D /* TestingHostApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		48735C1D21ECCEFB00904ED5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488280FA220478D00023AD23 /* EthereumDIDRegistry.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48735C2621ECCEFB00904ED5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48F4702221FFCCCF000C803F /* valid.json in Resources */,
+				48F4701C21FFCCCF000C803F /* ScalarMultTestValues.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48C158112214378E009A909D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48C1582022143793009A909D /* LaunchScreen.storyboard in Resources */,
+				48C1581D22143793009A909D /* Assets.xcassets in Resources */,
+				48C1581B2214378F009A909D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		48735C1B21ECCEFB00904ED5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48735C9121ECD21200904ED5 /* AccountCreator.swift in Sources */,
+				48735C9E21ECD21200904ED5 /* VariableArray.swift in Sources */,
+				48735C9721ECD21200904ED5 /* Solidity.swift in Sources */,
+				48735CB521ECD21200904ED5 /* UPortDIDResolver.swift in Sources */,
+				48735C9B21ECD21200904ED5 /* String.swift in Sources */,
+				48735CAD21ECD21200904ED5 /* StaticType.swift in Sources */,
+				48735CAB21ECD21200904ED5 /* BaseEncoder.swift in Sources */,
+				48735CAF21ECD21200904ED5 /* SolidityFunction.swift in Sources */,
+				48735CB721ECD21200904ED5 /* UPortDIDDocument.swift in Sources */,
+				48735CA221ECD21200904ED5 /* BivrostError.swift in Sources */,
+				48735CB021ECD21200904ED5 /* Crypto.swift in Sources */,
+				48735CAA21ECD21200904ED5 /* BaseDecoder.swift in Sources */,
+				48735CA421ECD21200904ED5 /* DataExtension.swift in Sources */,
+				48735CAE21ECD21200904ED5 /* SolidityCodable.swift in Sources */,
+				48735C9621ECD21200904ED5 /* EthCall.swift in Sources */,
+				48735CB221ECD21200904ED5 /* DIDResolver.swift in Sources */,
+				48735C8521ECD21200904ED5 /* EthAddress.swift in Sources */,
+				48735C8D21ECD21200904ED5 /* EthereumDIDRegistry.swift in Sources */,
+				48F4700B21FFAA59000C803F /* JWTTools.swift in Sources */,
+				48735C8721ECD21200904ED5 /* EthereumNetwork.swift in Sources */,
+				48735CB421ECD21200904ED5 /* UniversalDIDResolver.swift in Sources */,
+				48735CA921ECD21200904ED5 /* ArrayX-Generated.swift in Sources */,
+				48735CA721ECD21200904ED5 /* BytesX-Generated.swift in Sources */,
+				48735CA621ECD21200904ED5 /* UIntX-Generated.swift in Sources */,
+				48735CB821ECD21200904ED5 /* HexExtensions.swift in Sources */,
+				48735C8E21ECD21200904ED5 /* UportRegistry.swift in Sources */,
+				48735C9321ECD21200904ED5 /* Account.swift in Sources */,
+				48735C9521ECD21200904ED5 /* JsonRpcBase.swift in Sources */,
+				48735CB921ECD21200904ED5 /* BigIntExtensions.swift in Sources */,
+				48735C8A21ECD21200904ED5 /* EthrDIDDocument.swift in Sources */,
+				48735C9421ECD21200904ED5 /* JsonRPC.swift in Sources */,
+				48735C8921ECD21200904ED5 /* EthrDIDResolver.swift in Sources */,
+				48735CA121ECD21200904ED5 /* Bytes.swift in Sources */,
+				48735CBA21ECD21200904ED5 /* HTTPClient.swift in Sources */,
+				48735C8C21ECD21200904ED5 /* NormalizedEthrDID.swift in Sources */,
+				48735C9921ECD21200904ED5 /* UIntX.swift in Sources */,
+				48735CB621ECD21200904ED5 /* UPortIdentityDocument.swift in Sources */,
+				48F4700A21FFAA59000C803F /* JWTPayload.swift in Sources */,
+				48735C8B21ECD21200904ED5 /* EthrDID.swift in Sources */,
+				48735CFE21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift in Sources */,
+				48735CA821ECD21200904ED5 /* IntX-Generated.swift in Sources */,
+				48735CA521ECD21200904ED5 /* StringExtension.swift in Sources */,
+				48735CB121ECD21200904ED5 /* DIDObject.swift in Sources */,
+				48735CAC21ECD21200904ED5 /* DynamicType.swift in Sources */,
+				48F4700921FFAA59000C803F /* JWTHeader.swift in Sources */,
+				48735C9821ECD21200904ED5 /* Address.swift in Sources */,
+				48735C9F21ECD21200904ED5 /* Function.swift in Sources */,
+				48735CBB21ECD21200904ED5 /* BaseX.swift in Sources */,
+				48735C9221ECD21200904ED5 /* MNID.swift in Sources */,
+				48735C9D21ECD21200904ED5 /* Bool.swift in Sources */,
+				48735C8821ECD21200904ED5 /* Networks.swift in Sources */,
+				48735CA321ECD21200904ED5 /* BigIntExtension.swift in Sources */,
+				48735C8421ECD21200904ED5 /* ChainDefinition.swift in Sources */,
+				48735C9021ECD21200904ED5 /* ProgressPersistence.swift in Sources */,
+				48735CA021ECD21200904ED5 /* IntX.swift in Sources */,
+				48735CB321ECD21200904ED5 /* DIDDocument.swift in Sources */,
+				48735C9A21ECD21200904ED5 /* ArrayX.swift in Sources */,
+				48735C9C21ECD21200904ED5 /* BytesX.swift in Sources */,
+				48735C8621ECD21200904ED5 /* Transaction.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48735C2421ECCEFB00904ED5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48F4701E21FFCCCF000C803F /* CryptoTests.swift in Sources */,
+				48F4702421FFCCCF000C803F /* UniversalDIDResolverTests.swift in Sources */,
+				48F4701F21FFCCCF000C803F /* EthrDIDResolverTests.swift in Sources */,
+				48F4701D21FFCCCF000C803F /* DIDObjectTests.swift in Sources */,
+				48F4702121FFCCCF000C803F /* UPortIdentityDocumentTests.swift in Sources */,
+				48F4702021FFCCCF000C803F /* SwiftBaseXTests.swift in Sources */,
+				48F4702521FFCCCF000C803F /* JWTToolsTests.swift in Sources */,
+				48F4702621FFCCCF000C803F /* UPortDIDResolverTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48C1580F2214378E009A909D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48C158182214378F009A909D /* ViewController.swift in Sources */,
+				48C158162214378F009A909D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		48735C2B21ECCEFB00904ED5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 48735C1E21ECCEFB00904ED5 /* UPort */;
+			targetProxy = 48735C2A21ECCEFB00904ED5 /* PBXContainerItemProxy */;
+		};
+		48C15826221437A2009A909D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 48C158122214378E009A909D /* TestingHostApp */;
+			targetProxy = 48C15825221437A2009A909D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		48C158192214378F009A909D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48C1581A2214378F009A909D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		48C1581E22143793009A909D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48C1581F22143793009A909D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		48735C3121ECCEFB00904ED5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		48735C3221ECCEFB00904ED5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(FRAMEWORK_SEARCH_PATHS)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		48735C3421ECCEFB00904ED5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 2;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = UPort/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = consensys.net.UPort;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48735C3521ECCEFB00904ED5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 2;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = UPort/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = consensys.net.UPort;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		48735C3721ECCEFB00904ED5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = UPortTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = consensys.net.UPortTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestingHostApp.app/TestingHostApp";
+			};
+			name = Debug;
+		};
+		48735C3821ECCEFB00904ED5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = UPortTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = consensys.net.UPortTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestingHostApp.app/TestingHostApp";
+			};
+			name = Release;
+		};
+		48C1582222143793009A909D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TestingHostApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.consensys.TestingHostApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48C1582322143793009A909D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TestingHostApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.consensys.TestingHostApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		48735C1921ECCEFA00904ED5 /* Build configuration list for PBXProject "UPort" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48735C3121ECCEFB00904ED5 /* Debug */,
+				48735C3221ECCEFB00904ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48735C3321ECCEFB00904ED5 /* Build configuration list for PBXNativeTarget "UPort" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48735C3421ECCEFB00904ED5 /* Debug */,
+				48735C3521ECCEFB00904ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48735C3621ECCEFB00904ED5 /* Build configuration list for PBXNativeTarget "UPortTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48735C3721ECCEFB00904ED5 /* Debug */,
+				48735C3821ECCEFB00904ED5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48C1582422143793009A909D /* Build configuration list for PBXNativeTarget "TestingHostApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48C1582222143793009A909D /* Debug */,
+				48C1582322143793009A909D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 48735C1621ECCEFA00904ED5 /* Project object */;
+}

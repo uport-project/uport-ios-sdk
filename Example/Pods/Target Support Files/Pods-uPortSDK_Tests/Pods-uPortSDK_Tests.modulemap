@@ -1,6 +1,0 @@
-framework module Pods_uPortSDK_Tests {
-  umbrella header "Pods-uPortSDK_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}
