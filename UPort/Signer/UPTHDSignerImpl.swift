@@ -25,7 +25,6 @@ class UPTHDSignerImpl: Signer
     
     func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult)
     {
-        print(rawPayload)
         UPTHDSigner.signJWT(rootAddress,
                             derivationPath: UPORT_ROOT_DERIVATION_PATH,
                             data: rawPayload,
