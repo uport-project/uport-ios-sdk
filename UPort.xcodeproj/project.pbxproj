@@ -90,6 +90,8 @@
 		48F47C5721FFCFA8000C803F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5621FFCFA8000C803F /* CryptoSwift.framework */; };
 		48F47C5921FFCFBC000C803F /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5821FFCFBC000C803F /* BigInt.framework */; };
 		48F47C5D21FFCFF7000C803F /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5C21FFCFF7000C803F /* Sodium.framework */; };
+		C81BE8302232092500544564 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81BE82F2232092500544564 /* Signer.swift */; };
+		C81BE834223839E500544564 /* UPTHDSignerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81BE833223839E500544564 /* UPTHDSignerImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +201,8 @@
 		48F47C5821FFCFBC000C803F /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
 		48F47C5C21FFCFF7000C803F /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		48F72FCD21FA0AC80089FBBB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C81BE82F2232092500544564 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
+		C81BE833223839E500544564 /* UPTHDSignerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPTHDSignerImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +261,7 @@
 		48735C2121ECCEFB00904ED5 /* UPort */ = {
 			isa = PBXGroup;
 			children = (
+				C81BE82E2232091800544564 /* Signer */,
 				48735C2221ECCEFB00904ED5 /* UPort.h */,
 				48735C2321ECCEFB00904ED5 /* Info.plist */,
 				48735C4521ECD21200904ED5 /* Contracts */,
@@ -528,6 +533,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C81BE82E2232091800544564 /* Signer */ = {
+			isa = PBXGroup;
+			children = (
+				C81BE82F2232092500544564 /* Signer.swift */,
+				C81BE833223839E500544564 /* UPTHDSignerImpl.swift */,
+			);
+			path = Signer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -699,6 +713,7 @@
 				48735CA721ECD21200904ED5 /* BytesX-Generated.swift in Sources */,
 				48735CA621ECD21200904ED5 /* UIntX-Generated.swift in Sources */,
 				48735CB821ECD21200904ED5 /* HexExtensions.swift in Sources */,
+				C81BE8302232092500544564 /* Signer.swift in Sources */,
 				48735C8E21ECD21200904ED5 /* UportRegistry.swift in Sources */,
 				48735C9321ECD21200904ED5 /* Account.swift in Sources */,
 				48735C9521ECD21200904ED5 /* JsonRpcBase.swift in Sources */,
@@ -711,6 +726,7 @@
 				48735C8C21ECD21200904ED5 /* NormalizedEthrDID.swift in Sources */,
 				48735C9921ECD21200904ED5 /* UIntX.swift in Sources */,
 				48735CB621ECD21200904ED5 /* UPortIdentityDocument.swift in Sources */,
+				C81BE834223839E500544564 /* UPTHDSignerImpl.swift in Sources */,
 				48F4700A21FFAA59000C803F /* JWTPayload.swift in Sources */,
 				48735C8B21ECD21200904ED5 /* EthrDID.swift in Sources */,
 				48735CFE21EE25E900904ED5 /* EthereumDIDRegistryEvents.swift in Sources */,
