@@ -110,4 +110,25 @@ class JWTToolsTests: XCTestCase
 
         waitForExpectations(timeout: 3)
     }
+    
+    func testCreateJWT()
+    {
+        let expectation = self.expectation(description: "Verify Incoming JWT")
+        
+        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 1520366666))
+        UPTHDSigner.createHDSeed(UPTEthKeychainProtectionLevel.normal, rootDerivationPath: UPORT_ROOT_DERIVATION_PATH) {
+            (address, pubkey, error) in
+            if (address != nil) {
+                let testAddress = address
+                let testSigner = UPTHDSignerImpl(rootAddress: testAddress!)
+                JWTTools.create(payload: ["claim": "test"], issuerDID: "did:ethr:" + testAddress!, signer: testSigner, expiresIn: 600) { (token, error) in
+                    
+                    JWTTools.verify(jwt: token!) { (payload, error) in
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+        waitForExpectations(timeout: 3)
+    }
 }

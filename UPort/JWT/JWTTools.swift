@@ -75,6 +75,76 @@ public struct JWTTools
             return Date()
         }
     }
+    
+    
+    
+    public static func create(payload: [String: Any],
+                              issuerDID: String,
+                              signer: Signer,
+                              expiresIn: Int64,
+                              completionHandler: @escaping (_ fullJWT: String?, _ error: Error?) -> Void)
+    {
+        do
+        {
+            // Construct header and convert to  base64
+            let headerArgs: [String: Any] = ["typ":"JWT", "alg":"ES256K-R"]
+            let headerData: Data = try! JSONSerialization.data(withJSONObject: headerArgs,
+                                                               options: JSONSerialization.WritingOptions.init(rawValue: 0))
+            let headerString = headerData.base64EncodedString().replacingOccurrences(of: "=", with: "")
+            let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
+            
+            
+            // Extract issuer address - possibly check if its equal to address in signer impl
+            let issuerDidArray = issuerDID.split(separator: ":")
+            let issuerDidAddress = String(issuerDidArray[2])
+            
+            // Fill out payload with iss, iat, and exp
+            var filledOutPayload = payload
+            filledOutPayload["iss"] = issuerDidAddress
+            filledOutPayload["iat"] = Int64(now().timeIntervalSince1970)
+            if filledOutPayload["exp"] == nil
+            {
+                filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn
+            }
+            
+            // Convert filled out payload to base64
+            let payloadData: Data = try! JSONSerialization.data(withJSONObject: filledOutPayload, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let payloadBase64 = payloadData.base64EncodedString().replacingOccurrences(of: "=", with: "")
+            let payloadBase64Url = JWTTools.base64ToBase64Url(base64String: payloadBase64)
+            
+            // Join the header/payload and base64 encode for signing
+            let signingInput = [headerBase64Url, payloadBase64Url].joined(separator: ".")
+            let signingData = signingInput.data(using: .utf8)
+            let signingInputBase64 = signingData?.base64EncodedString().replacingOccurrences(of: "=", with: "")
+            let signingInputBase64Url = JWTTools.base64ToBase64Url(base64String: signingInputBase64!)
+            
+            
+            // Sign jwt
+            signer.signJWT(rawPayload: signingInputBase64Url)
+            { (sig,error) in
+                guard error == nil else
+                {
+                    completionHandler(nil, error)
+                    return
+                }
+                do
+                {
+                    if(sig != nil)
+                    {
+                        let rData = try! (sig!["r"] as! String).decodeBase64()
+                        let sData = try! (sig!["s"] as! String).decodeBase64()
+                        let vNum = [sig!["v"] as! UInt8]
+                        let vData: Data = Data(vNum)
+                        let rsv = rData + sData + vData
+                        let sigBase64 = rsv.base64EncodedString().replacingOccurrences(of: "=", with: "")
+                        let sigBase64Url = JWTTools.base64ToBase64Url(base64String: sigBase64)
+                        let fullJWT = [headerBase64Url, payloadBase64Url, sigBase64Url].joined(separator: ".")
+                        completionHandler(fullJWT, error)
+                    }
+                }
+            }
+        }
+    }
 
     /// Decodes a secured JWT into its three parts.
     ///
@@ -276,6 +346,12 @@ public struct JWTTools
             base64.append(String(repeating: "=", count: 4 - (base64.count % 4)))
         }
 
+        return base64
+    }
+    
+    private static func base64ToBase64Url(base64String: String) -> String
+    {
+        let base64 = base64String.replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")
         return base64
     }
 
