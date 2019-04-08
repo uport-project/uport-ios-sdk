@@ -86,11 +86,8 @@ public struct JWTTools
     {
         // Construct header and convert to  base64
         let headerArgs: [String: Any] = ["typ":"JWT", "alg":"ES256K-R"]
-        let headerData: Data = try! JSONSerialization.data(withJSONObject: headerArgs,
-                                                               options: JSONSerialization.WritingOptions.init(rawValue: 0))
-        let headerString = headerData.base64EncodedString().replacingOccurrences(of: "=", with: "")
+        let headerString = JWTTools.dictionaryToBase64(dict: headerArgs)
         let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
-            
             
         // Extract issuer address - possibly check if its equal to address in signer impl
         let issuerDidArray = issuerDID.split(separator: ":")
@@ -98,22 +95,18 @@ public struct JWTTools
             
         // Fill out payload with iss, iat, and exp
         var filledOutPayload = payload
-        filledOutPayload["iss"] = issuerDidAddress
+        filledOutPayload["iss"] = issuerDidArray[2]
         filledOutPayload["iat"] = Int64(now().timeIntervalSince1970)
-        if filledOutPayload["exp"] == nil
-        {
-            filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn
-        }
+        if filledOutPayload["exp"] == nil { filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn }
             
         // Convert filled out payload to base64
-        let payloadData: Data = try! JSONSerialization.data(withJSONObject: filledOutPayload, options: JSONSerialization.WritingOptions.prettyPrinted)
-        let payloadBase64 = payloadData.base64EncodedString().replacingOccurrences(of: "=", with: "")
+        let payloadBase64 = JWTTools.dictionaryToBase64(dict: filledOutPayload)
         let payloadBase64Url = JWTTools.base64ToBase64Url(base64String: payloadBase64)
             
         // Join the header/payload and base64 encode for signing
         let signingInput = [headerBase64Url, payloadBase64Url].joined(separator: ".")
         let signingData = signingInput.data(using: .utf8)
-        let signingInputBase64 = signingData?.base64EncodedString().replacingOccurrences(of: "=", with: "")
+        let signingInputBase64 = signingData?.base64EncodedString()//.replacingOccurrences(of: "=", with: "")
         let signingInputBase64Url = JWTTools.base64ToBase64Url(base64String: signingInputBase64!)
             
         // Sign jwt
@@ -378,5 +371,14 @@ public struct JWTTools
         {
             throw JWTToolsError.deserializationError(error.localizedDescription)
         }
+    }
+    
+    
+    private static func dictionaryToBase64(dict: [String: Any]) -> String
+    {
+        let data: Data = try! JSONSerialization.data(withJSONObject: dict,
+                                                           options: JSONSerialization.WritingOptions.init(rawValue: 0))
+        let base64String = data.base64EncodedString().replacingOccurrences(of: "=", with: "")
+        return base64String
     }
 }
