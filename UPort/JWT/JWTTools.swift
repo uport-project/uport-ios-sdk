@@ -85,7 +85,7 @@ public struct JWTTools
                               completionHandler: @escaping (_ fullJWT: String?, _ error: Error?) -> Void)
     {
         // Construct header and convert to  base64
-        let headerArgs: [String: Any] = ["typ":"JWT", "alg":"ES256K-R"]
+        let headerArgs: [String: Any] = ["typ": "JWT", "alg": "ES256K-R"]
         let headerString = JWTTools.dictionaryToBase64(dict: headerArgs)
         let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
             
@@ -105,8 +105,7 @@ public struct JWTTools
         let signingInputBase64Url = JWTTools.base64ToBase64Url(base64String: signingInputBase64!)
             
         // Sign jwt
-        signer.signJWT(rawPayload: signingInputBase64Url)
-        { (sig,error) in
+        signer.signJWT(rawPayload: signingInputBase64Url) { (sig, error) in
             guard error == nil else
             {
                 completionHandler(nil, error)
@@ -114,13 +113,13 @@ public struct JWTTools
             }
             do
             {
-                if(sig != nil)
+                if sig != nil
                 {
-                    let rData = try! (sig!["r"] as! String).decodeBase64()
-                    let sData = try! (sig!["s"] as! String).decodeBase64()
+                    let rData = try? (sig!["r"] as? String)?.decodeBase64()
+                    let sData = try? (sig!["s"] as? String)?.decodeBase64()
                     let vNum = [sig!["v"] as! UInt8]
                     let vData: Data = Data(vNum)
-                    let rsv = rData + sData + vData
+                    let rsv = rData!! + sData!! + vData
                     let sigBase64 = rsv.base64EncodedString().replacingOccurrences(of: "=", with: "")
                     let sigBase64Url = JWTTools.base64ToBase64Url(base64String: sigBase64)
                     let fullJWT = [headerBase64Url, payloadBase64Url, sigBase64Url].joined(separator: ".")
@@ -367,13 +366,18 @@ public struct JWTTools
             throw JWTToolsError.deserializationError(error.localizedDescription)
         }
     }
-    
-    
+
     private static func dictionaryToBase64(dict: [String: Any]) -> String
     {
-        let data: Data = try! JSONSerialization.data(withJSONObject: dict,
-                                                           options: JSONSerialization.WritingOptions.init(rawValue: 0))
-        let base64String = data.base64EncodedString().replacingOccurrences(of: "=", with: "")
-        return base64String
+        do {
+            let data: Data = try JSONSerialization.data(withJSONObject: dict,
+                                                        options: JSONSerialization.WritingOptions.init(rawValue: 0))
+            let base64String = data.base64EncodedString().replacingOccurrences(of: "=", with: "")
+            return base64String
+        } catch {
+            print(error)
+            return ""
+        }
+        
     }
 }

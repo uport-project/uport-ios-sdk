@@ -14,7 +14,6 @@ public protocol Signer {
     //static func signETH(rawMessage: Data, callback: SignatureCallback)
     
     func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult)
-    
+
     func getAddress() -> String
 }
-

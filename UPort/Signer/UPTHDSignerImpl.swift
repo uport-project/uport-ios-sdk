@@ -9,7 +9,6 @@
 import Foundation
 import UPTEthereumSigner
 
-
 class UPTHDSignerImpl: Signer
 {
     var rootAddress: String
@@ -30,9 +29,8 @@ class UPTHDSignerImpl: Signer
                             callback: completionHandler)
 
     }
-    
-    func getAddress() -> String
-    {
+
+    func getAddress() -> String {
         return self.rootAddress
     }
 }

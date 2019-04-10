@@ -9,7 +9,6 @@
 import Foundation
 import UPTEthereumSigner
 
-
 class KPSigner: Signer
 {
     private var privateKey: String
@@ -28,9 +27,8 @@ class KPSigner: Signer
         let sig = jwtSignature(keypair, hash)
         completionHandler(sig, nil)
     }
-    
-    func getAddress() -> String
-    {
+
+    func getAddress() -> String {
         let keyData = BTCDataFromHex(self.privateKey)
         let keypair = BTCKey.init(privateKey: keyData)
         let address = UPTEthSigner.ethAddress(withPublicKey: keypair?.publicKey as Data?)!
