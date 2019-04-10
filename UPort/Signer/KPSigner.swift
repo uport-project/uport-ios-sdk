@@ -11,7 +11,7 @@ import UPTEthereumSigner
 
 class KPSigner: Signer {
     private var privateKey: String
-    
+
     init(privateKey: String) {
         self.privateKey = privateKey
     }

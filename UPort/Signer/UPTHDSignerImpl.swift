@@ -12,7 +12,7 @@ import UPTEthereumSigner
 class UPTHDSignerImpl: Signer {
     var rootAddress: String
     var deviceAddress: String
-    
+
     init(rootAddress: String) {
         self.rootAddress = rootAddress
         self.deviceAddress = rootAddress

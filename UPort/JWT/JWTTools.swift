@@ -86,7 +86,7 @@ public struct JWTTools
         let headerArgs: [String: Any] = ["typ": "JWT", "alg": "ES256K-R"]
         let headerString = JWTTools.dictionaryToBase64(dict: headerArgs)
         let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
-            
+
         // Fill out payload with iss, iat, and exp
         var filledOutPayload = payload
         filledOutPayload["iat"] = Int64(now().timeIntervalSince1970)
@@ -95,13 +95,13 @@ public struct JWTTools
         // Convert filled out payload to base64
         let payloadBase64 = JWTTools.dictionaryToBase64(dict: filledOutPayload)
         let payloadBase64Url = JWTTools.base64ToBase64Url(base64String: payloadBase64)
-            
+
         // Join the header/payload and base64 encode for signing
         let signingInput = [headerBase64Url, payloadBase64Url].joined(separator: ".")
         let signingData = signingInput.data(using: .utf8)
         let signingInputBase64 = signingData?.base64EncodedString()//.replacingOccurrences(of: "=", with: "")
         let signingInputBase64Url = JWTTools.base64ToBase64Url(base64String: signingInputBase64!)
-            
+
         // Sign jwt
         signer.signJWT(rawPayload: signingInputBase64Url) { (sig, error) in
             guard error == nil else
@@ -329,7 +329,7 @@ public struct JWTTools
 
         return base64
     }
-    
+
     private static func base64ToBase64Url(base64String: String) -> String
     {
         let base64 = base64String.replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")

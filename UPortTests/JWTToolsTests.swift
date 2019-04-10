@@ -110,7 +110,7 @@ class JWTToolsTests: XCTestCase
 
         waitForExpectations(timeout: 3)
     }
-    
+
     func testCreateJWT()
     {
         JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 12345678))
@@ -120,8 +120,10 @@ class JWTToolsTests: XCTestCase
         let address = testSigner.getAddress()
         let issuerDid = "did:ethr:" + address
         
-        JWTTools.create(payload: testPayload, issuerDID: issuerDid, signer: testSigner, expiresIn: 300) {
-            (token, error) in
+        JWTTools.create(payload: testPayload,
+                        issuerDID: issuerDid,
+                        signer: testSigner,
+                        expiresIn: 300) { (token, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(token)
             do
@@ -133,17 +135,17 @@ class JWTToolsTests: XCTestCase
             {
                 
             }
-            
+
         }
     }
-    
+
     func testKPSignerJWT()
     {
         let expectation = self.expectation(description: "Verify Share Request JWT")
         let referenceSig: [String: Any] = [ "r": "6bcd81446183af193ca4a172d5c5c26345903b24770d90b5d790f74a9dec1f68",
                                             "s": "e2b85b3c92c9b4f3cf58de46e7997d8efb6e14b2e532d13dfa22ee02f3a43d5d",
                                             "v": 1]
-        
+
         let privKey = "65fc670d9351cb87d1f56702fb56a7832ae2aab3427be944ab8c9f2a0ab87960"
         let payload = "Hello, world!"
         let testSigner = KPSigner(privateKey: privKey)
