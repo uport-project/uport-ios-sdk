@@ -119,7 +119,7 @@ class JWTToolsTests: XCTestCase
         let testSigner = KPSigner(privateKey: privKey)
         let address = testSigner.getAddress()
         let issuerDid = "did:ethr:" + address
-        
+
         JWTTools.create(payload: testPayload,
                         issuerDID: issuerDid,
                         signer: testSigner,
@@ -133,7 +133,7 @@ class JWTToolsTests: XCTestCase
                 XCTAssertEqual((claims?["name"] as? String), testPayload["claims"]!["name"])
             } catch
             {
-                
+
             }
 
         }

@@ -115,9 +115,12 @@ public struct JWTTools
                 {
                     let rData = try? (sig!["r"] as? String)?.decodeBase64()
                     let sData = try? (sig!["s"] as? String)?.decodeBase64()
-                    let vNum = [sig!["v"] as! UInt8]
-                    let vData: Data = Data(vNum)
-                    let rsv = rData!! + sData!! + vData
+                    var vNum = sig!["v"] as? Int
+                    let vData = UnsafeBufferPointer(start: &vNum, count: 1)
+                    var rsv = Data()
+                    rsv.append(rData!!)
+                    rsv.append(sData!!)
+                    rsv.append(vData)
                     let sigBase64 = rsv.base64EncodedString().replacingOccurrences(of: "=", with: "")
                     let sigBase64Url = JWTTools.base64ToBase64Url(base64String: sigBase64)
                     let fullJWT = [headerBase64Url, payloadBase64Url, sigBase64Url].joined(separator: ".")
