@@ -15,6 +15,6 @@ public protocol Signer {
     
     func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult)
     
-    //func getAddress() -> String
+    func getAddress() -> String
 }
 

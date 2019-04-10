@@ -92,6 +92,7 @@
 		48F47C5D21FFCFF7000C803F /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F47C5C21FFCFF7000C803F /* Sodium.framework */; };
 		C81BE8302232092500544564 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81BE82F2232092500544564 /* Signer.swift */; };
 		C81BE834223839E500544564 /* UPTHDSignerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81BE833223839E500544564 /* UPTHDSignerImpl.swift */; };
+		C8803CFB22580DCF001D2E0E /* KPSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8803CFA22580DCF001D2E0E /* KPSigner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,7 @@
 		48F72FCD21FA0AC80089FBBB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C81BE82F2232092500544564 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		C81BE833223839E500544564 /* UPTHDSignerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPTHDSignerImpl.swift; sourceTree = "<group>"; };
+		C8803CFA22580DCF001D2E0E /* KPSigner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPSigner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +538,7 @@
 		C81BE82E2232091800544564 /* Signer */ = {
 			isa = PBXGroup;
 			children = (
+				C8803CFA22580DCF001D2E0E /* KPSigner.swift */,
 				C81BE82F2232092500544564 /* Signer.swift */,
 				C81BE833223839E500544564 /* UPTHDSignerImpl.swift */,
 			);
@@ -706,6 +709,7 @@
 				48735CB221ECD21200904ED5 /* DIDResolver.swift in Sources */,
 				48735C8521ECD21200904ED5 /* EthAddress.swift in Sources */,
 				48735C8D21ECD21200904ED5 /* EthereumDIDRegistry.swift in Sources */,
+				C8803CFB22580DCF001D2E0E /* KPSigner.swift in Sources */,
 				48F4700B21FFAA59000C803F /* JWTTools.swift in Sources */,
 				48735C8721ECD21200904ED5 /* EthereumNetwork.swift in Sources */,
 				48735CB421ECD21200904ED5 /* UniversalDIDResolver.swift in Sources */,

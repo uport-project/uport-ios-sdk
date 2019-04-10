@@ -12,13 +12,11 @@ import UPTEthereumSigner
 
 class UPTHDSignerImpl: Signer
 {
-    //private var hdSigner: UPTHDSigner
     var rootAddress: String
     var deviceAddress: String
     
     init(rootAddress: String)
     {
-        //self.hdSigner = hdSigner
         self.rootAddress = rootAddress
         self.deviceAddress = rootAddress
     }
@@ -28,8 +26,13 @@ class UPTHDSignerImpl: Signer
         UPTHDSigner.signJWT(rootAddress,
                             derivationPath: UPORT_ROOT_DERIVATION_PATH,
                             data: rawPayload,
-                            prompt: "simple",
+                            prompt: "",
                             callback: completionHandler)
 
+    }
+    
+    func getAddress() -> String
+    {
+        return self.rootAddress
     }
 }
