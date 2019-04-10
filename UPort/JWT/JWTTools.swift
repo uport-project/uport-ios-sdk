@@ -75,9 +75,7 @@ public struct JWTTools
             return Date()
         }
     }
-    
-    
-    
+
     public static func create(payload: [String: Any],
                               issuerDID: String,
                               signer: Signer,
@@ -378,6 +376,6 @@ public struct JWTTools
             print(error)
             return ""
         }
-        
+
     }
 }

@@ -120,7 +120,8 @@ class JWTToolsTests: XCTestCase
         let address = testSigner.getAddress()
         let issuerDid = "did:ethr:" + address
         
-        JWTTools.create(payload: testPayload, issuerDID: issuerDid, signer: testSigner, expiresIn: 300) { (token, error) in
+        JWTTools.create(payload: testPayload, issuerDID: issuerDid, signer: testSigner, expiresIn: 300) {
+            (token, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(token)
             do
@@ -154,7 +155,7 @@ class JWTToolsTests: XCTestCase
                 let rData = try? (sig!["r"] as? String)?.decodeBase64()
                 let sData = try? (sig!["s"] as? String)?.decodeBase64()
                 let vNum = sig!["v"] as? Int
-                
+
                 let rString = rData??.toHexString()
                 let sString = sData??.toHexString()
 

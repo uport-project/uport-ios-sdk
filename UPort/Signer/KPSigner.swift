@@ -9,17 +9,14 @@
 import Foundation
 import UPTEthereumSigner
 
-class KPSigner: Signer
-{
+class KPSigner: Signer {
     private var privateKey: String
     
-    init(privateKey: String)
-    {
+    init(privateKey: String) {
         self.privateKey = privateKey
     }
-    
-    func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult)
-    {
+
+    func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult) {
         let payloadData = rawPayload.data(using: .utf8)
         let hash = payloadData?.sha256()
         let keyData = BTCDataFromHex(self.privateKey)

@@ -9,19 +9,16 @@
 import Foundation
 import UPTEthereumSigner
 
-class UPTHDSignerImpl: Signer
-{
+class UPTHDSignerImpl: Signer {
     var rootAddress: String
     var deviceAddress: String
     
-    init(rootAddress: String)
-    {
+    init(rootAddress: String) {
         self.rootAddress = rootAddress
         self.deviceAddress = rootAddress
     }
-    
-    func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult)
-    {
+
+    func signJWT(rawPayload: String, completionHandler: @escaping UPTHDSignerJWTSigningResult) {
         UPTHDSigner.signJWT(rootAddress,
                             derivationPath: UPORT_ROOT_DERIVATION_PATH,
                             data: rawPayload,
