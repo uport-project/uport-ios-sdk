@@ -89,16 +89,11 @@ public struct JWTTools
         let headerString = JWTTools.dictionaryToBase64(dict: headerArgs)
         let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
             
-        // Extract issuer address - possibly check if its equal to address in signer impl
-        let issuerDidArray = issuerDID.split(separator: ":")
-        let issuerDidAddress = String(issuerDidArray[2])
-            
         // Fill out payload with iss, iat, and exp
         var filledOutPayload = payload
-        filledOutPayload["iss"] = issuerDidArray[2]
         filledOutPayload["iat"] = Int64(now().timeIntervalSince1970)
         if filledOutPayload["exp"] == nil { filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn }
-            
+        filledOutPayload["iss"] = issuerDID
         // Convert filled out payload to base64
         let payloadBase64 = JWTTools.dictionaryToBase64(dict: filledOutPayload)
         let payloadBase64Url = JWTTools.base64ToBase64Url(base64String: payloadBase64)

@@ -113,20 +113,55 @@ class JWTToolsTests: XCTestCase
     
     func testCreateJWT()
     {
-        let expectation = self.expectation(description: "Verify Incoming JWT")
+        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 12345678))
+        let testPayload = ["claims": ["name": "R Daneel Olivaw"]]
+        let pk = "54ece214d38fe6b46110a21c69fd55230f09688bf85b95fc7c1e4e160441ece1"
+        let testSigner = KPSigner(privateKey: pk)
+        let address = testSigner.getAddress()
+        let issuerDid = "did:ethr:" + address
         
-        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 1520366666))
-        UPTHDSigner.createHDSeed(UPTEthKeychainProtectionLevel.normal, rootDerivationPath: UPORT_ROOT_DERIVATION_PATH) {
-            (address, pubkey, error) in
-            if (address != nil) {
-                let testAddress = address
-                let testSigner = UPTHDSignerImpl(rootAddress: testAddress!)
-                JWTTools.create(payload: ["claim": "test"], issuerDID: "did:ethr:" + testAddress!, signer: testSigner, expiresIn: 600) { (token, error) in
-                    
-                    JWTTools.verify(jwt: token!) { (payload, error) in
-                        expectation.fulfill()
-                    }
-                }
+        JWTTools.create(payload: testPayload, issuerDID: issuerDid, signer: testSigner, expiresIn: 300)
+        { (token, error) in
+            XCTAssertNotNil(token)
+            do
+            {
+                let (_, payload, signature, signedData) = try JWTTools.decode(jwt: token!)
+                let claims = payload.claims!["claims"] as! Dictionary<String, Any>
+                XCTAssertEqual(claims["name"] as! String, testPayload["claims"]!["name"])
+            } catch
+            {
+                
+            }
+            
+        }
+    }
+    
+    func testKPSignerJWT()
+    {
+        let expectation = self.expectation(description: "Verify Share Request JWT")
+        let referenceSig: [String: Any] = [ "r": "6bcd81446183af193ca4a172d5c5c26345903b24770d90b5d790f74a9dec1f68", "s": "e2b85b3c92c9b4f3cf58de46e7997d8efb6e14b2e532d13dfa22ee02f3a43d5d", "v": 1]
+        
+        let pk = "65fc670d9351cb87d1f56702fb56a7832ae2aab3427be944ab8c9f2a0ab87960"
+        let payload = "Hello, world!"
+        let testSigner = KPSigner(privateKey: pk)
+        testSigner.signJWT(rawPayload: payload)
+        { (sig, error) in
+            if(error != nil)
+            {
+                XCTFail("\(error)")
+            } else {
+                let rData = try! (sig!["r"] as! String).decodeBase64()
+                let sData = try! (sig!["s"] as! String).decodeBase64()
+                let vNum = sig!["v"] as! Int
+                
+                let r = rData.toHexString()
+                let s = sData.toHexString()
+
+                XCTAssertEqual(referenceSig["r"] as! String, r)
+                XCTAssertEqual(referenceSig["s"] as! String, s)
+                XCTAssertEqual(referenceSig["v"] as! Int, vNum)
+                
+                expectation.fulfill()
             }
         }
         waitForExpectations(timeout: 3)
