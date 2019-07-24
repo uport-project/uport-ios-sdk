@@ -9,6 +9,7 @@
 import Foundation
 import UPTEthereumSigner
 
+/// Simple [Signer] implementation that holds the keypair in memory
 class KPSigner: Signer {
     private var privateKey: String
 

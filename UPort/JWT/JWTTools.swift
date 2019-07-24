@@ -76,6 +76,24 @@ public struct JWTTools
         }
     }
 
+    /// Constructs and signs a JWT.
+    ///
+    /// This function only accepts secured (i.e. containing a signature
+    ///
+    /// - Parameters:
+    ///     - payload: A dictionary containing the key/values forming the payload of the JWT
+    ///     - issuerDID: A DID string that will be set as the 'iss' field in the JWT payload.
+    ///                 The signature produced by the signer should correspond to this DID.
+    ///                 If the 'iss' field is already part of the [payload], that will get overwritten.
+    ///     - signer: a [Signer] that will produce the signature section of this JWT.
+    ///                 The signature should be produced by the address in the [issuerDID]
+    ///     - expiresIn: number of seconds of validity of this JWT. You may omit this param if
+    ///                 an 'exp' timestamp is already part of the [payload].
+    ///                 If this param is negative the resulting JWT will not have an 'exp' field
+    ///
+    /// - Throws:
+    ///
+    /// - Returns: The decoded header, payload, signature, plus the signed data (i.e. "<header>.<payload>")
     public static func create(payload: [String: Any],
                               issuerDID: String,
                               signer: Signer,
@@ -90,7 +108,7 @@ public struct JWTTools
         // Fill out payload with iss, iat, and exp
         var filledOutPayload = payload
         filledOutPayload["iat"] = Int64(now().timeIntervalSince1970)
-        if filledOutPayload["exp"] == nil { filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn }
+        if expiresIn >= 0 && filledOutPayload["exp"] == nil { filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn }
         filledOutPayload["iss"] = issuerDID
         // Convert filled out payload to base64
         let payloadBase64 = JWTTools.dictionaryToBase64(dict: filledOutPayload)
@@ -98,12 +116,9 @@ public struct JWTTools
 
         // Join the header/payload and base64 encode for signing
         let signingInput = [headerBase64Url, payloadBase64Url].joined(separator: ".")
-        let signingData = signingInput.data(using: .utf8)
-        let signingInputBase64 = signingData?.base64EncodedString()//.replacingOccurrences(of: "=", with: "")
-        let signingInputBase64Url = JWTTools.base64ToBase64Url(base64String: signingInputBase64!)
 
         // Sign jwt
-        signer.signJWT(rawPayload: signingInputBase64Url) { (sig, error) in
+        signer.signJWT(rawPayload: signingInput) { (sig, error) in
             guard error == nil else
             {
                 completionHandler(nil, error)
@@ -116,13 +131,14 @@ public struct JWTTools
                     let rData = try? (sig!["r"] as? String)?.decodeBase64()
                     let sData = try? (sig!["s"] as? String)?.decodeBase64()
                     var vNum = sig!["v"] as? Int
-                    let vData = UnsafeBufferPointer(start: &vNum, count: 1)
+                    let vData = Data(bytes: &vNum, count: 1)
                     var rsv = Data()
                     rsv.append(rData!!)
                     rsv.append(sData!!)
                     rsv.append(vData)
                     let sigBase64 = rsv.base64EncodedString().replacingOccurrences(of: "=", with: "")
                     let sigBase64Url = JWTTools.base64ToBase64Url(base64String: sigBase64)
+                    
                     let fullJWT = [headerBase64Url, payloadBase64Url, sigBase64Url].joined(separator: ".")
                     completionHandler(fullJWT, error)
                 }

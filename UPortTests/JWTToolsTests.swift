@@ -113,13 +113,12 @@ class JWTToolsTests: XCTestCase
 
     func testCreateJWT()
     {
-        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 12345678))
         let testPayload = ["claims": ["name": "R Daneel Olivaw"]]
         let privKey = "54ece214d38fe6b46110a21c69fd55230f09688bf85b95fc7c1e4e160441ece1"
         let testSigner = KPSigner(privateKey: privKey)
         let address = testSigner.getAddress()
         let issuerDid = "did:ethr:" + address
-
+        
         JWTTools.create(payload: testPayload,
                         issuerDID: issuerDid,
                         signer: testSigner,
@@ -135,7 +134,6 @@ class JWTToolsTests: XCTestCase
             {
 
             }
-
         }
     }
 

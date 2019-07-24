@@ -10,6 +10,7 @@ import Foundation
 
 typealias SignatureCallback = (exception?, NSDictionary?) -> Void
 
+/// Signer protocol expected by the JWT create function
 public protocol Signer {
     //static func signETH(rawMessage: Data, callback: SignatureCallback)
 
