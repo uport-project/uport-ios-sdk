@@ -136,7 +136,7 @@ public struct JWTTools
                     rsv.append(rData!!)
                     rsv.append(sData!!)
                     rsv.append(vData)
-                    let sigBase64 = rsv.base64EncodedString().replacingOccurrences(of: "=", with: "")
+                    let sigBase64 = rsv.base64EncodedString()
                     let sigBase64Url = JWTTools.base64ToBase64Url(base64String: sigBase64)
                     
                     let fullJWT = [headerBase64Url, payloadBase64Url, sigBase64Url].joined(separator: ".")
@@ -351,7 +351,7 @@ public struct JWTTools
 
     private static func base64ToBase64Url(base64String: String) -> String
     {
-        let base64 = base64String.replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")
+        let base64 = base64String.replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
         return base64
     }
 
