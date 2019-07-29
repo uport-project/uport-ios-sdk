@@ -113,6 +113,31 @@ class JWTToolsTests: XCTestCase
 
     func testCreateJWT()
     {
+        JWTTools.dateProvider = DateProvider(date: Date(timeIntervalSince1970: 12345678))
+        let testPayload = ["claims": ["name": "R Daneel Olivaw"]]
+        let privKey = "54ece214d38fe6b46110a21c69fd55230f09688bf85b95fc7c1e4e160441ece1"
+        let testSigner = KPSigner(privateKey: privKey)
+        let address = testSigner.getAddress()
+        let issuerDid = "did:ethr:" + address
+        let expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJleHAiOjEyMzQ1OTc4LCJpc3MiOiJkaWQ6ZXRocjoweDQxMjNjYmQxNDNiNTVjMDZlNDUxZmYyNTNhZjA5Mjg2YjY4N2E5NTAiLCJjbGFpbXMiOnsibmFtZSI6IlIgRGFuZWVsIE9saXZhdyJ9LCJpYXQiOjEyMzQ1Njc4fQ.eDDwu3i8mJEN1CmbzNFRlA-bk5BQbkrR1Bon4EglgDdUtTyPxcIhgncTUb-KM6W0xJYvwigCjyv5GadalLVlpAA"
+        JWTTools.create(payload: testPayload,
+                        issuerDID: issuerDid,
+                        signer: testSigner,
+                        expiresIn: 300) { (token, error) in
+                            XCTAssertNil(error)
+                            XCTAssertNotNil(token)
+                            do
+                            {
+                                print(token)
+                                XCTAssertEqual(token, expectedToken)
+                            } catch
+                            {
+                                
+                            }
+        }
+    }
+    func testCreateJWTPayloadEncoding()
+    {
         let testPayload = ["claims": ["name": "R Daneel Olivaw"]]
         let privKey = "54ece214d38fe6b46110a21c69fd55230f09688bf85b95fc7c1e4e160441ece1"
         let testSigner = KPSigner(privateKey: privKey)

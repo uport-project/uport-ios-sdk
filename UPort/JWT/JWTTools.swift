@@ -101,15 +101,25 @@ public struct JWTTools
                               completionHandler: @escaping (_ fullJWT: String?, _ error: Error?) -> Void)
     {
         // Construct header and convert to  base64
-        let headerArgs: [String: Any] = ["typ": "JWT", "alg": "ES256K-R"]
+        let headerArgs: NSMutableDictionary = ["typ": "JWT", "alg": "ES256K-R"]
         let headerString = JWTTools.dictionaryToBase64(dict: headerArgs)
         let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
 
-        // Fill out payload with iss, iat, and exp
-        var filledOutPayload = payload
-        filledOutPayload["iat"] = Int64(now().timeIntervalSince1970)
-        if expiresIn >= 0 && filledOutPayload["exp"] == nil { filledOutPayload["exp"] = Int64(now().timeIntervalSince1970) + expiresIn }
-        filledOutPayload["iss"] = issuerDID
+        // Fill out payload with iss, iat, and expx
+        let filledOutPayload: NSMutableDictionary = NSMutableDictionary.init()
+        filledOutPayload.addEntries(from: payload)
+        
+        let iat = Int64(now().timeIntervalSince1970)
+        filledOutPayload.setValue(iat, forKey: "iat")
+        
+        if expiresIn >= 0 && filledOutPayload["exp"] == nil
+        {
+            let exp = Int64(now().timeIntervalSince1970) + expiresIn
+            filledOutPayload.setValue(exp, forKey: "exp")
+        }
+        
+        filledOutPayload.setValue(issuerDID, forKey: "iss")
+        
         // Convert filled out payload to base64
         let payloadBase64 = JWTTools.dictionaryToBase64(dict: filledOutPayload)
         let payloadBase64Url = JWTTools.base64ToBase64Url(base64String: payloadBase64)
@@ -384,10 +394,10 @@ public struct JWTTools
         }
     }
 
-    private static func dictionaryToBase64(dict: [String: Any]) -> String
+    private static func dictionaryToBase64(dict: NSMutableDictionary) -> String
     {
         do {
-            let data: Data = try JSONSerialization.data(withJSONObject: dict,
+            let data: Data = try JSONSerialization.data(withJSONObject: dict as NSMutableDictionary,
                                                         options: JSONSerialization.WritingOptions.init(rawValue: 0))
             let base64String = data.base64EncodedString().replacingOccurrences(of: "=", with: "")
             return base64String
