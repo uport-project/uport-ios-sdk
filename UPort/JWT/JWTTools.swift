@@ -76,6 +76,86 @@ public struct JWTTools
         }
     }
 
+    /// Constructs and signs a JWT.
+    ///
+    /// This function only accepts secured (i.e. containing a signature
+    ///
+    /// - Parameters:
+    ///     - payload: A dictionary containing the key/values forming the payload of the JWT
+    ///     - issuerDID: A DID string that will be set as the 'iss' field in the JWT payload.
+    ///                 The signature produced by the signer should correspond to this DID.
+    ///                 If the 'iss' field is already part of the [payload], that will get overwritten.
+    ///     - signer: a [Signer] that will produce the signature section of this JWT.
+    ///                 The signature should be produced by the address in the [issuerDID]
+    ///     - expiresIn: number of seconds of validity of this JWT. You may omit this param if
+    ///                 an 'exp' timestamp is already part of the [payload].
+    ///                 If this param is negative the resulting JWT will not have an 'exp' field
+    ///
+    /// - Throws:
+    ///
+    /// - Returns: The decoded header, payload, signature, plus the signed data (i.e. "<header>.<payload>")
+    public static func create(payload: [String: Any],
+                              issuerDID: String,
+                              signer: Signer,
+                              expiresIn: Int64,
+                              completionHandler: @escaping (_ fullJWT: String?, _ error: Error?) -> Void)
+    {
+        // Construct header and convert to  base64
+        let headerArgs: NSMutableDictionary = ["typ": "JWT", "alg": "ES256K-R"]
+        let headerString = JWTTools.dictionaryToBase64(dict: headerArgs)
+        let headerBase64Url = JWTTools.base64ToBase64Url(base64String: headerString)
+
+        // Fill out payload with iss, iat, and expx
+        let filledOutPayload: NSMutableDictionary = NSMutableDictionary.init()
+        filledOutPayload.addEntries(from: payload)
+        
+        let iat = Int64(now().timeIntervalSince1970)
+        filledOutPayload.setValue(iat, forKey: "iat")
+        
+        if expiresIn >= 0 && filledOutPayload["exp"] == nil
+        {
+            let exp = Int64(now().timeIntervalSince1970) + expiresIn
+            filledOutPayload.setValue(exp, forKey: "exp")
+        }
+        
+        filledOutPayload.setValue(issuerDID, forKey: "iss")
+        
+        // Convert filled out payload to base64
+        let payloadBase64 = JWTTools.dictionaryToBase64(dict: filledOutPayload)
+        let payloadBase64Url = JWTTools.base64ToBase64Url(base64String: payloadBase64)
+
+        // Join the header/payload and base64 encode for signing
+        let signingInput = [headerBase64Url, payloadBase64Url].joined(separator: ".")
+
+        // Sign jwt
+        signer.signJWT(rawPayload: signingInput) { (sig, error) in
+            guard error == nil else
+            {
+                completionHandler(nil, error)
+                return
+            }
+            do
+            {
+                if sig != nil
+                {
+                    let rData = try? (sig!["r"] as? String)?.decodeBase64()
+                    let sData = try? (sig!["s"] as? String)?.decodeBase64()
+                    var vNum = sig!["v"] as? Int
+                    let vData = Data(bytes: &vNum, count: 1)
+                    var rsv = Data()
+                    rsv.append(rData!!)
+                    rsv.append(sData!!)
+                    rsv.append(vData)
+                    let sigBase64 = rsv.base64EncodedString()
+                    let sigBase64Url = JWTTools.base64ToBase64Url(base64String: sigBase64)
+                    
+                    let fullJWT = [headerBase64Url, payloadBase64Url, sigBase64Url].joined(separator: ".")
+                    completionHandler(fullJWT, error)
+                }
+            }
+        }
+    }
+
     /// Decodes a secured JWT into its three parts.
     ///
     /// This function only accepts secured (i.e. containing a signature
@@ -279,6 +359,15 @@ public struct JWTTools
         return base64
     }
 
+    private static func base64ToBase64Url(base64String: String) -> String
+    {
+        let base64 = base64String
+                        .replacingOccurrences(of: "+", with: "-")
+                        .replacingOccurrences(of: "/", with: "_")
+                        .replacingOccurrences(of: "=", with: "")
+        return base64
+    }
+
     private static func base64ToDictionary(base64: String) throws -> [String: Any]
     {
         guard let data = Data(base64Encoded: base64) else
@@ -306,5 +395,19 @@ public struct JWTTools
         {
             throw JWTToolsError.deserializationError(error.localizedDescription)
         }
+    }
+
+    private static func dictionaryToBase64(dict: NSMutableDictionary) -> String
+    {
+        do {
+            let data: Data = try JSONSerialization.data(withJSONObject: dict as NSMutableDictionary,
+                                                        options: JSONSerialization.WritingOptions.init(rawValue: 0))
+            let base64String = data.base64EncodedString().replacingOccurrences(of: "=", with: "")
+            return base64String
+        } catch {
+            print(error)
+            return ""
+        }
+
     }
 }
