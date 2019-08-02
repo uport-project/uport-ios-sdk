@@ -361,7 +361,10 @@ public struct JWTTools
 
     private static func base64ToBase64Url(base64String: String) -> String
     {
-        let base64 = base64String.replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
+        let base64 = base64String
+                        .replacingOccurrences(of: "+", with: "-")
+                        .replacingOccurrences(of: "/", with: "_")
+                        .replacingOccurrences(of: "=", with: "")
         return base64
     }
 
