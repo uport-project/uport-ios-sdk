@@ -6,6 +6,8 @@ Welcome to the **uPort** SDK for iOS. This is the toolkit we built for you to cr
 
 The [README of the **uPort** demo app](https://github.com/uport-project/uport-ios-demo/blob/master/README.md) describes how to install the SDK and use it in your app.
 
+[FAQ and helpdesk support](http://bit.ly/uPort_helpdesk)
+
 ## Structure
 
 This SDK consists of a number of iOS frameworks that import each other in a simple hierarchy.
